@@ -12,22 +12,22 @@ namespace CoreX.Structure
 
         #region create Update
 
-        public Task Create<TEntity>
+        public Task CreateAsync<TEntity>
             (TEntity entity, Expression<Func<TEntity, bool>>? noCreateWhere = null)
             where TEntity : Model;
 
-        public Task Update<TEntity>
+        public Task UpdateAsync<TEntity>
     (TEntity entity, Expression<Func<TEntity, bool>>? noUpdateWhere = null)
     where TEntity : Model;
 
         #endregion
 
         #region delete
-        public Task Delete<TEntity>
+        public Task DeleteAsync<TEntity>
     (TEntity entity, CascadeSoftDeleteConfiguration<ICascadeSoftDelete> configCascadeDelete,
     Expression<Func<TEntity, bool>>? noDeleteWhere = null) where TEntity : AggregateRoot;
 
-        public Task UndoDeleting<TEntity>
+        public Task UndoDeletingAsync<TEntity>
             (TEntity entity, CascadeSoftDeleteConfiguration<ICascadeSoftDelete> configCascadeDelete,
             Expression<Func<TEntity, bool>>? noUndoDeletingWhere = null) where TEntity : AggregateRoot;
 
@@ -36,9 +36,9 @@ namespace CoreX.Structure
             CascadeSoftDeleteConfiguration<ICascadeSoftDelete> configCascadeDelete)
             where TEntity : AggregateRoot;
 
-        public Task HardDelete<TEntity>
+        public Task HardDeleteAsync<TEntity>
             (TEntity entity, Expression<Func<TEntity, bool>>? noDeleteWhere = null) where TEntity : Model;
-        public Task HardDelete<TEntity>
+        public Task HardDeleteAsync<TEntity>
             (Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, bool>>? noDeleteWhere = null)
             where TEntity : Model;
 
@@ -52,7 +52,7 @@ namespace CoreX.Structure
         #endregion
 
         #region retrieve
-        public Task<TEntity> Single<TEntity>(
+        public Task<TEntity> SingleAsync<TEntity>(
           Expression<Func<TEntity, bool>> where,
           Expression<Func<TEntity, object>>? include = null,
           bool? tracking = null,
@@ -60,17 +60,17 @@ namespace CoreX.Structure
           bool throwExceptionIfTheEntityNouFound = true)
           where TEntity : Model;
 
-        public Task<TEntity> Find<TEntity>(
+        public Task<TEntity> FindAsync<TEntity>(
             object[] KeyValues,
             bool throwExceptionIfTheEntityNouFound = true
             ) where TEntity : Model;
 
-        public Task<TEntity> Find<TEntity>(
+        public Task<TEntity> FindAsync<TEntity>(
             object KeyValue,
             bool throwExceptionIfTheEntityNouFound = true
             ) where TEntity : Model;
 
-        public Task<IEnumerable<TEntity>> ToList<TEntity>(
+        public Task<IEnumerable<TEntity>> ToListAsync<TEntity>(
          Expression<Func<TEntity, bool>>? where = null,
          Expression<Func<TEntity, object>>? orderBy = null,
          Expression<Func<TEntity, object>>? orderByDescending = null,

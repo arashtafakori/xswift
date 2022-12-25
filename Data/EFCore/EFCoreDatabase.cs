@@ -27,7 +27,7 @@ namespace CoreX.Structure
         }
 
         #region create Update
-        public async Task Create<TEntity>(TEntity entity,
+        public async Task CreateAsync<TEntity>(TEntity entity,
             Expression<Func<TEntity, bool>>? noCreateWhere = null) where TEntity : Model
         {
             var _dbSet = _context.Set<TEntity>();
@@ -38,7 +38,7 @@ namespace CoreX.Structure
             _dbSet.Add(entity);
         }
 
-        public async Task Update<TEntity>(TEntity entity,
+        public async Task UpdateAsync<TEntity>(TEntity entity,
             Expression<Func<TEntity, bool>>? noUpdateWhere = null) where TEntity : Model
         {
             if (noUpdateWhere != null)
@@ -48,7 +48,7 @@ namespace CoreX.Structure
         #endregion
 
         #region delete
-        public async Task Delete<TEntity>(
+        public async Task DeleteAsync<TEntity>(
             TEntity entity,
             CascadeSoftDeleteConfiguration<ICascadeSoftDelete> configCascadeDelete,
             Expression<Func<TEntity, bool>>? noDeleteWhere = null) where TEntity : AggregateRoot
@@ -60,7 +60,7 @@ namespace CoreX.Structure
             await service.SetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
 
-        public async Task UndoDeleting<TEntity>(
+        public async Task UndoDeletingAsync<TEntity>(
             TEntity entity,
             CascadeSoftDeleteConfiguration<ICascadeSoftDelete> configCascadeDelete,
             Expression<Func<TEntity, bool>>? noUndoDeletingWhere = null) 
@@ -82,7 +82,7 @@ namespace CoreX.Structure
             return (await service.CheckCascadeSoftDeleteAsync(entity)).IsValid;
         }
 
-        public async Task HardDelete<TEntity>(
+        public async Task HardDeleteAsync<TEntity>(
             TEntity entity, Expression<Func<TEntity, bool>>? noDeleteWhere = null) 
             where TEntity : Model
         {
@@ -93,7 +93,7 @@ namespace CoreX.Structure
             _dbSet.Attach(entity);
             _dbSet.Remove(entity);
         }
-        public async Task HardDelete<TEntity>(
+        public async Task HardDeleteAsync<TEntity>(
             Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, bool>>? noDeleteWhere = null)
             where TEntity : Model
         {
@@ -108,7 +108,7 @@ namespace CoreX.Structure
         #endregion
 
         #region retrieve
-        public async Task<TEntity> Single<TEntity>(
+        public async Task<TEntity> SingleAsync<TEntity>(
           Expression<Func<TEntity, bool>> where,
           Expression<Func<TEntity, object>>? include = null,
           bool? tracking = null,
@@ -127,7 +127,7 @@ namespace CoreX.Structure
                 throwExceptionIfTheEntityNouFound: throwExceptionIfTheEntityNouFound);
         }
 
-        public async Task<TEntity> Find<TEntity>(
+        public async Task<TEntity> FindAsync<TEntity>(
             object[] KeyValues,
             bool throwExceptionIfTheEntityNouFound = true
             ) where TEntity : Model
@@ -136,7 +136,7 @@ namespace CoreX.Structure
                 throwExceptionIfTheEntityNouFound: throwExceptionIfTheEntityNouFound, KeyValues);
         }
 
-        public async Task<TEntity> Find<TEntity>(
+        public async Task<TEntity> FindAsync<TEntity>(
            object KeyValue,
            bool throwExceptionIfTheEntityNouFound = true
            ) where TEntity : Model
@@ -145,7 +145,7 @@ namespace CoreX.Structure
                 throwExceptionIfTheEntityNouFound: throwExceptionIfTheEntityNouFound, KeyValues: KeyValue);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> ToList<TEntity>(
+        public virtual async Task<IEnumerable<TEntity>> ToListAsync<TEntity>(
          Expression<Func<TEntity, bool>>? where = null,
          Expression<Func<TEntity, object>>? orderBy = null,
          Expression<Func<TEntity, object>>? orderByDescending = null,

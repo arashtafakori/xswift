@@ -4,9 +4,9 @@ namespace CoreX.Structure
 {
     public interface IDbTransaction
     {
-        Task<IDbContextTransaction> Begin();
-        Task Commit();
-        Task Rollback();
-        Task<int> SaveChanges();
+        Task<IDbContextTransaction> BeginAsync();
+        Task CommitAsync();
+        Task RollbackAsync();
+        Task<int> SaveChangesAsync();
     }
 }
