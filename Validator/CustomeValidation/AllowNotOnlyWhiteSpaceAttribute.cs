@@ -1,4 +1,4 @@
-﻿using CoreX.Structure.Properties;
+﻿using Artaco.Infrastructure.CoreX.Structure.Properties;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;

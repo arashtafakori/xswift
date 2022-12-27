@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Structure
 {
-    public interface ICommand
+    public abstract class Command
     {
     }
 }

@@ -28,21 +28,21 @@ namespace CoreX.Structure
 
         #region create Update
         public async Task CreateAsync<TEntity>(TEntity entity,
-            Expression<Func<TEntity, bool>>? noCreateWhere = null) where TEntity : Model
+            Expression<Func<TEntity, bool>>? noCreateWhere = null) where TEntity : IEntity
         {
             var _dbSet = _context.Set<TEntity>();
 
             if (noCreateWhere != null)
-                await ThrowIfAnEntityFound(noCreateWhere);
+                await ThrowIfTheEntityWasNotFound(noCreateWhere);
 
             _dbSet.Add(entity);
         }
 
         public async Task UpdateAsync<TEntity>(TEntity entity,
-            Expression<Func<TEntity, bool>>? noUpdateWhere = null) where TEntity : Model
+            Expression<Func<TEntity, bool>>? noUpdateWhere = null) where TEntity : IEntity
         {
             if (noUpdateWhere != null)
-                await ThrowIfAnEntityFound(noUpdateWhere);
+                await ThrowIfTheEntityWasNotFound(noUpdateWhere);
         }
 
         #endregion
@@ -54,7 +54,7 @@ namespace CoreX.Structure
             Expression<Func<TEntity, bool>>? noDeleteWhere = null) where TEntity : AggregateRoot
         {
             if (noDeleteWhere != null)
-                await ThrowIfAnEntityFound(noDeleteWhere);
+                await ThrowIfTheEntityWasNotFound(noDeleteWhere);
 
             var service = new CascadeSoftDelServiceAsync<ICascadeSoftDelete>(configCascadeDelete);
             await service.SetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
@@ -67,7 +67,7 @@ namespace CoreX.Structure
             where TEntity : AggregateRoot
         {
             if (noUndoDeletingWhere != null)
-                await ThrowIfAnEntityFound(noUndoDeletingWhere);
+                await ThrowIfTheEntityWasNotFound(noUndoDeletingWhere);
 
             var service = new CascadeSoftDelServiceAsync<ICascadeSoftDelete>(configCascadeDelete);
             await service.ResetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
@@ -84,10 +84,10 @@ namespace CoreX.Structure
 
         public async Task HardDeleteAsync<TEntity>(
             TEntity entity, Expression<Func<TEntity, bool>>? noDeleteWhere = null) 
-            where TEntity : Model
+            where TEntity : IEntity
         {
             if (noDeleteWhere != null)
-                await ThrowIfAnEntityFound(noDeleteWhere);
+                await ThrowIfTheEntityWasNotFound(noDeleteWhere);
 
             var _dbSet = _context.Set<TEntity>();
             _dbSet.Attach(entity);
@@ -95,7 +95,7 @@ namespace CoreX.Structure
         }
         public async Task HardDeleteAsync<TEntity>(
             Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, bool>>? noDeleteWhere = null)
-            where TEntity : Model
+            where TEntity : IEntity
         {
             // if entity implements ICascadeSoftDelete interface, check entity that has to valid.
 
@@ -114,12 +114,12 @@ namespace CoreX.Structure
           bool? tracking = null,
           bool evenDeleted = false,
           bool throwExceptionIfTheEntityNouFound = true) 
-            where TEntity : Model
+            where TEntity : IEntity
         {
             if (tracking == null)
                 tracking = _tracking;
 
-            return await _context.Single(
+            return await _context.SingleAsync(
                 where,
                 include: include,
                 tracking: tracking, 
@@ -130,18 +130,18 @@ namespace CoreX.Structure
         public async Task<TEntity> FindAsync<TEntity>(
             object[] KeyValues,
             bool throwExceptionIfTheEntityNouFound = true
-            ) where TEntity : Model
+            ) where TEntity : IEntity
         {
-            return await _context.Find<TEntity>(
+            return await _context.FindAsync<TEntity>(
                 throwExceptionIfTheEntityNouFound: throwExceptionIfTheEntityNouFound, KeyValues);
         }
 
         public async Task<TEntity> FindAsync<TEntity>(
            object KeyValue,
            bool throwExceptionIfTheEntityNouFound = true
-           ) where TEntity : Model
+           ) where TEntity : IEntity
         {
-            return await _context.Find<TEntity>(
+            return await _context.FindAsync<TEntity>(
                 throwExceptionIfTheEntityNouFound: throwExceptionIfTheEntityNouFound, KeyValues: KeyValue);
         }
 
@@ -151,12 +151,12 @@ namespace CoreX.Structure
          Expression<Func<TEntity, object>>? orderByDescending = null,
          Expression<Func<TEntity, object>>? include = null,
          bool? tracking = null,
-         bool evenDeleted = true) where TEntity : Model
+         bool evenDeleted = true) where TEntity : IEntity
         {
             if (tracking == null)
                 tracking = _tracking;
 
-            return await _context.ToList(
+            return await _context.ToListAsync(
                 where: where,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
@@ -164,10 +164,10 @@ namespace CoreX.Structure
                 tracking: tracking,
                 evenDeleted: evenDeleted);
         }
-        public async Task ThrowIfAnEntityFound<TEntity>(Expression<Func<TEntity, bool>> where)
-            where TEntity : Model
+        public async Task ThrowIfTheEntityWasNotFound<TEntity>(Expression<Func<TEntity, bool>> where)
+            where TEntity : IEntity
         {
-            await DbContextExtensions.ThrowIfAnEntityFound(_context, where);
+            await DbContextExtensions.ThrowIfTheEntityWasNotFound(_context, where);
         }
 
         #endregion

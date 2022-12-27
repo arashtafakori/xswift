@@ -5,14 +5,14 @@ namespace CoreX.Structure
 {
     public static class DbContextExtensions
     {
-       public static async Task<TEntity> Single<TEntity>(
+       public static async Task<TEntity> SingleAsync<TEntity>(
        this DbContext context,
        Expression<Func<TEntity, bool>>? where = null,
        Expression<Func<TEntity, object>>? include = null,
        bool? tracking = false,
        bool evenDeleted = false,
        bool throwExceptionIfTheEntityNouFound = true)
-       where TEntity : Model
+       where TEntity : IEntity
         {
             var query = EFCoreUtils.GetQuery(context,
                 where: where,
@@ -25,17 +25,17 @@ namespace CoreX.Structure
             if (throwExceptionIfTheEntityNouFound)
             {
                 if (entity == null)
-                    throw new EntityWasNotFoundException();
+                    throw new TheEntityWasNotFoundException();
             }
 
             return entity!;
         }
 
-        public static async Task<TEntity> Find<TEntity>(
+        public static async Task<TEntity> FindAsync<TEntity>(
             this DbContext context,
             bool throwExceptionIfTheEntityNouFound = true,
             params object[] KeyValues
-            ) where TEntity : Model
+            ) where TEntity : IEntity
         {
             DbSet<TEntity> _dbSet = context.Set<TEntity>();
             var entity = (await _dbSet.FindAsync(KeyValues))!;
@@ -43,13 +43,13 @@ namespace CoreX.Structure
             if (throwExceptionIfTheEntityNouFound)
             {
                 if (entity == null)
-                    throw new EntityWasNotFoundException();
+                    throw new TheEntityWasNotFoundException();
             }
 
             return entity;
         }
 
-        public static async Task<IEnumerable<TEntity>> ToList<TEntity>(
+        public static async Task<IEnumerable<TEntity>> ToListAsync<TEntity>(
             this DbContext context,
             Expression<Func<TEntity, bool>>? where = null,
             Expression<Func<TEntity, object>>? orderBy = null,
@@ -57,7 +57,7 @@ namespace CoreX.Structure
             Expression<Func<TEntity, object>>? include = null,
             bool? tracking = false,
             bool evenDeleted = true)
-            where TEntity : Model
+            where TEntity : IEntity
         {
             var query = EFCoreUtils.GetQuery(context,
                 where: where,
@@ -70,16 +70,16 @@ namespace CoreX.Structure
             return await query.ToListAsync();
         }
 
-        public static async Task ThrowIfAnEntityFound<TEntity>(
+        public static async Task ThrowIfTheEntityWasNotFound<TEntity>(
             this DbContext context,
-            Expression<Func<TEntity, bool>> where) where TEntity : Model
+            Expression<Func<TEntity, bool>> where) where TEntity : IEntity
         {
             DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
             var query = _dbSet.AsQueryable().AsNoTracking();
 
-            if (await query.AsNoTracking().AnyAsync(where))
-                throw new EntityWasFoundException();
+            if (!await query.AsNoTracking().AnyAsync(where))
+                throw new TheEntityWasNotFoundException();
         }
     }
 }

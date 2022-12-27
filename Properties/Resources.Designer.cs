@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CoreX.Structure.Properties {
+namespace Artaco.Infrastructure.CoreX.Structure.Properties {
     using System;
     
     
@@ -72,27 +72,18 @@ namespace CoreX.Structure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EntityWasFound {
-            get {
-                return ResourceManager.GetString("EntityWasFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string EntityWasNotFound {
-            get {
-                return ResourceManager.GetString("EntityWasNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string RegularExpressionAttribute_Empty_Pattern {
             get {
                 return ResourceManager.GetString("RegularExpressionAttribute_Empty_Pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TheEntityWasNotFound {
+            get {
+                return ResourceManager.GetString("TheEntityWasNotFound", resourceCulture);
             }
         }
     }

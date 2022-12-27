@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Structure
 {
-    public interface IQuery
+    public abstract class Query
     {
     }
 }

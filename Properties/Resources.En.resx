@@ -120,13 +120,10 @@
   <data name="AllowNotOnlyWhiteSpace" xml:space="preserve">
     <value>Allow not only white space.</value>
   </data>
-  <data name="EntityWasFound" xml:space="preserve">
-    <value>An entity found with these specifications.</value>
-  </data>
-  <data name="EntityWasNotFound" xml:space="preserve">
-    <value>Entity not found with these specifications.</value>
-  </data>
   <data name="RegularExpressionAttribute_Empty_Pattern" xml:space="preserve">
     <value>The pattern must be set to a valid regular expression.</value>
+  </data>
+  <data name="TheEntityWasNotFound" xml:space="preserve">
+    <value>The entity was not found with these specifications.</value>
   </data>
 </root>

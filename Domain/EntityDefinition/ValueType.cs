@@ -2,7 +2,7 @@
 
 namespace CoreX.Structure
 {
-    public abstract class ValueType : Model
+    public abstract class ValueType : IEntity
     {
         [Required]
         public DateTime CreationDate { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Structure
 {
-    public abstract class Model
+    public abstract class IEntity
     {
         public virtual void Creation() { throw new NotImplementedException(); }
         public virtual void Updation() { throw new NotImplementedException(); }

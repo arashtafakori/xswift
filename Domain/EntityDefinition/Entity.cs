@@ -2,7 +2,7 @@
 
 namespace CoreX.Structure
 {
-    public abstract class Entity : Model, ICascadeSoftDelete
+    public abstract class Entity : IEntity, ICascadeSoftDelete
     {
         [Required]
         public byte SoftDeleteLevel { get; set; } = 0;

@@ -6,11 +6,10 @@
     <Nullable>enable</Nullable>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-    <BaseOutputPath>C:\Users\Arash\.nuget\packages\corex\1.0.0\lib</BaseOutputPath>
+    <BaseOutputPath>C:\Users\Arash\.nuget\packages\artaco</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Artaco.Infrastructure.CoreX.Base" Version="1.0.0" />
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="EfCore.SoftDeleteServices" Version="2.0.1" />
     <PackageReference Include="MassTransit" Version="7.3.1" />
@@ -20,6 +19,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Artaco.Infrastructure.CoreX.Base">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\artaco\Debug\net6.0\Artaco.Infrastructure.CoreX.Base.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

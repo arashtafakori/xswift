@@ -15,7 +15,7 @@ namespace CoreX.Structure
         private void Provide()
         {
             if(ReflectionUtils.IsGenericArgumentsIsIplementedInterfaceOfIplementedInterfaceOf
-                (this, typeof(IRequestHandler<,>), typeof(IQuery)))
+                (this, typeof(IRequestHandler<,>), typeof(Query)))
                 _database.AsNoTraking();
         }
     }
