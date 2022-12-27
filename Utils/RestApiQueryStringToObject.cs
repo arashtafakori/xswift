@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Web;
 
-namespace CoreX.Structure
+namespace Artaco.Infrastructure.CoreX
 {
-    public static class RestApiQueryStringToObject<TObject> where TObject : class
+    public static class RestApiQueryStringToObject<TObject> where TObject : struct
     {
         public static TObject Convert(string QueryString)
         {

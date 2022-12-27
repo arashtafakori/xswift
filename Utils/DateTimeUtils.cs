@@ -1,4 +1,4 @@
-﻿namespace CoreX.Structure
+﻿namespace Artaco.Infrastructure.CoreX
 {
     public static class DateTimeUtils
     {
