@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Artaco.Infrastructure.CoreX
 {
-    public class BasicError
+    public class Error
     {
-        internal BasicError(
+        internal Error(
             string code,
             string description,
             ExceptionType errorType = ExceptionType.BusinessLike,

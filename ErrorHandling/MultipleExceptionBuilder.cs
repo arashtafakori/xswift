@@ -2,31 +2,31 @@
 
 namespace Artaco.Infrastructure.CoreX
 {
-    public sealed class MultipleExceptionFactory : MultipleException
+    public sealed class MultipleExceptionBuilder : MultipleException
     {
-        public MultipleExceptionFactory()
+        public MultipleExceptionBuilder()
         {
-            _exceptions = new List<BasicError>();
+            _exceptions = new List<Error>();
         }
 
-        public void AppendError(BasicError error)
+        public void AppendError(Error error)
         {
             _exceptions.Add(error);
         }
         public void ClearErrors()
         {
-            _exceptions = new List<BasicError>();
+            _exceptions = new List<Error>();
         }
 
-        public void Throw()
+        public MultipleException Build()
         {
             string jsonString = JsonSerializer.Serialize(_exceptions);
             var exception = Activator.CreateInstance<MultipleException>();
             exception.SetJsonData(jsonString);
-            throw exception;
+            return exception;
         }
 
-        private IList<BasicError> _exceptions;
+        private IList<Error> _exceptions;
     }
 }
     

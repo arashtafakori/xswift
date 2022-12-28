@@ -13,6 +13,6 @@
 
         public const string EMAIL_ADDRESS = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
 
-        public const string ALLOW_NOT_ONLY_WHITE_SPACE = @"\s";
+        public const string CAN_NOT_HAS_WHITE_SPACES = @"\s";
     }
 }

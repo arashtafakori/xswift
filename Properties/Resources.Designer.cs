@@ -63,18 +63,18 @@ namespace Artaco.Infrastructure.CoreX.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AllowNotOnlyWhiteSpace {
+        internal static string CanNotHasWhiteSpaces {
             get {
-                return ResourceManager.GetString("AllowNotOnlyWhiteSpace", resourceCulture);
+                return ResourceManager.GetString("CanNotHasWhiteSpaces", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string RegularExpressionAttribute_Empty_Pattern {
+        internal static string RegexPatternIsNotVaild {
             get {
-                return ResourceManager.GetString("RegularExpressionAttribute_Empty_Pattern", resourceCulture);
+                return ResourceManager.GetString("RegexPatternIsNotVaild", resourceCulture);
             }
         }
         

@@ -1,1 +1,1 @@
-# infrastructure-dotnet-corex-structure-
+# infrastructure-corex

@@ -5,7 +5,7 @@ namespace Artaco.Infrastructure.CoreX
 {
     internal class EntityValidator
     {
-        public void Validate(object source)
+        internal void Validate(object source)
         {
             foreach (PropertyInfo propertyInfo in source.GetType().GetProperties())
             {

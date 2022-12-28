@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllowNotOnlyWhiteSpace" xml:space="preserve">
+  <data name="CanNotHasWhiteSpaces" xml:space="preserve">
     <value />
   </data>
-  <data name="RegularExpressionAttribute_Empty_Pattern" xml:space="preserve">
+  <data name="RegexPatternIsNotVaild" xml:space="preserve">
     <value />
   </data>
   <data name="TheEntityWasNotFound" xml:space="preserve">

@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Artaco.Infrastructure.CoreX
 {
-    public class AdvancedError : BasicError
+    public class TraceableError : Error
     {
-        public AdvancedError(
+        public TraceableError(
             string code,
             string description,
             ExceptionType errorType,

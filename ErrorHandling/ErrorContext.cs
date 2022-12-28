@@ -14,12 +14,12 @@ namespace Artaco.Infrastructure.CoreX
 
             return false;
         }
-        internal static List<AdvancedError> GetErrorResults(
+        internal static List<TraceableError> GetErrorResults(
             string jsonString,
             object? stackTrace = null)
         {
             var errors = JsonSerializer.Deserialize
-                <List<AdvancedError>>(jsonString.Substring(nameof(ExceptionType.Multipile).Length));
+                <List<TraceableError>>(jsonString.Substring(nameof(ExceptionType.Multipile).Length));
 
             foreach (var error in errors!)
             {
@@ -56,14 +56,14 @@ namespace Artaco.Infrastructure.CoreX
                 return description.Substring(nameof(ExceptionType.Validating).Length);
             return description;
         }
-        public static List<AdvancedError> GetErrors(HttpContext context)
+        public static List<TraceableError> GetErrors(HttpContext context)
         {
             var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
             return GetErrors(exception);
         }
-        public static List<AdvancedError> GetErrors(Exception exception)
+        public static List<TraceableError> GetErrors(Exception exception)
         {
-            var errors = new List<AdvancedError>();
+            var errors = new List<TraceableError>();
 
             if (exception is MultipleException)
             {
@@ -89,7 +89,7 @@ namespace Artaco.Infrastructure.CoreX
                     {
                         description = exp.Fault.Exceptions[0].Message;
 
-                        errors.Add(new AdvancedError(code,
+                        errors.Add(new TraceableError(code,
                             GetDescription(description),
                             DetectErrorType(description),
                             AppEnvironment.State,
@@ -106,7 +106,7 @@ namespace Artaco.Infrastructure.CoreX
                     description = exception.Message;
 
 
-                    errors.Add(new AdvancedError(code,
+                    errors.Add(new TraceableError(code,
                         GetDescription(description),
                         DetectErrorType(description),
                         AppEnvironment.State,

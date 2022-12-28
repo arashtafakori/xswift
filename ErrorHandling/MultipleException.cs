@@ -2,7 +2,7 @@
 {
     public class MultipleException : Exception
     {
-        private string? _jsonString;
+        private string _jsonString = string.Empty;
 
         public void SetJsonData(string jsonString)
         {
@@ -11,7 +11,7 @@
 
         public override string Message => _jsonString!;
 
-        public List<AdvancedError> GetErrorResults()
+        public List<TraceableError> GetErrorResults()
         {
             return ErrorContext.GetErrorResults(_jsonString!);
         }
