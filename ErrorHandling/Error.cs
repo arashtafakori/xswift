@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public class Error
     {

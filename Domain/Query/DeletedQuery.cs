@@ -1,4 +1,4 @@
-﻿namespace Artaco.Infrastructure.CoreX
+﻿namespace Artaware.Infrastructure.CoreX
 {
     public abstract class DeletedQuery : BaseQuery
     {

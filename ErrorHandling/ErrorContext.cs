@@ -3,7 +3,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public static class ErrorContext
     {

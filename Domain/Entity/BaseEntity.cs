@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public abstract class BaseEntity : ISoftDelete
     {

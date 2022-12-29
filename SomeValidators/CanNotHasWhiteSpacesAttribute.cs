@@ -1,9 +1,9 @@
-﻿using Artaco.Infrastructure.CoreX.Properties;
+﻿using Artaware.Infrastructure.CoreX.Properties;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public class CanNotHasWhiteSpacesAttribute : ValidationAttribute
     {

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public class ExpressionBuilder<T> where T : class
     {

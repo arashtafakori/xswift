@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Web;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public static class RestApiQueryStringToObject<TObject> where TObject : struct
     {

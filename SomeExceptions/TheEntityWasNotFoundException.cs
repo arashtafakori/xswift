@@ -1,7 +1,7 @@
-using Artaco.Infrastructure.CoreX.Properties;
+using Artaware.Infrastructure.CoreX.Properties;
 using System.Data;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public class TheEntityWasNotFoundException : ValidatingException
     {

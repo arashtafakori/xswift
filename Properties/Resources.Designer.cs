@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Artaco.Infrastructure.CoreX.Properties {
+namespace Artaware.Infrastructure.CoreX.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Artaco.Infrastructure.CoreX.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Artaco.Infrastructure.CoreX.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Artaware.Infrastructure.CoreX.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

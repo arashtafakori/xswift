@@ -1,4 +1,4 @@
-﻿namespace Artaco.Infrastructure.CoreX
+﻿namespace Artaware.Infrastructure.CoreX
 {
     public abstract class IdentifiedCommand<IdType> : BaseCommand
     {

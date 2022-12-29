@@ -1,4 +1,4 @@
-﻿namespace Artaco.Infrastructure.CoreX
+﻿namespace Artaware.Infrastructure.CoreX
 {
     public class BusinessLikeException : Exception
     {

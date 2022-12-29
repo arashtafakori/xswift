@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Artaco.Infrastructure.CoreX
+namespace Artaware.Infrastructure.CoreX
 {
     public sealed class MultipleExceptionBuilder : MultipleException
     {
