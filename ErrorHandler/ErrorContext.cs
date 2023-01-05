@@ -26,7 +26,7 @@ namespace Artaware.Infrastructure.CoreX
                 var description = error.Description;
                 error.ErrorType = DetectErrorType(description);
                 error.Description = GetDescription(description);
-                error.EnvironmentMode = AppEnvironment.State;
+                error.EnvironmentMode = CoreXOptions.Global.Environment.State;
                 if (stackTrace != null)
                     error.StackTrace = stackTrace;
             }
@@ -37,8 +37,8 @@ namespace Artaware.Infrastructure.CoreX
         {
             if (description.Contains(nameof(ExceptionType.BusinessLike)))
                 return ExceptionType.BusinessLike;
-            else if (description.Contains(nameof(ExceptionType.Validating)))
-                return ExceptionType.Validating;
+            else if (description.Contains(nameof(ExceptionType.Validation)))
+                return ExceptionType.Validation;
             return ExceptionType.Technical;
         }
         private static string GetCode(string code)
@@ -52,8 +52,8 @@ namespace Artaware.Infrastructure.CoreX
         {
             if (description.Contains(nameof(ExceptionType.BusinessLike)))
                 return description.Substring(nameof(ExceptionType.BusinessLike).Length);
-            if (description.Contains(nameof(ExceptionType.Validating)))
-                return description.Substring(nameof(ExceptionType.Validating).Length);
+            if (description.Contains(nameof(ExceptionType.Validation)))
+                return description.Substring(nameof(ExceptionType.Validation).Length);
             return description;
         }
         public static List<TraceableError> GetErrors(HttpContext context)
@@ -92,7 +92,7 @@ namespace Artaware.Infrastructure.CoreX
                         errors.Add(new TraceableError(code,
                             GetDescription(description),
                             DetectErrorType(description),
-                            AppEnvironment.State,
+                            CoreXOptions.Global.Environment.State,
                             stackTrace: stackTrace));
                     }
                 }
@@ -109,7 +109,7 @@ namespace Artaware.Infrastructure.CoreX
                     errors.Add(new TraceableError(code,
                         GetDescription(description),
                         DetectErrorType(description),
-                        AppEnvironment.State,
+                        CoreXOptions.Global.Environment.State,
                         stackTrace: stackTrace));
                 }
             }

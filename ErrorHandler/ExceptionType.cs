@@ -5,6 +5,6 @@
         Multipile,
         Technical,
         BusinessLike,
-        Validating,
+        Validation,
     }
 }

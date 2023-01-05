@@ -3,7 +3,7 @@ using System.Web;
 
 namespace Artaware.Infrastructure.CoreX
 {
-    public static class RestApiQueryStringToObject<TObject> where TObject : struct
+    public static class RestApiQueryStringToObject<TObject> where TObject : class
     {
         public static TObject Convert(string QueryString)
         {

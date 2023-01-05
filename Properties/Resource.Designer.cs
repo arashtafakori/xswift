@@ -22,14 +22,14 @@ namespace Artaware.Infrastructure.CoreX.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Artaware.Infrastructure.CoreX.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Artaware.Infrastructure.CoreX.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Artaware.Infrastructure.CoreX.Properties.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,27 +63,18 @@ namespace Artaware.Infrastructure.CoreX.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CanNotHasWhiteSpaces {
+        internal static string Field {
             get {
-                return ResourceManager.GetString("CanNotHasWhiteSpaces", resourceCulture);
+                return ResourceManager.GetString("Field", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string RegexPatternIsNotVaild {
+        internal static string TheFieldDoesNotMatchThePattern {
             get {
-                return ResourceManager.GetString("RegexPatternIsNotVaild", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string TheEntityWasNotFound {
-            get {
-                return ResourceManager.GetString("TheEntityWasNotFound", resourceCulture);
+                return ResourceManager.GetString("TheFieldDoesNotMatchThePattern", resourceCulture);
             }
         }
     }

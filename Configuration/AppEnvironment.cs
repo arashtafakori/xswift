@@ -1,15 +1,22 @@
-﻿namespace Artaware.Infrastructure.CoreX
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Artaware.Infrastructure.CoreX
 {
-    public static class AppEnvironment
+    public class AppEnvironment
     {
-        private static EnvironmentState? _state = null;
-        public static EnvironmentState State
+        private EnvironmentState? _state = null;
+        public EnvironmentState State
         {
             get
             {
-                if(_state == null)
+                if (_state == null)
                 {
-                    Enum.TryParse(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), out EnvironmentState state);
+                    Enum.TryParse(
+                        Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), out EnvironmentState state);
                     _state = state;
                 }
 
@@ -17,6 +24,7 @@
             }
         }
     }
+
     public enum EnvironmentState
     {
         Production,
