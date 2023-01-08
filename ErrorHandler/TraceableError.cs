@@ -4,19 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace Artaware.Infrastructure.CoreX
 {
-    public class TraceableError : Error
+    public class TraceableError : SimpleError
     {
         public TraceableError(
             string code,
             string description,
             ExceptionType errorType,
-            EnvironmentState environmentMode,
+            EnvironmentState environmentState,
             IDictionary? data = null,
             object? stackTrace = null) :base(code, description, errorType, data)
         {
             ErrorId = Guid.NewGuid();
             StackTrace = stackTrace;
-            EnvironmentMode = environmentMode;
+            EnvironmentState = environmentState;
         }
         [DataMember(Order = 1)]
         public override string Code => base.Code;
@@ -27,15 +27,15 @@ namespace Artaware.Infrastructure.CoreX
         [DataMember(Order = 4)]
         public override IDictionary? Data => base.Data;
         [JsonIgnore]
-        public override ExceptionType ErrorType => base.ErrorType;
+        public override ExceptionType? ErrorType => base.ErrorType;
         [DataMember(Order = 5)]
-        public string Mode { get { return EnvironmentMode.ToString(); } }
+        public string State { get { return EnvironmentState.ToString(); } }
 
         [DataMember(Order = 6)]
         public Guid ErrorId { get; private set; }
         [DataMember(Order = 7)]
         public object? StackTrace { get; set; }
         [JsonIgnore]
-        public EnvironmentState EnvironmentMode { get; set; }
+        public EnvironmentState EnvironmentState { get; set; }
     }
 }

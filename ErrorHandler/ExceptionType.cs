@@ -2,9 +2,8 @@
 {
     public enum ExceptionType
     {
-        Multipile,
         Technical,
-        BusinessLike,
+        Logical,
         Validation,
     }
 }

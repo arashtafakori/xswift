@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Artaware.Infrastructure.CoreX
 {
-    public static class ReflectionUtils
+    public static class ReflectionHelper
     {
         public static T GetAttributeFrom<T>(object source, string propertyName) where T : Attribute
         {

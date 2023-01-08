@@ -3,9 +3,9 @@ using System.Web;
 
 namespace Artaware.Infrastructure.CoreX
 {
-    public static class RestApiQueryStringToObject<TObject> where TObject : class
+    public static class RestApiHelper<TObject> where TObject : class
     {
-        public static TObject Convert(string QueryString)
+        public static TObject QueryStringToObject(string QueryString)
         {
             //string QueryString = "BaseNo=5&Width=100";
             var dict = HttpUtility.ParseQueryString(QueryString);
