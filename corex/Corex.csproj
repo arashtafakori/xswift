@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\corex-advancedfeatures-entityframeworkcore\CoreX.AdvancedFeatures.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\corex-advancedfeatures-masstransit\CoreX.AdvancedFeatures.MassTransit.csproj" />
+    <ProjectReference Include="..\corex-advancedfeatures-mongo\CoreX.AdvancedFeatures.Mongo.csproj" />
+    <ProjectReference Include="..\corex-base\CoreX.Base.csproj" />
+    <ProjectReference Include="..\corex-domain\CoreX.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

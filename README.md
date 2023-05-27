@@ -1,1 +1,1 @@
-# infrastructure-corex
+# corex
