@@ -8,6 +8,8 @@
     <FileVersion></FileVersion>
     <BaseOutputPath></BaseOutputPath>
     <BaseIntermediateOutputPath />
+    <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

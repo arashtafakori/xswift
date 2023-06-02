@@ -32,14 +32,14 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
 
         public static async Task<TEntity> FindAsync<TEntity>(
             this DbContext context,
-            bool throwExceptionIfTheEntityWasNoutFound = true,
+            bool throwExceptionIfEntityWasNotFound = false,
             params object[] KeyValues
             ) where TEntity : BaseEntity
         {
             DbSet<TEntity> _dbSet = context.Set<TEntity>();
             var entity = (await _dbSet.FindAsync(KeyValues))!;
       
-            if (throwExceptionIfTheEntityWasNoutFound)
+            if (throwExceptionIfEntityWasNotFound)
                 if (entity == null)
                     throw new EntityWasNotFoundException();
 
@@ -75,12 +75,12 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
                 throw new EntityWasNotFoundException();
         }
 
-        public static async Task ThrowTheEntityWithTheseSpeseficationsExists<TEntity>(
+        public static async Task ThrowIfTheEntityWithTheSpecificationsAlreadyExists<TEntity>(
             this DbContext context,
             Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
         {
              if (await context.ToCheckIfTheEntityExists(condition))
-                throw new EntityWithTheseSpeseficationsExistsException();
+                throw new EntityWithTheSpecificationsAlreadyExistsException();
         }
 
         public static async Task<bool> ToCheckIfTheEntityExists<TEntity>(

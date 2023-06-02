@@ -63,18 +63,18 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EntityWasNotFound_ValidationError {
+        internal static string EntityWasNotFound {
             get {
-                return ResourceManager.GetString("EntityWasNotFound_ValidationError", resourceCulture);
+                return ResourceManager.GetString("EntityWasNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EntityWithTheseSpeseficationsExists_ValidationError {
+        internal static string EntityWithTheSpecificationsAlreadyExists {
             get {
-                return ResourceManager.GetString("EntityWithTheseSpeseficationsExists_ValidationError", resourceCulture);
+                return ResourceManager.GetString("EntityWithTheSpecificationsAlreadyExists", resourceCulture);
             }
         }
         
@@ -90,45 +90,45 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldCanNotBeEmpty_ValidationError {
+        internal static string FieldCanNotBeEmpty {
             get {
-                return ResourceManager.GetString("FieldCanNotBeEmpty_ValidationError", resourceCulture);
+                return ResourceManager.GetString("FieldCanNotBeEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldIsNotAValidEmailAddress_ValidationError {
+        internal static string FieldIsNotAValidEmailAddress {
             get {
-                return ResourceManager.GetString("FieldIsNotAValidEmailAddress_ValidationError", resourceCulture);
+                return ResourceManager.GetString("FieldIsNotAValidEmailAddress", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldIsNotAValidPhoneNumber_ValidationError {
+        internal static string FieldIsNotAValidPhoneNumber {
             get {
-                return ResourceManager.GetString("FieldIsNotAValidPhoneNumber_ValidationError", resourceCulture);
+                return ResourceManager.GetString("FieldIsNotAValidPhoneNumber", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldIsNotAValidSemanticVersion_ValidationError {
+        internal static string FieldIsNotAValidSemanticVersion {
             get {
-                return ResourceManager.GetString("FieldIsNotAValidSemanticVersion_ValidationError", resourceCulture);
+                return ResourceManager.GetString("FieldIsNotAValidSemanticVersion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldIsNotAValidUsername_ValidationError {
+        internal static string FieldIsNotAValidUsername {
             get {
-                return ResourceManager.GetString("FieldIsNotAValidUsername_ValidationError", resourceCulture);
+                return ResourceManager.GetString("FieldIsNotAValidUsername", resourceCulture);
             }
         }
         

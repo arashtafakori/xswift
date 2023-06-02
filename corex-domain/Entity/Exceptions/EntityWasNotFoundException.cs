@@ -7,13 +7,13 @@ namespace CoreX.Domain
     {
         public EntityWasNotFoundException()
             : base(string.Format(CultureInfo.CurrentCulture,
-                Resource.EntityWasNotFound_ValidationError, Resource.Entiy))
+                Resource.EntityWasNotFound, Resource.Entiy))
         {
         }
 
         public EntityWasNotFoundException(string entityName)
             : base(string.Format(CultureInfo.CurrentCulture,
-                Resource.EntityWasNotFound_ValidationError, entityName))
+                Resource.EntityWasNotFound, entityName))
         {
         }
     }

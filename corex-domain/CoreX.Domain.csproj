@@ -8,6 +8,8 @@
     <FileVersion></FileVersion>
     <BaseOutputPath></BaseOutputPath>
     <BaseIntermediateOutputPath />
+    <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +40,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entity\Invariants\" />
   </ItemGroup>
 
 </Project>

@@ -14,23 +14,27 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
         #region create Update
 
         public Task CreateAsync<TEntity>
-            (TEntity entity, Expression<Func<TEntity, bool>>? preventIf = null)
+            (TEntity entity,
+            Expression<Func<TEntity, bool>>? preExistingCondition = null)
             where TEntity : BaseEntity;
 
         public Task UpdateAsync<TEntity>
-            (TEntity entity, Expression<Func<TEntity, bool>>? preventIf = null)
+            (Expression<Func<TEntity, bool>>? preExistingCondition = null)
             where TEntity : BaseEntity;
 
         #endregion
 
         #region delete
         public Task DeleteAsync<TEntity>
-            (TEntity entity, CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
-            Expression<Func<TEntity, bool>>? preventIf = null) where TEntity : BaseEntity;
+            (TEntity entity,
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration)
+            where TEntity : BaseEntity;
 
         public Task UndoDeletingAsync<TEntity>
-            (TEntity entity, CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
-            Expression<Func<TEntity, bool>>? preventIf = null) where TEntity : BaseEntity;
+            (TEntity entity,
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
+            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            where TEntity : BaseEntity;
 
         public Task<bool> IsValidToDeletePhysically<TEntity>(
             TEntity entity,
@@ -38,18 +42,11 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
             where TEntity : BaseEntity;
 
         public Task DeletePhysically<TEntity>
-            (TEntity entity, Expression<Func<TEntity, bool>>? preventIf = null) where TEntity : BaseEntity;
-        public Task DeletePhysicallyAsync<TEntity>
-            (Expression<Func<TEntity, bool>> condition, Expression<Func<TEntity, bool>>? noDeleteWhere = null)
+            (TEntity entity)
             where TEntity : BaseEntity;
-
-        //public async Task Delete<TEntity>(Expression<Func<TEntity, bool>> where
-        //public async Task UndoDeleting<TEntity>(Expression<Func<TEntity, bool>> where
-        //public async Task DeletePhysically<TEntity>(Expression<Func<TEntity, bool>> where
-
-        //public async Task DeleteViaKeys<TEntity>(Expression<Func<TEntity, bool>> where
-        //public async Task UndoDeletingWithKeys<TEntity>(Expression<Func<TEntity, bool>> where
-        //public async Task IsValidToDeletePhysicallyWithKeys<TEntity>(Expression<Func<TEntity, bool>> where
+        public Task DeletePhysicallyAsync<TEntity>
+            (Expression<Func<TEntity, bool>> condition)
+            where TEntity : BaseEntity;
         #endregion
 
         #region retrieve
@@ -58,17 +55,17 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
           Expression<Func<TEntity, object>>? include = null,
           bool? trackingMode = null,
           bool alsoTheDeletedOnes = false,
-          bool throwExceptionIfEntityWasNotFound = true)
+          bool throwExceptionIfEntityWasNotFound = false)
           where TEntity : BaseEntity;
 
         public Task<TEntity> FindAsync<TEntity>(
             object[] KeyValues,
-            bool throwExceptionIfEntityWasNotFound = true
+            bool throwExceptionIfEntityWasNotFound = false
             ) where TEntity : BaseEntity;
 
         public Task<TEntity> FindAsync<TEntity>(
             object KeyValue,
-            bool throwExceptionIfEntityWasNotFound = true
+            bool throwExceptionIfEntityWasNotFound = false
             ) where TEntity : BaseEntity;
 
         public Task<IEnumerable<TEntity>> ToListAsync<TEntity>(

@@ -5,9 +5,9 @@ namespace CoreX.Domain
 {
     public class FieldIsNullException : ValidationException
     {
-        public FieldIsNullException(string filedName = "")
+        public FieldIsNullException(string fieldName = "")
             : base(string.Format(CultureInfo.CurrentCulture,
-                Resource.FieldCanNotBeEmpty_ValidationError, filedName))
+                Resource.FieldCanNotBeEmpty, fieldName))
         {
         }
     }

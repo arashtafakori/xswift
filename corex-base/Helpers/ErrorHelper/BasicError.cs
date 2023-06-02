@@ -2,11 +2,11 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace CoreX.Base
+namespace CoreX.Base.Helpers.ErrorHelper
 {
-    public class SimpleError
+    public class BasicError
     {
-        internal SimpleError(
+        internal BasicError(
             string code,
             string description,
             ExceptionType? errorType = null,
@@ -26,6 +26,6 @@ namespace CoreX.Base
         [DataMember(Order = 4)]
         public virtual IDictionary? Data { get; private set; }
         [JsonIgnore]
-        public virtual ExceptionType? ErrorType { get; private set; }
+        public virtual ExceptionType? ErrorType { get; set; }
     }
 }

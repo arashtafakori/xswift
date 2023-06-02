@@ -1,10 +1,12 @@
 ﻿using CoreX.Base;
+using CoreX.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
 
 namespace CoreX.Domain
 {
     public abstract class BaseEntity : ISoftDelete
     {
+
         public BaseEntity()
         {
         }
@@ -14,6 +16,7 @@ namespace CoreX.Domain
 
         [Required]
         public DateTime? ModifiedDate { get; set; }
+
         public virtual void Creation()
         {
             ModifiedDate = DateTimeHelper.Now;

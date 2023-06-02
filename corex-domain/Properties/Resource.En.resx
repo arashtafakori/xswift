@@ -117,29 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EntityWasNotFound_ValidationError" xml:space="preserve">
+  <data name="EntityWasNotFound" xml:space="preserve">
     <value>The {0} with these spesefications was not found.</value>
   </data>
   <data name="Filed" xml:space="preserve">
     <value>Filed</value>
   </data>
-  <data name="EntityWithTheseSpeseficationsExists_ValidationError" xml:space="preserve">
-    <value>The {0} with these spesefications exists.</value>
+  <data name="EntityWithTheSpecificationsAlreadyExists" xml:space="preserve">
+    <value>The {0} with the specifications already exists.</value>
   </data>
-  <data name="FieldCanNotBeEmpty_ValidationError" xml:space="preserve">
-    <value>The value of the filed {0} canot be empty.</value>
+  <data name="FieldCanNotBeEmpty" xml:space="preserve">
+    <value>The value of the field {0} canot be empty.</value>
   </data>
-  <data name="FieldIsNotAValidEmailAddress_ValidationError" xml:space="preserve">
-    <value>The filed {0} as email adress is not the same as a valid email address.</value>
+  <data name="FieldIsNotAValidEmailAddress" xml:space="preserve">
+    <value>The field {0} as email adress is not the same as a valid email address.</value>
   </data>
-  <data name="FieldIsNotAValidUsername_ValidationError" xml:space="preserve">
-    <value>The filed {0} as username is not the same as a valid username. A valid username should start with an alphabet and all other characters can be alphabets, numbers or an underscore and the username length should be at least {1} charachters and at most {2} charachters.</value>
+  <data name="FieldIsNotAValidUsername" xml:space="preserve">
+    <value>The field {0} as a username is not the same as a valid username. A valid username should start with an alphabet and all other characters can be alphabets, numbers or an underscore and the username length should be at least {1} charachters and at most {2} charachters, white space is not acceptable.</value>
   </data>
-  <data name="FieldIsNotAValidSemanticVersion_ValidationError" xml:space="preserve">
-    <value>The filed {0} as version is not the same as a valid semantic version.</value>
+  <data name="FieldIsNotAValidSemanticVersion" xml:space="preserve">
+    <value>The field {0} as version is not the same as a valid semantic version.</value>
   </data>
-  <data name="FieldIsNotAValidPhoneNumber_ValidationError" xml:space="preserve">
-    <value>The filed {0} as phone number is not the same as a valid phone number.</value>
+  <data name="FieldIsNotAValidPhoneNumber" xml:space="preserve">
+    <value>The field {0} as phone number is not the same as a valid phone number.</value>
   </data>
   <data name="Entiy" xml:space="preserve">
     <value>Entiy</value>

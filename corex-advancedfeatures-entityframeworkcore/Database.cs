@@ -28,22 +28,25 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
         }
 
         #region create Update
-        public async Task CreateAsync<TEntity>(TEntity entity,
-            Expression<Func<TEntity, bool>>? preventIf = null) where TEntity : BaseEntity
+        public async Task CreateAsync<TEntity>(
+            TEntity entity,
+            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            where TEntity : BaseEntity
         {
             var _dbSet = _context.Set<TEntity>();
 
-            if (preventIf != null)
-                await _context.ThrowTheEntityWithTheseSpeseficationsExists(preventIf);
+            if (preExistingCondition != null)
+                await _context.ThrowIfTheEntityWithTheSpecificationsAlreadyExists(preExistingCondition);
 
             _dbSet.Add(entity);
         }
 
-        public async Task UpdateAsync<TEntity>(TEntity entity,
-            Expression<Func<TEntity, bool>>? preventIf = null) where TEntity : BaseEntity
+        public async Task UpdateAsync<TEntity>(
+            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            where TEntity : BaseEntity
         {
-            if (preventIf != null)
-                await _context.ToCheckIfTheEntityExists(preventIf);
+            if (preExistingCondition != null)
+                await _context.ThrowIfTheEntityWithTheSpecificationsAlreadyExists(preExistingCondition);
         }
 
         #endregion
@@ -51,13 +54,9 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
         #region delete
         public async Task DeleteAsync<TEntity>(
             TEntity entity,
-            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete,
-            Expression<Func<TEntity, bool>>? preventIf = null) 
+            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete) 
             where TEntity : BaseEntity
         {
-            if (preventIf != null)
-                await _context.ToCheckIfTheEntityExists(preventIf);
-
             var service = new CascadeSoftDelServiceAsync<ISoftDelete>(configCascadeDelete);
             await service.SetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
@@ -65,11 +64,11 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
         public async Task UndoDeletingAsync<TEntity>(
             TEntity entity,
             CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete,
-            Expression<Func<TEntity, bool>>? preventIf = null) 
+            Expression<Func<TEntity, bool>>? preExistingCondition = null) 
             where TEntity : BaseEntity
         {
-            if (preventIf != null)
-                await _context.ToCheckIfTheEntityExists(preventIf);
+            if (preExistingCondition != null)
+                await _context.ThrowIfTheEntityWithTheSpecificationsAlreadyExists(preExistingCondition);
 
             var service = new CascadeSoftDelServiceAsync<ISoftDelete>(configCascadeDelete);
             await service.ResetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
@@ -84,28 +83,20 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
             return (await service.CheckCascadeSoftDeleteAsync(entity)).IsValid;
         }
 
-        public async Task DeletePhysically<TEntity>(
-            TEntity entity, Expression<Func<TEntity, bool>>? preventIf = null) 
+        public async Task DeletePhysically<TEntity>(TEntity entity) 
             where TEntity : BaseEntity
         {
-            if (preventIf != null)
-                await _context.ToCheckIfTheEntityExists(preventIf);
 
             var _dbSet = _context.Set<TEntity>();
             _dbSet.Attach(entity);
             _dbSet.Remove(entity);
         }
         public async Task DeletePhysicallyAsync<TEntity>(
-            Expression<Func<TEntity, bool>> condition, 
-            Expression<Func<TEntity, bool>>? preventIf = null)
+            Expression<Func<TEntity, bool>> condition)
             where TEntity : BaseEntity
         {
             // if the entity implements ICascadeSoftDelete interface,
             // It muse check it out for validation.
-
-            //if (preventIf != null)
-            //    await throwExceptionProvidedEntityWasNotFound
-            //    (preventIf);
 
             throw new NotImplementedException();
         }
@@ -135,21 +126,21 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
 
         public async Task<TEntity> FindAsync<TEntity>(
             object[] KeyValues,
-            bool throwExceptionIfEntityWasNotFound = true
+            bool throwExceptionIfEntityWasNotFound = false
             ) where TEntity : BaseEntity
         {
             return await _context.FindAsync<TEntity>(
-                throwExceptionIfTheEntityWasNoutFound:
+                throwExceptionIfEntityWasNotFound:
                 throwExceptionIfEntityWasNotFound, KeyValues);
         }
 
         public async Task<TEntity> FindAsync<TEntity>(
            object KeyValue,
-           bool throwExceptionIfEntityWasNotFound = true
+           bool throwExceptionIfEntityWasNotFound = false
            ) where TEntity : BaseEntity
         {
             return await _context.FindAsync<TEntity>(
-                throwExceptionIfTheEntityWasNoutFound:
+                throwExceptionIfEntityWasNotFound:
                 throwExceptionIfEntityWasNotFound, KeyValues: KeyValue);
         }
 
@@ -172,7 +163,6 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
                 trackingMode: trackingMode,
                 alsoTheDeletedOnes: alsoTheDeletedOnes);
         }
-
         #endregion
     }
 }

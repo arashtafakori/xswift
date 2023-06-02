@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Domain
 {
-    public abstract class DeletedQuery : Query
+    public abstract class ArchivedQuery : Query
     {
         public bool EvenTheDeletedOnes() { return false; }
     }

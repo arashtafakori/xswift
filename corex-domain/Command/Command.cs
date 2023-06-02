@@ -1,8 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CoreX.Domain
+﻿namespace CoreX.Domain
 {
-    public abstract class Command<TCommand> : Validator<TCommand>
+    public abstract class Command
     {
+        public ValidationContext Validation { get; private set; }
+
+        public Command()
+        {
+            Validation = new();
+        }
     }
 }

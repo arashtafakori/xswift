@@ -2,9 +2,9 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace CoreX.Base
+namespace CoreX.Base.Helpers.ErrorHelper
 {
-    public class TraceableError : SimpleError
+    public class TraceableError : BasicError
     {
         public TraceableError(
             string code,
@@ -12,7 +12,8 @@ namespace CoreX.Base
             ExceptionType errorType,
             EnvironmentState environmentState,
             IDictionary? data = null,
-            object? stackTrace = null) :base(code, description, errorType, data)
+            object? stackTrace = null)
+            : base(code, description, errorType, data)
         {
             ErrorId = Guid.NewGuid();
             StackTrace = stackTrace;

@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Domain
 {
-    public abstract class IdentifiedCommand<TCommand, IdType> : Command<TCommand>
+    public abstract class IdentifiedCommand<TCommand, IdType> : Command
     {
         public IdentifiedCommand(IdType id)
         {
