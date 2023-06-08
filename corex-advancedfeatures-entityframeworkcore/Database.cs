@@ -1,4 +1,5 @@
-﻿using CoreX.Domain;
+﻿using CoreX.Base;
+using CoreX.Domain;
 using Microsoft.EntityFrameworkCore;
 using SoftDeleteServices.Concrete;
 using SoftDeleteServices.Configuration;
@@ -30,25 +31,38 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
         #region create Update
         public async Task CreateAsync<TEntity>(
             TEntity entity,
-            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
             where TEntity : BaseEntity
         {
             var _dbSet = _context.Set<TEntity>();
 
-            if (preExistingCondition != null)
-                await _context.ThrowIfTheEntityWithTheSpecificationsAlreadyExists(preExistingCondition);
+            if (uniqueSpecifications != null)
+                await _context.ThrowIfTheEntityWithTheIdentificationsAlreadyExists(uniqueSpecifications);
 
             _dbSet.Add(entity);
         }
 
         public async Task UpdateAsync<TEntity>(
-            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            object KeyValue,
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
             where TEntity : BaseEntity
         {
-            if (preExistingCondition != null)
-                await _context.ThrowIfTheEntityWithTheSpecificationsAlreadyExists(preExistingCondition);
+            await UpdateAsync(uniqueSpecifications, KeyValues: KeyValue);
         }
+        public async Task UpdateAsync<TEntity>(
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null,
+            params object[] KeyValues)
+            where TEntity : BaseEntity
+        {
+            var identifierCondition = LinqHelper.KeyValuesToExpression<TEntity>(keyValues: KeyValues);
+            var whereBuilder = new ExpressionBuilder<TEntity>();
+            whereBuilder.And(identifierCondition);
+            whereBuilder.And(uniqueSpecifications!);
+            var expression = whereBuilder.GetExpression();
 
+            if (uniqueSpecifications != null)
+                await _context.ThrowIfTheEntityWithTheIdentificationsAlreadyExists(expression);
+        }
         #endregion
 
         #region delete
@@ -63,17 +77,32 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
 
         public async Task UndoDeletingAsync<TEntity>(
             TEntity entity,
+            object KeyValue,
             CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete,
-            Expression<Func<TEntity, bool>>? preExistingCondition = null) 
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null) 
             where TEntity : BaseEntity
         {
-            if (preExistingCondition != null)
-                await _context.ThrowIfTheEntityWithTheSpecificationsAlreadyExists(preExistingCondition);
+            await UndoDeletingAsync(entity, configCascadeDelete,
+                uniqueSpecifications, KeyValues: KeyValue);
+        }
+        public async Task UndoDeletingAsync<TEntity>(
+            TEntity entity,
+            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete,
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null,
+            params object[] KeyValues)
+            where TEntity : BaseEntity
+        {
+            var identifierCondition = LinqHelper.KeyValuesToExpression<TEntity>(keyValues: KeyValues);
+            var whereBuilder = new ExpressionBuilder<TEntity>();
+            whereBuilder.And(identifierCondition);
+            whereBuilder.And(uniqueSpecifications!);
+            var expression = whereBuilder.GetExpression();
+            if (expression != null)
+                await _context.ThrowIfTheEntityWithTheIdentificationsAlreadyExists(expression);
 
             var service = new CascadeSoftDelServiceAsync<ISoftDelete>(configCascadeDelete);
             await service.ResetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
-
         public async Task<bool> IsValidToDeletePhysically<TEntity>(
              TEntity entity,
             CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete)
@@ -125,8 +154,8 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
         }
 
         public async Task<TEntity> FindAsync<TEntity>(
-            object[] KeyValues,
-            bool throwExceptionIfEntityWasNotFound = false
+            bool throwExceptionIfEntityWasNotFound = false,
+            params object[] KeyValues
             ) where TEntity : BaseEntity
         {
             return await _context.FindAsync<TEntity>(

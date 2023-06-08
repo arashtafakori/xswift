@@ -3,18 +3,18 @@ using System.Reflection;
 
 namespace CoreX.Domain
 {
-    public class CanNotBeEmptyValidation<TCommand> : IValidation
+    public class CanNotBeEmptyValidation<TRequest> : IValidation
     {
-        private readonly Expression<Func<TCommand, object>> _property;
-        private readonly Command _command;
+        private readonly Expression<Func<TRequest, object>> _property;
+        private readonly LogicalRequest _request;
         private readonly bool _allowEmptyStrings;
 
         public CanNotBeEmptyValidation(
-            Command command,
-            Expression<Func<TCommand, object>> property,
+            LogicalRequest request,
+            Expression<Func<TRequest, object>> property,
             bool allowEmptyStrings)
         {
-            _command = command;
+            _request = request;
             _property = property;
             _allowEmptyStrings = allowEmptyStrings;
         }
@@ -23,7 +23,7 @@ namespace CoreX.Domain
         {
              var propertyInfo = ((MemberExpression)_property.Body).Member as PropertyInfo;
 
-            var value = propertyInfo!.GetValue(_command);
+            var value = propertyInfo!.GetValue(_request);
             if (value == null)
                 return false;
 
@@ -52,7 +52,7 @@ namespace CoreX.Domain
             var propertyInfo = ((MemberExpression)_property.Body).Member as PropertyInfo;
 
             if (!IsValid())
-                _command.Validation.Exceptions.Add(new FieldIsNullException(propertyInfo!.Name!));
+                _request.Validation.Exceptions.Add(new FieldIsNullException(propertyInfo!.Name!));
         }
      }
 }

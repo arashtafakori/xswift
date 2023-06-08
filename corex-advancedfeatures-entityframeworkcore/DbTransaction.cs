@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CoreX.AdvancedFeatures.EntityFrameworkCore
@@ -27,9 +28,28 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
             await _context.Database.RollbackTransactionAsync();
         }
 
-        public async Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(
+            bool concurrencyCheck = true,
+            DbUpdateConcurrencyConflictOccurred? toCheckConcurrencyConflictOccurred = null)
         {
-            return await _context.SaveChangesAsync();
+            if(concurrencyCheck == false)
+            {
+                return await _context.SaveChangesAsync();
+            }else{
+                try
+                {
+                    return await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (toCheckConcurrencyConflictOccurred != null)
+                        toCheckConcurrencyConflictOccurred();
+                    else
+                        throw;
+                }
+
+                return -1;
+            }
         }
     }
 }

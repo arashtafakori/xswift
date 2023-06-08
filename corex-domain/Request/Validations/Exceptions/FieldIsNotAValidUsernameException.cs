@@ -5,9 +5,9 @@ namespace CoreX.Domain
 {
     public class FieldIsNotAValidUsernameException : ValidationException
     {
-        public FieldIsNotAValidUsernameException(int minLength, int maxLength, string fieldName = "")
+        public FieldIsNotAValidUsernameException(string fieldName = "")
             : base(string.Format(CultureInfo.CurrentCulture,
-                Resource.FieldIsNotAValidUsername, fieldName, minLength, maxLength))
+                Resource.FieldIsNotAValidUsername, fieldName))
         {
         }
     }

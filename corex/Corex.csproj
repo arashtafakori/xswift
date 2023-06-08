@@ -6,16 +6,17 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
-    <FileVersion>1.0.1</FileVersion>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <Version>1.0.1</Version>
+    <FileVersion></FileVersion>
+    <AssemblyVersion></AssemblyVersion>
+    <Version>1.0.4</Version>
+    <IncludeSymbols>False</IncludeSymbols>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CoreX.AdvancedFeatures.EntityFrameworkCore" Version="1.0.0" />
-    <PackageReference Include="CoreX.AdvancedFeatures.MassTransit" Version="1.0.0" />
-    <PackageReference Include="CoreX.Base" Version="1.0.0" />
-    <PackageReference Include="CoreX.Domain" Version="1.0.0" />
+    <PackageReference Include="CoreX.AdvancedFeatures.EntityFrameworkCore" Version="1.0.4" />
+    <PackageReference Include="CoreX.AdvancedFeatures.MassTransit" Version="1.0.2" />
+    <PackageReference Include="CoreX.Base" Version="1.0.4" />
+    <PackageReference Include="CoreX.Domain" Version="1.0.4" />
   </ItemGroup>
 
 </Project>

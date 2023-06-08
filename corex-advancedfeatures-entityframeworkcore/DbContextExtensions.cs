@@ -71,19 +71,19 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
             this DbContext context,
             Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
         {
-            if (!await context.ToCheckIfTheEntityExists(condition))
+            if (!await context.ToCheckIfTheEntityWithTheIdentificationsAlreadyExists(condition))
                 throw new EntityWasNotFoundException();
         }
 
-        public static async Task ThrowIfTheEntityWithTheSpecificationsAlreadyExists<TEntity>(
+        public static async Task ThrowIfTheEntityWithTheIdentificationsAlreadyExists<TEntity>(
             this DbContext context,
             Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
         {
-             if (await context.ToCheckIfTheEntityExists(condition))
-                throw new EntityWithTheSpecificationsAlreadyExistsException();
+             if (await context.ToCheckIfTheEntityWithTheIdentificationsAlreadyExists(condition))
+                throw new EntityWithTheIdentificationsAlreadyExistsException();
         }
 
-        public static async Task<bool> ToCheckIfTheEntityExists<TEntity>(
+        public static async Task<bool> ToCheckIfTheEntityWithTheIdentificationsAlreadyExists<TEntity>(
             this DbContext context,
             Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
         {

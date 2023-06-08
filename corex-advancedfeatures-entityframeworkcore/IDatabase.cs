@@ -15,16 +15,20 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
 
         public Task CreateAsync<TEntity>
             (TEntity entity,
-            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
             where TEntity : BaseEntity;
 
         public Task UpdateAsync<TEntity>
-            (Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            (object KeyValue,
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
             where TEntity : BaseEntity;
-
+        public Task UpdateAsync<TEntity> 
+            (Expression<Func<TEntity, bool>>? uniqueSpecifications = null,
+            params object[] KeyValues)
+            where TEntity : BaseEntity;
         #endregion
 
-        #region delete
+            #region delete
         public Task DeleteAsync<TEntity>
             (TEntity entity,
             CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration)
@@ -32,10 +36,16 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
 
         public Task UndoDeletingAsync<TEntity>
             (TEntity entity,
+            object KeyValue,
             CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
-            Expression<Func<TEntity, bool>>? preExistingCondition = null)
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
             where TEntity : BaseEntity;
-
+        public Task UndoDeletingAsync<TEntity>
+            (TEntity entity,
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
+            Expression<Func<TEntity, bool>>? uniqueSpecifications = null,
+            params object[] KeyValues)
+            where TEntity : BaseEntity;
         public Task<bool> IsValidToDeletePhysically<TEntity>(
             TEntity entity,
             CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete)
@@ -59,8 +69,8 @@ namespace CoreX.AdvancedFeatures.EntityFrameworkCore
           where TEntity : BaseEntity;
 
         public Task<TEntity> FindAsync<TEntity>(
-            object[] KeyValues,
-            bool throwExceptionIfEntityWasNotFound = false
+            bool throwExceptionIfEntityWasNotFound = false,
+            params object[] KeyValues
             ) where TEntity : BaseEntity;
 
         public Task<TEntity> FindAsync<TEntity>(

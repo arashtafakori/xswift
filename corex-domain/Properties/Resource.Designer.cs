@@ -72,9 +72,9 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EntityWithTheSpecificationsAlreadyExists {
+        internal static string EntityWithTheIdentificationsAlreadyExists {
             get {
-                return ResourceManager.GetString("EntityWithTheSpecificationsAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("EntityWithTheIdentificationsAlreadyExists", resourceCulture);
             }
         }
         
@@ -129,6 +129,24 @@ namespace CoreX.Domain.Properties {
         internal static string FieldIsNotAValidUsername {
             get {
                 return ResourceManager.GetString("FieldIsNotAValidUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FieldLengthIsLessThanMinimumLengthLimit {
+            get {
+                return ResourceManager.GetString("FieldLengthIsLessThanMinimumLengthLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FieldLengthIsMoreThanMaximumLengthLimit {
+            get {
+                return ResourceManager.GetString("FieldLengthIsMoreThanMaximumLengthLimit", resourceCulture);
             }
         }
         
