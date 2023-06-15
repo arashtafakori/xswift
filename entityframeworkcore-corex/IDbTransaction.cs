@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public delegate void DbUpdateConcurrencyConflictOccurred();
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SoftDeleteServices.Configuration;
 using System.Linq.Expressions;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public interface IDatabase
     {

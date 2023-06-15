@@ -5,7 +5,7 @@ using SoftDeleteServices.Concrete;
 using SoftDeleteServices.Configuration;
 using System.Linq.Expressions;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public abstract class Database : IDatabase
     {

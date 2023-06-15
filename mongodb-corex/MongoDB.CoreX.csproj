@@ -10,24 +10,13 @@
     <BaseIntermediateOutputPath />
     <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.8</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="AdvancedFeatures\**" />
     <EmbeddedResource Remove="AdvancedFeatures\**" />
     <None Remove="AdvancedFeatures\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="EfCore.SoftDeleteServices" Version="2.0.1" />
-    <PackageReference Include="MassTransit" Version="7.3.1" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>

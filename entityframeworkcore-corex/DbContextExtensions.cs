@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public static class DbContextExtensions
     {

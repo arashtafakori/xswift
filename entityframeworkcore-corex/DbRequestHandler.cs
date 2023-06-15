@@ -1,7 +1,7 @@
 ﻿using CoreX.Domain;
 using MediatR;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public abstract class DbRequestHandler
     {

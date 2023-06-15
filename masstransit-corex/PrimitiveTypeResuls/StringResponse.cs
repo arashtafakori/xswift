@@ -1,4 +1,4 @@
-﻿namespace CoreX.AdvancedFeatures.MassTransit
+﻿namespace MassTransit.CoreX
 {
     public class StringResponse
     {

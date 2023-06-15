@@ -1,7 +1,7 @@
 ﻿using CoreX.Domain;
 using SoftDeleteServices.Configuration;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public static class SoftDeleteConfigurationExtention
     {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public static class SoftDeleteExtension
     {

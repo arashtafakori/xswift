@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace CoreX.AdvancedFeatures.EntityFrameworkCore
+namespace EntityFrameworkCore.CoreX
 {
     public class LinqHelper
     {
