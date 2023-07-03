@@ -13,21 +13,21 @@ namespace CoreX.Domain
             return this;
         }
 
-        public Int32 MaxLength 
+        public int MaxLength 
         {
             get
             {
                 return GetPropertyAttributeValue<string, MaxLengthAttribute, Int32>(attr => attr.Length);
             }
         }
-        public Int32 MinLength
+        public int MinLength
         {
             get
             {
                 return GetPropertyAttributeValue<string, MinLengthAttribute, Int32>(attr => attr.Length);
             }
         }
-        public Int32 StringLength 
+        public int StringLength 
         {
             get
             {

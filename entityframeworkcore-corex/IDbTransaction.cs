@@ -10,7 +10,7 @@ namespace EntityFrameworkCore.CoreX
         Task CommitAsync();
         Task RollbackAsync();
         Task<int> SaveChangesAsync(
-            bool concurrencyCheck = true,
+            bool concurrencyCheck = false,
             DbUpdateConcurrencyConflictOccurred? toCheckConcurrencyConflictOccurred = null);
     }
 }

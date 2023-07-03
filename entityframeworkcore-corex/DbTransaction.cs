@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace EntityFrameworkCore.CoreX
@@ -29,7 +28,7 @@ namespace EntityFrameworkCore.CoreX
         }
 
         public async Task<int> SaveChangesAsync(
-            bool concurrencyCheck = true,
+            bool concurrencyCheck = false,
             DbUpdateConcurrencyConflictOccurred? toCheckConcurrencyConflictOccurred = null)
         {
             if(concurrencyCheck == false)

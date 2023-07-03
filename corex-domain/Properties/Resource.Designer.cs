@@ -72,15 +72,6 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EntityWithTheIdentificationsAlreadyExists {
-            get {
-                return ResourceManager.GetString("EntityWithTheIdentificationsAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string Entiy {
             get {
                 return ResourceManager.GetString("Entiy", resourceCulture);
@@ -108,33 +99,6 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldIsNotAValidPhoneNumber {
-            get {
-                return ResourceManager.GetString("FieldIsNotAValidPhoneNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string FieldIsNotAValidSemanticVersion {
-            get {
-                return ResourceManager.GetString("FieldIsNotAValidSemanticVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string FieldIsNotAValidUsername {
-            get {
-                return ResourceManager.GetString("FieldIsNotAValidUsername", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         internal static string FieldLengthIsLessThanMinimumLengthLimit {
             get {
                 return ResourceManager.GetString("FieldLengthIsLessThanMinimumLengthLimit", resourceCulture);
@@ -156,6 +120,15 @@ namespace CoreX.Domain.Properties {
         internal static string Filed {
             get {
                 return ResourceManager.GetString("Filed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TheEntityWithThisSpecificationHasAlreadyBeenExisted {
+            get {
+                return ResourceManager.GetString("TheEntityWithThisSpecificationHasAlreadyBeenExisted", resourceCulture);
             }
         }
     }

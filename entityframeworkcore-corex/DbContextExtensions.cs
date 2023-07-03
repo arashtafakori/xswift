@@ -6,54 +6,15 @@ namespace EntityFrameworkCore.CoreX
 {
     public static class DbContextExtensions
     {
-       public static async Task<TEntity> SingleAsync<TEntity>(
-       this DbContext context,
-       Expression<Func<TEntity, bool>>? condition = null,
-       Expression<Func<TEntity, object>>? include = null,
-       bool? trackingMode = false,
-       bool alsoTheDeletedOnes = false,
-       bool throwExceptionProvidedEntityWasNotFound = true)
-       where TEntity : BaseEntity
-        {
-            var query = context.GetQuery(
-                condition: condition,
-                include: include,
-                trackingMode: trackingMode,
-                alsoTheDeletedOnes: alsoTheDeletedOnes);
-
-
-            var entity = await query.SingleOrDefaultAsync(condition!);
-            if (throwExceptionProvidedEntityWasNotFound)
-                if (entity == null)
-                    throw new EntityWasNotFoundException();
-
-            return entity!;
-        }
-
-        public static async Task<TEntity> FindAsync<TEntity>(
-            this DbContext context,
-            bool throwExceptionIfEntityWasNotFound = false,
-            params object[] KeyValues
-            ) where TEntity : BaseEntity
-        {
-            DbSet<TEntity> _dbSet = context.Set<TEntity>();
-            var entity = (await _dbSet.FindAsync(KeyValues))!;
-      
-            if (throwExceptionIfEntityWasNotFound)
-                if (entity == null)
-                    throw new EntityWasNotFoundException();
-
-            return entity;
-        }
-
-        public static async Task<IEnumerable<TEntity>> ToListAsync<TEntity>(
+        public static async Task<List<TEntity>> GetEntitiesAsync<TEntity>(
             this DbContext context,
             Expression<Func<TEntity, bool>>? condition = null,
             Expression<Func<TEntity, object>>? orderBy = null,
             Expression<Func<TEntity, object>>? orderByDescending = null,
             Expression<Func<TEntity, object>>? include = null,
             bool? trackingMode = false,
-            bool alsoTheDeletedOnes = true)
+            bool? includedArchivedEntities = false,
+            bool throwExceptionIfEntityWasNotFound = false)
             where TEntity : BaseEntity
         {
             var query = context.GetQuery(
@@ -62,36 +23,93 @@ namespace EntityFrameworkCore.CoreX
                 orderByDescending: orderByDescending,
                 include: include,
                 trackingMode: trackingMode,
-                alsoTheDeletedOnes: alsoTheDeletedOnes);
 
-            return await query.ToListAsync();
+                includedArchivedEntities: includedArchivedEntities);
+
+            var entities = await query.ToListAsync();
+
+            if (entities.Count == 0)
+            {
+                if (throwExceptionIfEntityWasNotFound)
+                {
+                    new LogicalState
+                    {
+                        new EntityWasNotFound(typeof(TEntity).Name)
+                    }.Throw();
+                }
+            }
+
+            return entities;
         }
 
-        public static async Task ThrowEntityWasNotFound<TEntity>(
+        public static async Task<TEntity?> GetEntityAsync<TEntity>(
             this DbContext context,
-            Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
+            Expression<Func<TEntity, bool>>? condition = null,
+            Expression<Func<TEntity, object>>? include = null,
+            bool? trackingMode = false,
+            bool? includedArchivedEntities = false,
+            bool throwExceptionIfEntityWasNotFound = false)
+            where TEntity : BaseEntity
         {
-            if (!await context.ToCheckIfTheEntityWithTheIdentificationsAlreadyExists(condition))
-                throw new EntityWasNotFoundException();
+            var query = context.GetQuery(
+                condition: condition,
+                include: include,
+                trackingMode: trackingMode,
+                includedArchivedEntities: includedArchivedEntities);
+
+            var entities = await query.ToListAsync();
+
+            if(entities.Count == 0)
+            {
+                if (throwExceptionIfEntityWasNotFound)
+                {
+                    new LogicalState
+                    {
+                        new EntityWasNotFound(typeof(TEntity).Name)
+                    }.Throw();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return entities[0];
         }
 
-        public static async Task ThrowIfTheEntityWithTheIdentificationsAlreadyExists<TEntity>(
+        public static async Task ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted<TEntity>(
             this DbContext context,
-            Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
+            Expression<Func<TEntity, bool>> condition) 
+            where TEntity : BaseEntity
         {
-             if (await context.ToCheckIfTheEntityWithTheIdentificationsAlreadyExists(condition))
-                throw new EntityWithTheIdentificationsAlreadyExistsException();
+            if (await context.AnyAsync(condition))
+            {
+                new LogicalState
+                    {
+                        new TheEntityWithThisSpecificationHasAlreadyBeenExisted(
+                            typeof(TEntity).Name)
+                    }.Throw();
+            }
         }
 
-        public static async Task<bool> ToCheckIfTheEntityWithTheIdentificationsAlreadyExists<TEntity>(
+        public static async Task<bool> AnyAsync<TEntity>(
             this DbContext context,
-            Expression<Func<TEntity, bool>> condition) where TEntity : BaseEntity
+            Expression<Func<TEntity, bool>>? condition,
+            Expression<Func<TEntity, object>>? include = null,
+            bool includedArchivedEntities = false)
+            where TEntity : BaseEntity
         {
             DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
             var query = _dbSet.AsQueryable().AsNoTracking();
 
-            if (await query.AsNoTracking().AnyAsync(condition))
+            if (includedArchivedEntities)
+                query = query.IgnoreQueryFilters();
+
+            if (include != null)
+                query = query.Include(include);
+
+            if (await query.AnyAsync(condition!))
                 return true;
 
             return false;
@@ -103,7 +121,8 @@ namespace EntityFrameworkCore.CoreX
             Expression<Func<TEntity, object>>? orderByDescending = null,
             Expression<Func<TEntity, object>>? include = null,
             bool? trackingMode = false,
-            bool alsoTheDeletedOnes = true) where TEntity : BaseEntity
+            bool? includedArchivedEntities = false) 
+            where TEntity : BaseEntity
         {
             DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
@@ -112,7 +131,7 @@ namespace EntityFrameworkCore.CoreX
             if ((bool)!trackingMode!)
                 query = query.AsNoTracking();
 
-            if (alsoTheDeletedOnes)
+            if ((bool)includedArchivedEntities!)
                 query = query.IgnoreQueryFilters();
 
             if (condition != null)

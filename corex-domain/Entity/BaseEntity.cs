@@ -1,16 +1,10 @@
 ﻿using CoreX.Base;
-using CoreX.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
 
 namespace CoreX.Domain
 {
     public abstract class BaseEntity : ISoftDelete
     {
-
-        public BaseEntity()
-        {
-        }
-
         [Required]
         public byte Deleted { get; set; } = 0;
 

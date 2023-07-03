@@ -2,18 +2,12 @@
 
 namespace CoreX.Domain
 {
-    public abstract class Entity<TEntity> : BaseEntity where TEntity : BaseEntity
+    public abstract class Entity<TEntity> : 
+        BaseEntity where TEntity : BaseEntity
     {
-        private static readonly PropertyAttributes<TEntity> _attributes = new();
-        //public InvariantContext<TEntity> Invariant { get; private set; }
-        public static PropertyAttributes<TEntity> Property(Expression<Func<TEntity, string>> expression)
+        public virtual Expression<Func<TEntity, bool>>? UniqueSpecification()
         {
-            return _attributes.Of(expression);
+            return null;
         }
-
-        //public Entity()
-        //{
-        //    Invariant = new();
-        //}
     }
 }

@@ -17,18 +17,18 @@ namespace CoreX.Settings
         public DatabaseSettings(IConfigurationRoot configuration)
         {
             Enum.TryParse(configuration.
-                GetSection("DatabaseStrings")
+                GetSection("DatabaseSettings")
                 .GetSection("UsingBy").Value,
                 out DatabaseType usingBy);
             UsingBy = usingBy;
 
             SqlServerConnectString = configuration
-                .GetSection("DatabaseStrings")
+                .GetSection("DatabaseSettings")
                 .GetSection("ConnectionStrings")
                 .GetSection("SqlServer").Value!;
 
-            SqlServerConnectString = configuration
-                .GetSection("DatabaseStrings")
+            MongoBdConnectString = configuration
+                .GetSection("DatabaseSettings")
                 .GetSection("ConnectionStrings")
                 .GetSection("MongoDB").Value!;
         }

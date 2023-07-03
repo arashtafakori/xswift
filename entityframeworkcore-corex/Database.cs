@@ -18,7 +18,8 @@ namespace EntityFrameworkCore.CoreX
             _context = context;
         }
 
-        public TDbContext GetDbContext<TDbContext>() where TDbContext : DbContext
+        public TDbContext GetDbContext<TDbContext>() 
+            where TDbContext : DbContext
         {
             return (TDbContext)_context;
         }
@@ -28,91 +29,95 @@ namespace EntityFrameworkCore.CoreX
             _trackingMode = false;
         }
 
-        #region create Update
+        #region Creation and updation methods
         public async Task CreateAsync<TEntity>(
             TEntity entity,
-            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
+            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
             where TEntity : BaseEntity
         {
             var _dbSet = _context.Set<TEntity>();
 
-            if (uniqueSpecifications != null)
-                await _context.ThrowIfTheEntityWithTheIdentificationsAlreadyExists(uniqueSpecifications);
+            if (uniqueSpecification != null)
+                await _context.ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted(uniqueSpecification);
 
             _dbSet.Add(entity);
         }
 
         public async Task UpdateAsync<TEntity>(
-            object KeyValue,
-            Expression<Func<TEntity, bool>>? uniqueSpecifications = null)
+            Expression<Func<TEntity, bool>> condition,
+            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
             where TEntity : BaseEntity
         {
-            await UpdateAsync(uniqueSpecifications, KeyValues: KeyValue);
-        }
-        public async Task UpdateAsync<TEntity>(
-            Expression<Func<TEntity, bool>>? uniqueSpecifications = null,
-            params object[] KeyValues)
-            where TEntity : BaseEntity
-        {
-            var identifierCondition = LinqHelper.KeyValuesToExpression<TEntity>(keyValues: KeyValues);
             var whereBuilder = new ExpressionBuilder<TEntity>();
-            whereBuilder.And(identifierCondition);
-            whereBuilder.And(uniqueSpecifications!);
+            whereBuilder.And(condition);
+            if (uniqueSpecification != null)
+                whereBuilder.And(uniqueSpecification);
             var expression = whereBuilder.GetExpression();
 
-            if (uniqueSpecifications != null)
-                await _context.ThrowIfTheEntityWithTheIdentificationsAlreadyExists(expression);
+            if (uniqueSpecification != null)
+                await _context.ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted(expression);
         }
         #endregion
 
-        #region delete
+        #region Soft deletion methods
         public async Task DeleteAsync<TEntity>(
             TEntity entity,
-            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete) 
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration) 
             where TEntity : BaseEntity
         {
-            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(configCascadeDelete);
+            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(softDeleteConfiguration);
             await service.SetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
-
-        public async Task UndoDeletingAsync<TEntity>(
-            TEntity entity,
-            object KeyValue,
-            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete,
-            Expression<Func<TEntity, bool>>? uniqueSpecifications = null) 
+        public async Task DeleteAsync<TEntity>(
+            List<TEntity> entities, 
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration)
             where TEntity : BaseEntity
         {
-            await UndoDeletingAsync(entity, configCascadeDelete,
-                uniqueSpecifications, KeyValues: KeyValue);
+            foreach (var entity in entities)
+                await DeleteAsync(entity, softDeleteConfiguration);
+        }
+
+        public async Task UndoDeletingAsync<TEntity>(
+            List<TEntity> entities,
+            Expression<Func<TEntity, bool>> condition,
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
+            Expression<Func<TEntity, bool>>? uniqueSpecification = null) 
+            where TEntity : BaseEntity
+        {
+            foreach (var entity in entities)
+                await UndoDeletingAsync(entity, condition, softDeleteConfiguration);
         }
         public async Task UndoDeletingAsync<TEntity>(
             TEntity entity,
-            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete,
-            Expression<Func<TEntity, bool>>? uniqueSpecifications = null,
-            params object[] KeyValues)
+            Expression<Func<TEntity, bool>> condition,
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration,
+            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
             where TEntity : BaseEntity
         {
-            var identifierCondition = LinqHelper.KeyValuesToExpression<TEntity>(keyValues: KeyValues);
             var whereBuilder = new ExpressionBuilder<TEntity>();
-            whereBuilder.And(identifierCondition);
-            whereBuilder.And(uniqueSpecifications!);
+            whereBuilder.And(condition);
+            if (uniqueSpecification != null)
+                whereBuilder.And(uniqueSpecification);
             var expression = whereBuilder.GetExpression();
             if (expression != null)
-                await _context.ThrowIfTheEntityWithTheIdentificationsAlreadyExists(expression);
+                await _context.ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted(expression);
 
-            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(configCascadeDelete);
+            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(softDeleteConfiguration);
             await service.ResetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
-        public async Task<bool> IsValidToDeletePhysically<TEntity>(
+
+        #endregion
+
+        #region Hard deletion methods
+        public async Task<bool> CanDeleteHardly<TEntity>(
              TEntity entity,
-            CascadeSoftDeleteConfiguration<ISoftDelete> configCascadeDelete)
+            CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration)
             where TEntity : BaseEntity
         {
-            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(configCascadeDelete);
+            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(softDeleteConfiguration);
             return (await service.CheckCascadeSoftDeleteAsync(entity)).IsValid;
         }
-
-        public async Task DeletePhysically<TEntity>(TEntity entity) 
+        public async Task DeleteHardlyAsync<TEntity>(TEntity entity) 
             where TEntity : BaseEntity
         {
 
@@ -120,78 +125,101 @@ namespace EntityFrameworkCore.CoreX
             _dbSet.Attach(entity);
             _dbSet.Remove(entity);
         }
-        public async Task DeletePhysicallyAsync<TEntity>(
-            Expression<Func<TEntity, bool>> condition)
-            where TEntity : BaseEntity
-        {
-            // if the entity implements ICascadeSoftDelete interface,
-            // It muse check it out for validation.
-
-            throw new NotImplementedException();
-        }
 
         #endregion
 
-        #region retrieve
-        public async Task<TEntity> SingleAsync<TEntity>(
-          Expression<Func<TEntity, bool>> where,
-          Expression<Func<TEntity, object>>? include = null,
-          bool? trackingMode = null,
-          bool alsoTheDeletedOnes = false,
-          bool throwExceptionProvidedEntityWasNotFound = true) 
+        #region Retrieval methods
+
+        public async Task<bool> AnyAsync<TRequest, TEntity>(
+            TRequest request)
+            where TRequest : AnyRequest<TEntity>
+            where TEntity : BaseEntity
+        {
+            return await AnyAsync(
+                condition: request.Condition(),
+                includedArchivedEntities: request.HasIncludedArchivedEntities(),include: request.Include());
+        }
+        public async Task<bool> AnyAsync<TEntity>(
+            Expression<Func<TEntity, bool>>? condition,
+            bool includedArchivedEntities = false,
+            Expression<Func<TEntity, object>>? include = null)
+            where TEntity : BaseEntity
+        {
+            return await _context.AnyAsync(
+                condition: condition,
+                include: include,
+                includedArchivedEntities: includedArchivedEntities);
+        }
+
+        public async Task<TEntity?> GetEntityAsync<TRequest, TEntity>(
+            TRequest request)
+            where TRequest : RetrivalRequest<TEntity>
+            where TEntity : BaseEntity
+        {
+            return await GetEntityAsync(
+                condition: request.Condition(),
+                trackingMode: request.TrackingMode,
+                includedArchivedEntities: request.HasIncludedArchivedEntities(),
+                throwExceptionIfEntityWasNotFound: request.ThrowExceptionIfEntityWasNotFound,
+                include: request.Include());
+        }
+        public async Task<TEntity> GetEntityAsync<TEntity>(
+            Expression<Func<TEntity, bool>>? condition,
+            bool? trackingMode = null,
+            bool? includedArchivedEntities = false,
+            bool throwExceptionIfEntityWasNotFound = false,
+            Expression<Func<TEntity, object>>? include = null)
             where TEntity : BaseEntity
         {
             if (trackingMode == null)
                 trackingMode = _trackingMode;
 
-            return await _context.SingleAsync(
-                where,
+            return await _context.GetEntityAsync(
+                condition: condition,
                 include: include,
                 trackingMode: trackingMode,
-                alsoTheDeletedOnes: alsoTheDeletedOnes,
-                throwExceptionProvidedEntityWasNotFound:
-                throwExceptionProvidedEntityWasNotFound);
+                includedArchivedEntities: includedArchivedEntities,
+                throwExceptionIfEntityWasNotFound: throwExceptionIfEntityWasNotFound);
         }
 
-        public async Task<TEntity> FindAsync<TEntity>(
-            bool throwExceptionIfEntityWasNotFound = false,
-            params object[] KeyValues
-            ) where TEntity : BaseEntity
+        public async Task<List<TEntity>> GetEntitiesAsync<TRequest, TEntity>(
+            TRequest request)
+            where TRequest : RetrivalEntitiesRequest<TEntity>
+            where TEntity : BaseEntity
         {
-            return await _context.FindAsync<TEntity>(
-                throwExceptionIfEntityWasNotFound:
-                throwExceptionIfEntityWasNotFound, KeyValues);
+            return await GetEntitiesAsync(
+                condition: request.Condition(),
+                trackingMode: request.TrackingMode,
+                includedArchivedEntities: request.HasIncludedArchivedEntities(),
+                throwExceptionIfEntityWasNotFound: request.ThrowExceptionIfEntityWasNotFound,
+                orderBy: request.OrderBy(),
+                orderByDescending: request.OrderByDescending(),
+                include: request.Include());
         }
 
-        public async Task<TEntity> FindAsync<TEntity>(
-           object KeyValue,
-           bool throwExceptionIfEntityWasNotFound = false
-           ) where TEntity : BaseEntity
-        {
-            return await _context.FindAsync<TEntity>(
-                throwExceptionIfEntityWasNotFound:
-                throwExceptionIfEntityWasNotFound, KeyValues: KeyValue);
-        }
-
-        public virtual async Task<IEnumerable<TEntity>> ToListAsync<TEntity>(
-         Expression<Func<TEntity, bool>>? condition = null,
+        public async Task<List<TEntity>> GetEntitiesAsync<TEntity>(
+         Expression<Func<TEntity, bool>>? condition,
+         bool? trackingMode = null,
+         bool? includedArchivedEntities = false,
+         bool throwExceptionIfEntityWasNotFound = false,
          Expression<Func<TEntity, object>>? orderBy = null,
          Expression<Func<TEntity, object>>? orderByDescending = null,
-         Expression<Func<TEntity, object>>? include = null,
-         bool? trackingMode = null,
-         bool alsoTheDeletedOnes = true) where TEntity : BaseEntity
+         Expression<Func<TEntity, object>>? include = null) 
+            where TEntity : BaseEntity
         {
             if (trackingMode == null)
                 trackingMode = _trackingMode;
 
-            return await _context.ToListAsync(
+            return await _context.GetEntitiesAsync(
                 condition: condition,
                 orderBy: orderBy,
                 orderByDescending: orderByDescending,
                 include: include,
                 trackingMode: trackingMode,
-                alsoTheDeletedOnes: alsoTheDeletedOnes);
+                includedArchivedEntities: includedArchivedEntities,
+                throwExceptionIfEntityWasNotFound: throwExceptionIfEntityWasNotFound);
         }
+
         #endregion
     }
 }

@@ -123,31 +123,22 @@
   <data name="Filed" xml:space="preserve">
     <value>Filed</value>
   </data>
-  <data name="EntityWithTheIdentificationsAlreadyExists" xml:space="preserve">
-    <value>The {0} with the identifications already exists.</value>
+  <data name="TheEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
+    <value>The {0} with this specification has already been existed.</value>
   </data>
   <data name="FieldCanNotBeEmpty" xml:space="preserve">
-    <value>The value of the field {0} canot be empty.</value>
+    <value>The value of the {0} field canot be empty.</value>
   </data>
   <data name="FieldIsNotAValidEmailAddress" xml:space="preserve">
-    <value>The field {0} as email adress is not the same as a valid email address.</value>
-  </data>
-  <data name="FieldIsNotAValidUsername" xml:space="preserve">
-    <value>The field {0} as a username is not the same as a valid username. A valid username should start with an alphabet and all other characters can be alphabets, numbers or an underscore and white space is not acceptable.</value>
-  </data>
-  <data name="FieldIsNotAValidSemanticVersion" xml:space="preserve">
-    <value>The field {0} as version is not the same as a valid semantic version.</value>
-  </data>
-  <data name="FieldIsNotAValidPhoneNumber" xml:space="preserve">
-    <value>The field {0} as phone number is not the same as a valid phone number.</value>
+    <value>The {0} field as email adress is not the same as a valid email address.</value>
   </data>
   <data name="Entiy" xml:space="preserve">
     <value>Entiy</value>
   </data>
   <data name="FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
-    <value>The field {0} minimum length is less than the minimum length limit. The field's length should be more than {1} characters.</value>
+    <value>The {0} field minimum length is less than the minimum length limit. The field's length should be more than {1} characters.</value>
   </data>
   <data name="FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
-    <value>The field {0} maximum length is more than the maximum length limit. The field's length should be less than {1} characters.</value>
+    <value>The {0} field maximum length is more than the maximum length limit. The field's length should be less than {1} characters.</value>
   </data>
 </root>
