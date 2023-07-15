@@ -9,7 +9,7 @@ namespace CoreX.Base
             Error error,
             EnvironmentState environmentState,
             object? stackTrace = null)
-            : base(error.Service, error.Type, error.Issues)
+            : base(error.Service, error.ErrorType, error.Issues)
         {
             StackTrace = stackTrace;
             EnvironmentState = environmentState;
@@ -17,11 +17,11 @@ namespace CoreX.Base
 
         public DevError(
             string service,
-            string type,
+            ErrorType errorType,
             List<Issue> issues,
             EnvironmentState environmentState,
             object? stackTrace = null)
-            : base(service,type, issues)
+            : base(service, errorType, issues)
         {
             StackTrace = stackTrace;
             EnvironmentState = environmentState;

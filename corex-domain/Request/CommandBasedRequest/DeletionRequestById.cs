@@ -4,7 +4,7 @@ namespace CoreX.Domain
 {
     public abstract class DeletionRequestById<TRequest, TEntity, IdType> :
         CommandRequestById<TEntity, IdType>, IRequestResolver<TRequest, TEntity>
-        where TRequest : Request where TEntity : EntityById<TEntity, IdType>
+        where TRequest : Request where TEntity : Entity<TEntity, IdType>
     {
         public DeletionRequestById(IdType id) : base(id)
         {

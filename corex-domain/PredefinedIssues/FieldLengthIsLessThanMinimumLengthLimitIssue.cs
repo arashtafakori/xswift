@@ -4,9 +4,9 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldLengthIsLessThanMinimumLengthLimit : Issue
+    public class FieldLengthIsLessThanMinimumLengthLimitIssue : Issue
     {
-        public FieldLengthIsLessThanMinimumLengthLimit(int minLength, string fieldName = "")
+        public FieldLengthIsLessThanMinimumLengthLimitIssue(int minLength, string fieldName = "")
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,

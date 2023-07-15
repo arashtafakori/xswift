@@ -30,5 +30,5 @@ namespace CoreX.Domain
         public virtual void HardDeletion()
         {
         }
-     }
+    }
 }

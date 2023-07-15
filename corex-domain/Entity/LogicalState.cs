@@ -26,7 +26,7 @@ namespace CoreX.Domain
                 throw new ErrorException(
                     new Error(
                         service: Assembly.GetEntryAssembly()!.GetName().Name!,
-                        type: "Logical",
+                        errorType: ErrorType.Logical,
                         issues: _issues));
         }
 

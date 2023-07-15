@@ -52,7 +52,7 @@ namespace CoreX.Domain
             var propertyInfo = ((MemberExpression)_property.Body).Member as PropertyInfo;
 
             if (!IsValid())
-                _request.ValidationState.AddIssue(new FieldIsNull(propertyInfo!.Name!));
+                _request.ValidationState.AddIssue(new FieldIsNullIssue(propertyInfo!.Name!));
         }
      }
 }

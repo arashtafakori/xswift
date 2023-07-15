@@ -3,12 +3,12 @@ using CoreX.Domain.Properties;
 using System.Globalization;
 namespace CoreX.Domain
 {
-    public class FieldCanNotBeEmpty : Issue
+    public class FieldCanNotBeEmptyIssue : Issue
     {
-        public FieldCanNotBeEmpty()
+        public FieldCanNotBeEmptyIssue()
             : this(Resource.Entiy)
         { }
-        public FieldCanNotBeEmpty(string entityName)
+        public FieldCanNotBeEmptyIssue(string entityName)
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,

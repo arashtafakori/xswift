@@ -4,13 +4,13 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldLengthIsMoreThanMaximumLengthLimit : Issue
+    public class FieldIsNotAValidEamilAddressIssue : Issue
     {
-        public FieldLengthIsMoreThanMaximumLengthLimit(int maxLength, string fieldName = "")
+        public FieldIsNotAValidEamilAddressIssue(string fieldName = "")
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,
-                Resource.FieldLengthIsMoreThanMaximumLengthLimit, fieldName, maxLength);
+                Resource.FieldIsNotAValidEmailAddress, fieldName);
         }
     }
 }

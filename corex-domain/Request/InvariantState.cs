@@ -46,7 +46,7 @@ namespace CoreX.Domain
                 throw new ErrorException(
                     new Error(
                         service: Assembly.GetEntryAssembly()!.GetName().Name!,
-                        type: "Invariant",
+                        errorType: ErrorType.Invariant,
                         issues: Issues));
         }
 

@@ -48,7 +48,7 @@ namespace CoreX.Domain
                 throw new ErrorException(
                     new Error(
                         service: Assembly.GetEntryAssembly()!.GetName().Name!,
-                        type: "Validation",
+                        errorType: ErrorType.Validation,
                         issues: Issues));
         }
 
@@ -146,7 +146,7 @@ namespace CoreX.Domain
                 if (sourceValue!.Length < minLengthAttributeOfTarget.Length)
                 {
                     Issues.Add(
-                        new FieldLengthIsLessThanMinimumLengthLimit(
+                        new FieldLengthIsLessThanMinimumLengthLimitIssue(
                             fieldName: sourceProperty.Name, minLength: minLengthAttributeOfTarget.Length));
                 }
             }
@@ -168,7 +168,7 @@ namespace CoreX.Domain
                 if (sourceValue!.Length > maxLengthAttributeOfTarget.Length)
                 {
                     Issues.Add(
-                        new FieldLengthIsMoreThanMaximumLengthLimit(
+                        new FieldLengthIsMoreThanMaximumLengthLimitIssue(
                             fieldName: sourceProperty.Name, maxLength: maxLengthAttributeOfTarget.Length));
                 }
             }
@@ -193,7 +193,7 @@ namespace CoreX.Domain
                     if (!new System.Text.RegularExpressions.Regex(pattern).IsMatch(sourceValue!))
                     {
                         Issues.Add(
-                            new FieldIsNotAValidEamilAddress(fieldName: sourceProperty.Name));
+                            new FieldIsNotAValidEamilAddressIssue(fieldName: sourceProperty.Name));
                     }
                 }
             }

@@ -34,7 +34,7 @@ namespace EntityFrameworkCore.CoreX
                 {
                     new LogicalState
                     {
-                        new EntityWasNotFound(typeof(TEntity).Name)
+                        new EntityWasNotFoundIssue(typeof(TEntity).Name)
                     }.Throw();
                 }
             }
@@ -65,7 +65,7 @@ namespace EntityFrameworkCore.CoreX
                 {
                     new LogicalState
                     {
-                        new EntityWasNotFound(typeof(TEntity).Name)
+                        new EntityWasNotFoundIssue(typeof(TEntity).Name)
                     }.Throw();
                 }
                 else
@@ -86,7 +86,7 @@ namespace EntityFrameworkCore.CoreX
             {
                 new LogicalState
                     {
-                        new TheEntityWithThisSpecificationHasAlreadyBeenExisted(
+                        new TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue(
                             typeof(TEntity).Name)
                     }.Throw();
             }

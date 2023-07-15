@@ -4,7 +4,7 @@ namespace CoreX.Domain
 {
     public abstract class CommandRequestById<TEntity, IdType> :
         CommandRequest<TEntity>
-        where TEntity : EntityById<TEntity, IdType>
+        where TEntity : Entity<TEntity, IdType>
     {
         public CommandRequestById(IdType id)
         {

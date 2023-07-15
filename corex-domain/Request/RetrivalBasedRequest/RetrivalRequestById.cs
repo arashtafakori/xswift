@@ -3,7 +3,7 @@
 namespace CoreX.Domain
 {
     public abstract class RetrivalRequestById<TEntity, IdType> :
-        RetrivalRequest<TEntity> where TEntity : EntityById<TEntity, IdType>
+        RetrivalRequest<TEntity> where TEntity : Entity<TEntity, IdType>
     {
         public IdType Id { get; private set; }
         public RetrivalRequestById(

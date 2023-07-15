@@ -4,7 +4,7 @@ namespace CoreX.Domain
 {
     public abstract class AnyRequestById<TEntity, IdType> :
         AnyRequest<TEntity>
-        where TEntity : EntityById<TEntity, IdType>
+        where TEntity : Entity<TEntity, IdType>
     {
         public IdType Id { get; private set; }
         public AnyRequestById(IdType id)

@@ -34,7 +34,7 @@ namespace CoreX.Domain
 
             if (!IsValid())
                 _request.ValidationState.AddIssue(
-                    new FieldIsNotAValidEamilAddress(fieldName: propertyInfo!.Name!));
+                    new FieldIsNotAValidEamilAddressIssue(fieldName: propertyInfo!.Name!));
         }
     }
 }

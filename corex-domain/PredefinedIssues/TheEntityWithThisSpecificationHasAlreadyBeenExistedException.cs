@@ -4,12 +4,12 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class TheEntityWithThisSpecificationHasAlreadyBeenExisted : Issue
+    public class TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue : Issue
     {
-        public TheEntityWithThisSpecificationHasAlreadyBeenExisted()
+        public TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue()
             : this(Resource.Entiy)
         { }
-        public TheEntityWithThisSpecificationHasAlreadyBeenExisted(string entityName)
+        public TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue(string entityName)
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,

@@ -70,7 +70,7 @@ namespace CoreX.Base
             };
             return new DevError(
                 service: serviceName,
-                type: "Technical",
+                errorType: ErrorType.Technical,
                 issues: issues,
                 environmentState: CoreXOptions.Global.Environment.State,
                 stackTrace: stackTrace);

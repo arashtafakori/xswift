@@ -2,7 +2,7 @@
 {
     public abstract class ReadonlyRetrivalEntityRequestById<TEntity, IdType>
         : RetrivalRequestById<TEntity, IdType>
-        where TEntity : EntityById<TEntity, IdType>
+        where TEntity : Entity<TEntity, IdType>
     {
         public ReadonlyRetrivalEntityRequestById(IdType id,
             bool trackingMode = false) :

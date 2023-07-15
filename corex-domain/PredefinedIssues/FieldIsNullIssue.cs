@@ -4,9 +4,9 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldIsNull : Issue
+    public class FieldIsNullIssue : Issue
     {
-        public FieldIsNull(string fieldName = "")
+        public FieldIsNullIssue(string fieldName = "")
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,
