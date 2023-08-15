@@ -10,6 +10,7 @@ namespace CoreX.Domain
         public List<TEntity> ResolveAndGetEntities();
         public Task<TEntity> ResolveAndGetEntityAsync(IMediator mediator);
         public Task<List<TEntity>> ResolveAndGetEntitiesAsync(IMediator mediator);
+        public Task ResolveAsync(IMediator mediator);
         public void Resolve(TEntity entity);
         public void Resolve(List<TEntity> entities);
 

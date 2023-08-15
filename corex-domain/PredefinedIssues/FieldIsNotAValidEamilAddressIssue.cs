@@ -1,16 +1,18 @@
-﻿using CoreX.Base;
-using CoreX.Domain.Properties;
+﻿using CoreX.Domain.Properties;
 using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldIsNotAValidEamilAddressIssue : Issue
+    public class FieldIsNotAValidEamilAddressIssue : ValidationIssue
     {
-        public FieldIsNotAValidEamilAddressIssue(string fieldName = "")
+        public FieldIsNotAValidEamilAddressIssue(
+            string fieldName = "", string errorMessage = "")
+            : base(errorMessage)
         {
             Name = GetType().FullName!;
+
             Description = string.Format(CultureInfo.CurrentCulture,
-                Resource.FieldIsNotAValidEmailAddress, fieldName);
+                Resource.Validation_FieldIsNotAValidEmailAddress, fieldName);
         }
     }
 }

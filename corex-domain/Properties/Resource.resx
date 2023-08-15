@@ -117,28 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EntityWasNotFound" xml:space="preserve">
+  <data name="General_Entiy" xml:space="preserve">
     <value />
   </data>
-  <data name="Entiy" xml:space="preserve">
+  <data name="General_Filed" xml:space="preserve">
     <value />
   </data>
-  <data name="Filed" xml:space="preserve">
+  <data name="Invariant_EntityWasNotFound" xml:space="preserve">
     <value />
   </data>
-  <data name="TheEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
+  <data name="Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
     <value />
   </data>
-  <data name="FieldCanNotBeEmpty" xml:space="preserve">
+  <data name="Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible" xml:space="preserve">
     <value />
   </data>
-  <data name="FieldIsNotAValidEmailAddress" xml:space="preserve">
+  <data name="Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
     <value />
   </data>
-  <data name="FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
+  <data name="Validation_FieldCanNotBeEmpty" xml:space="preserve">
     <value />
   </data>
-  <data name="FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
+  <data name="Validation_FieldIsNotAValidEmailAddress" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Validation_FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Validation_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Validation_MaxLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Validation_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Validation_ValidationError" xml:space="preserve">
     <value />
   </data>
 </root>

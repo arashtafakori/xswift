@@ -1,16 +1,18 @@
-﻿using CoreX.Base;
-using CoreX.Domain.Properties;
+﻿using CoreX.Domain.Properties;
 using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldLengthIsLessThanMinimumLengthLimitIssue : Issue
+    public class FieldLengthIsLessThanMinimumLengthLimitIssue : ValidationIssue
     {
-        public FieldLengthIsLessThanMinimumLengthLimitIssue(int minLength, string fieldName = "")
+        public FieldLengthIsLessThanMinimumLengthLimitIssue(
+            int minLength, string fieldName = "", string errorMessage = "")
+            : base(errorMessage)
         {
             Name = GetType().FullName!;
+
             Description = string.Format(CultureInfo.CurrentCulture,
-                Resource.FieldLengthIsLessThanMinimumLengthLimit, fieldName, minLength);
+                Resource.Validation_FieldLengthIsLessThanMinimumLengthLimit, fieldName, minLength);
         }
     }
 }

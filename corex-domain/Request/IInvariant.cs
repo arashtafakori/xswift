@@ -5,7 +5,7 @@ namespace CoreX.Domain
 {
     public interface IInvariant
     {
-        public Task<bool> Check(IMediator mediator);
-        public Issue? GetIssue();
+        public Task<bool> CheckAsync(IMediator mediator);
+        public IIssue? GetIssue();
      }
 }

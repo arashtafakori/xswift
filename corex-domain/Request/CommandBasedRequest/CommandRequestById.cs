@@ -6,12 +6,12 @@ namespace CoreX.Domain
         CommandRequest<TEntity>
         where TEntity : Entity<TEntity, IdType>
     {
-        public CommandRequestById(IdType id)
-        {
+        public CommandRequestById(IdType id) {
             Id = id;
         }
-        public IdType Id { get; private set; }
 
+        public IdType Id { get; private set; }
+ 
         public override Expression<Func<TEntity, bool>>? Condition()
         {
             return x => x.Id!.Equals(Id);

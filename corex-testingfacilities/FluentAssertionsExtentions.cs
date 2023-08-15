@@ -8,7 +8,7 @@ namespace CoreX.TestingFacilities
     public static class FluentAssertionsExtentions
     {
         public static async Task BeSatisfiedWith<TIssue>(
-            this NonGenericAsyncFunctionAssertions nonGenericAsyncFunctionAssertions) where TIssue : Issue
+            this NonGenericAsyncFunctionAssertions nonGenericAsyncFunctionAssertions) where TIssue : IIssue
         {
             (await nonGenericAsyncFunctionAssertions.
                 ThrowExactlyAsync<ErrorException>().

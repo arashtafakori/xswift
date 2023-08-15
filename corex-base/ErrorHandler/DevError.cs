@@ -18,7 +18,7 @@ namespace CoreX.Base
         public DevError(
             string service,
             ErrorType errorType,
-            List<Issue> issues,
+            List<IIssue> issues,
             EnvironmentState environmentState,
             object? stackTrace = null)
             : base(service, errorType, issues)
@@ -27,14 +27,16 @@ namespace CoreX.Base
             EnvironmentState = environmentState;
         }
         [DataMember(Order = 1)]
-        public override string Service => base.Service;
+        public override string? RequestId => base.RequestId;
         [DataMember(Order = 2)]
-        public override string Type => base.Type;
+        public override string Service => base.Service;
         [DataMember(Order = 3)]
-        public string State { get { return EnvironmentState.ToString(); } }
+        public override string Type => base.Type;
         [DataMember(Order = 4)]
-        public override List<Issue> Issues => base.Issues;
+        public string State { get { return EnvironmentState.ToString(); } }
         [DataMember(Order = 5)]
+        public override List<IIssue> Issues => base.Issues;
+        [DataMember(Order = 6)]
         public object? StackTrace { get; set; }
         [JsonIgnore]
         public EnvironmentState EnvironmentState { get; set; }

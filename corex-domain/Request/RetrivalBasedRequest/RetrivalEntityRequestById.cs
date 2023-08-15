@@ -3,13 +3,24 @@
 namespace CoreX.Domain
 {
     public abstract class RetrivalEntityRequestById<TEntity, IdType>
-        : RetrivalRequestById<TEntity, IdType>
+        : RetrivalEntityRequest<TEntity>
         where TEntity : Entity<TEntity, IdType>
     {
-        public RetrivalEntityRequestById(IdType id, 
-            bool trackingMode = false) :
-            base(id, trackingMode)
+        public IdType Id { get; private set; }
+        public RetrivalEntityRequestById(
+            IdType id, 
+            bool trackingMode = false,
+            bool evenArchivedData = false) :
+            base(
+                trackingMode: trackingMode,
+                evenArchivedData: evenArchivedData)
         {
+            Id = id;
+        }
+
+        public override Expression<Func<TEntity, bool>>? Condition()
+        {
+            return x => x.Id!.Equals(Id);
         }
     }
 }

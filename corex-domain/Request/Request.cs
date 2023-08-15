@@ -1,4 +1,6 @@
-﻿namespace CoreX.Domain
+﻿using Newtonsoft.Json;
+
+namespace CoreX.Domain
 {
     public abstract class Request
     {

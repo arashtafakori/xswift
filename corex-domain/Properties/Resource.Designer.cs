@@ -63,72 +63,117 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string EntityWasNotFound {
+        internal static string General_Entiy {
             get {
-                return ResourceManager.GetString("EntityWasNotFound", resourceCulture);
+                return ResourceManager.GetString("General_Entiy", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Entiy {
+        internal static string General_Filed {
             get {
-                return ResourceManager.GetString("Entiy", resourceCulture);
+                return ResourceManager.GetString("General_Filed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldCanNotBeEmpty {
+        internal static string Invariant_EntityWasNotFound {
             get {
-                return ResourceManager.GetString("FieldCanNotBeEmpty", resourceCulture);
+                return ResourceManager.GetString("Invariant_EntityWasNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldIsNotAValidEmailAddress {
+        internal static string Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible {
             get {
-                return ResourceManager.GetString("FieldIsNotAValidEmailAddress", resourceCulture);
+                return ResourceManager.GetString("Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldLengthIsLessThanMinimumLengthLimit {
+        internal static string Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible {
             get {
-                return ResourceManager.GetString("FieldLengthIsLessThanMinimumLengthLimit", resourceCulture);
+                return ResourceManager.GetString("Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FieldLengthIsMoreThanMaximumLengthLimit {
+        internal static string Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted {
             get {
-                return ResourceManager.GetString("FieldLengthIsMoreThanMaximumLengthLimit", resourceCulture);
+                return ResourceManager.GetString("Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Filed {
+        internal static string Validation_FieldCanNotBeEmpty {
             get {
-                return ResourceManager.GetString("Filed", resourceCulture);
+                return ResourceManager.GetString("Validation_FieldCanNotBeEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string TheEntityWithThisSpecificationHasAlreadyBeenExisted {
+        internal static string Validation_FieldIsNotAValidEmailAddress {
             get {
-                return ResourceManager.GetString("TheEntityWithThisSpecificationHasAlreadyBeenExisted", resourceCulture);
+                return ResourceManager.GetString("Validation_FieldIsNotAValidEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Validation_FieldLengthIsLessThanMinimumLengthLimit {
+            get {
+                return ResourceManager.GetString("Validation_FieldLengthIsLessThanMinimumLengthLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Validation_FieldLengthIsMoreThanMaximumLengthLimit {
+            get {
+                return ResourceManager.GetString("Validation_FieldLengthIsMoreThanMaximumLengthLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Validation_MaxLengthShouldBeAttributeMustHaveAValidLength {
+            get {
+                return ResourceManager.GetString("Validation_MaxLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Validation_MinLengthShouldBeAttributeMustHaveAValidLength {
+            get {
+                return ResourceManager.GetString("Validation_MinLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Validation_ValidationError {
+            get {
+                return ResourceManager.GetString("Validation_ValidationError", resourceCulture);
             }
         }
     }

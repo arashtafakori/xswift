@@ -1,15 +1,12 @@
 ﻿using CoreX.Base;
-using System.ComponentModel.DataAnnotations;
 
 namespace CoreX.Domain
 {
     public abstract class BaseEntity : ISoftDelete
     {
-        [Required]
         public byte Deleted { get; set; } = 0;
 
-        [Required]
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public virtual void Creation()
         {

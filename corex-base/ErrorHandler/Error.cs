@@ -8,18 +8,20 @@ namespace CoreX.Base
         public Error(
             string service,
             ErrorType errorType,
-            List<Issue> issues)
+            List<IIssue> issues)
         {
             Service = service;
             ErrorType = errorType;
             Issues = issues;
         }
         [DataMember(Order = 1)]
-        public virtual string Service { get; set; }
+        public virtual string? RequestId { get; set; }
         [DataMember(Order = 2)]
-        public virtual string Type { get { return ErrorType.ToString(); } }
+        public virtual string Service { get; set; }
         [DataMember(Order = 3)]
-        public virtual List<Issue> Issues { get; set; }
+        public virtual string Type { get { return ErrorType.ToString(); } }
+        [DataMember(Order = 4)]
+        public virtual List<IIssue> Issues { get; set; }
         [JsonIgnore]
         public virtual ErrorType ErrorType { get; set; }
     }

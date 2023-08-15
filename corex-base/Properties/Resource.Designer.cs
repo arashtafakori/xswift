@@ -59,23 +59,5 @@ namespace CoreX.Base.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Field {
-            get {
-                return ResourceManager.GetString("Field", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string TheFieldDoesNotMatchThePattern {
-            get {
-                return ResourceManager.GetString("TheFieldDoesNotMatchThePattern", resourceCulture);
-            }
-        }
     }
 }

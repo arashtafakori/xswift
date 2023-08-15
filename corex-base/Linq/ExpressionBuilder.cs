@@ -28,6 +28,14 @@ namespace CoreX.Base
             _expression = Expression.Lambda<Func<T, bool>>
                   (Expression.AndAlso(_expression.Body, invokedExpr), _expression.Parameters);
         }
+
+        public Expression<Func<T, bool>> Invert(Expression<Func<T, bool>> expression)
+        {
+            var parameter = expression.Parameters[0];
+            var body = Expression.Not(expression.Body);
+
+            return Expression.Lambda<Func<T, bool>>(body, parameter);
+        }
     }
 }
 

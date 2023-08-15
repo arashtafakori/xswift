@@ -10,7 +10,6 @@ namespace CoreX.Domain
         public UnDeletionRequestById(IdType id) : base(id)
         {
         }
-
         public virtual TEntity ResolveAndGetEntity()
         {
             throw new NotImplementedException();
@@ -24,6 +23,10 @@ namespace CoreX.Domain
             throw new NotImplementedException();
         }
         public virtual Task<List<TEntity>> ResolveAndGetEntitiesAsync(IMediator mediator)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual Task ResolveAsync(IMediator mediator)
         {
             throw new NotImplementedException();
         }

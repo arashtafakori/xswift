@@ -60,9 +60,9 @@ namespace CoreX.Base
                 stack = exception.StackTrace.Trim().Split("\r\n");
             object? stackTrace = stack;
 
-            var issues = new List<Issue>
+            var issues = new List<IIssue>
             {
-                new Issue
+                new TechnicalIssue
                 {
                     Name = exception.GetType().Name,
                     Description = exception.Message

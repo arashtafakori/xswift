@@ -22,6 +22,10 @@ namespace CoreX.Domain
         {
             throw new NotImplementedException();
         }
+        public virtual Task ResolveAsync(IMediator mediator)
+        {
+            throw new NotImplementedException();
+        }
         public virtual void Resolve(TEntity entity)
         {
             entity.UnDeletion();

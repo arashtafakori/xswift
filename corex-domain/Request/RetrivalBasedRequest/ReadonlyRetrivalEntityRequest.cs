@@ -3,8 +3,8 @@
     public abstract class ReadonlyRetrivalEntityRequest<TEntity> :
         RetrivalEntityRequest<TEntity> where TEntity : BaseEntity
     {
-        public ReadonlyRetrivalEntityRequest()
-            : base(trackingMode: false)
+        public ReadonlyRetrivalEntityRequest(bool evenArchivedData = false)
+            : base(trackingMode: false, evenArchivedData: evenArchivedData)
         {
         }
     }

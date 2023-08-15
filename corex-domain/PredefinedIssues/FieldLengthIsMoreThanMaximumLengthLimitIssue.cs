@@ -1,16 +1,18 @@
-﻿using CoreX.Base;
-using CoreX.Domain.Properties;
+﻿using CoreX.Domain.Properties;
 using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldLengthIsMoreThanMaximumLengthLimitIssue : Issue
+    public class FieldLengthIsMoreThanMaximumLengthLimitIssue : ValidationIssue
     {
-        public FieldLengthIsMoreThanMaximumLengthLimitIssue(int maxLength, string fieldName = "")
+        public FieldLengthIsMoreThanMaximumLengthLimitIssue(
+            int maxLength, string fieldName = "", string errorMessage = "") 
+            : base(errorMessage)
         {
             Name = GetType().FullName!;
+
             Description = string.Format(CultureInfo.CurrentCulture,
-                Resource.FieldLengthIsMoreThanMaximumLengthLimit, fieldName, maxLength);
+                Resource.Validation_FieldLengthIsMoreThanMaximumLengthLimit, fieldName, maxLength);
         }
     }
 }

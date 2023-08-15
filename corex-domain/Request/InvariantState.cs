@@ -8,26 +8,32 @@ namespace CoreX.Domain
     public class InvariantState :
         IEnumerable<IInvariant>
     {
-        private List<Issue> Issues { get; set; } = new();
+        private List<IIssue> Issues { get; set; } = new();
         private readonly List<IInvariant> _invariants = new();
-        public void Add(IInvariant invariant)
+        public InvariantState Add(IInvariant invariant)
         {
             _invariants.Add(invariant);
+            return this;
         }
-
-        public void DefineAnInvariant(
+        public InvariantState AddIssue(IIssue issue)
+        {
+            Issues.Add(issue);
+            return this;
+        }
+        public InvariantState DefineAnInvariant(
             Func<bool> prediction,
-            Issue issue)
+            IIssue issue)
         {
             if (prediction())
                 Issues.Add(issue);
+
+            return this;
         }
 
         public IEnumerator<IInvariant> GetEnumerator()
         {
             return new InvariantEnumerator(_invariants);
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -37,7 +43,7 @@ namespace CoreX.Domain
         {
             foreach (var invariant in _invariants)
             {
-                if (await invariant.Check(mediator))
+                if (await invariant.CheckAsync(mediator))
                     if (invariant.GetIssue() != null)
                         Issues.Add(invariant.GetIssue()!);
             }
