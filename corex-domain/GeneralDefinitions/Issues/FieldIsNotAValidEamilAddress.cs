@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldIsNotAValidEamilAddressIssue : ValidationIssue
+    public class FieldIsNotAValidEamilAddress : ValidationIssue
     {
-        public FieldIsNotAValidEamilAddressIssue(
+        public FieldIsNotAValidEamilAddress(
             string fieldName = "", string errorMessage = "")
             : base(errorMessage)
         {

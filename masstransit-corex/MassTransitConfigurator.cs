@@ -10,10 +10,10 @@ namespace MassTransit.CoreX
             Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator> configure = null
             )
         {
-            if (massTransitSettings.UsingBy == MassTransitTransportType.InMemory)
+            if (massTransitSettings.Type == MassTransitTransportType.InMemory)
             {
             }
-            else if (massTransitSettings.UsingBy == MassTransitTransportType.RabbitMQ)
+            else if (massTransitSettings.Type == MassTransitTransportType.RabbitMQ)
             {
                 serviceConfigurator.UsingRabbitMq((context, cfg) =>
                 {
@@ -31,7 +31,7 @@ namespace MassTransit.CoreX
                     configure?.Invoke(context, cfg);
                 });
             }
-            else if (massTransitSettings.UsingBy == MassTransitTransportType.gRPC)
+            else if (massTransitSettings.Type == MassTransitTransportType.gRPC)
             {
                 serviceConfigurator.UsingGrpc((context, cfg) =>
                 {

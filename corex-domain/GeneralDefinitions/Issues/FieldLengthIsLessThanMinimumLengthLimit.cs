@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldLengthIsLessThanMinimumLengthLimitIssue : ValidationIssue
+    public class FieldLengthIsLessThanMinimumLengthLimit : ValidationIssue
     {
-        public FieldLengthIsLessThanMinimumLengthLimitIssue(
+        public FieldLengthIsLessThanMinimumLengthLimit(
             int minLength, string fieldName = "", string errorMessage = "")
             : base(errorMessage)
         {

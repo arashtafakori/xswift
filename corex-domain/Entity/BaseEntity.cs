@@ -8,23 +8,23 @@ namespace CoreX.Domain
 
         public DateTime ModifiedDate { get; set; }
 
-        public virtual void Creation()
+        public virtual void Create()
         {
             ModifiedDate = DateTimeHelper.Now;
         }
-        public virtual void Updation()
+        public virtual void Update()
         {
             ModifiedDate = DateTimeHelper.Now;
         }
-        public virtual void Deletion()
+        public virtual void Archive()
         {
             ModifiedDate = DateTimeHelper.Now;
         }
-        public virtual void UnDeletion()
+        public virtual void Restore()
         {
             ModifiedDate = DateTimeHelper.Now;
         }
-        public virtual void HardDeletion()
+        public virtual void Delete()
         {
         }
     }

@@ -1,12 +1,13 @@
 ﻿using MediatR;
+using System.Linq.Expressions;
 
 namespace CoreX.Domain
 {
-    public abstract class HardDeletionRequestById<TRequest, TEntity, IdType> :
+    public abstract class RestorationRequestById<TRequest, TEntity, IdType> :
         CommandRequestById<TEntity, IdType>, IRequestResolver<TRequest, TEntity>
         where TRequest : Request where TEntity : Entity<TEntity, IdType>
     {
-        public HardDeletionRequestById(IdType id) : base(id)
+        public RestorationRequestById(IdType id) : base(id)
         {
         }
         public virtual TEntity ResolveAndGetEntity()
@@ -31,11 +32,30 @@ namespace CoreX.Domain
         }
         public virtual void Resolve(TEntity entity)
         {
-            entity.HardDeletion();
+            entity.Restore();
         }
         public virtual void Resolve(List<TEntity> entities)
         {
-            entities.ForEach(e => { e.HardDeletion(); });
+            entities.ForEach(e => { e.Restore(); });
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, TEntity entity)
+        {
+            await new InvariantState
+            {
+                new PreventToRestoringIfTheEntityHasNotBeenArchived<TEntity>(entity!)
+            }.CheckAsync(mediator);
+
+            entity.Restore();
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, List<TEntity> entities)
+        {
+            entities.ForEach(async entity => {
+                await new InvariantState
+                {
+                    new PreventToRestoringIfTheEntityHasNotBeenArchived<TEntity>(entity!)
+                }.CheckAsync(mediator);
+                entity.Restore();
+            });
         }
     }
 }

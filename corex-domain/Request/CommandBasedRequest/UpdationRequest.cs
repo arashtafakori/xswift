@@ -28,11 +28,21 @@ namespace CoreX.Domain
         }
         public virtual void Resolve(TEntity entity)
         {
-            entity.Updation();
+            entity.Update();
         }
         public virtual void Resolve(List<TEntity> entities)
         {
-            entities.ForEach(e => { e.Updation(); });
+            entities.ForEach(e => { e.Update(); });
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, TEntity entity)
+        {
+            entity.Update();
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, List<TEntity> entities)
+        {
+            entities.ForEach(async entity => {
+                entity.Update();
+            });
         }
     }
 }

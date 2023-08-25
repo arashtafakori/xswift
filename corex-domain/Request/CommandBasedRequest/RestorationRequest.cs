@@ -2,7 +2,7 @@
 
 namespace CoreX.Domain
 {
-    public abstract class UnDeletionRequest<TRequest, TEntity> :
+    public abstract class RestorationRequest<TRequest, TEntity> :
         CommandRequest<TEntity>, IRequestResolver<TRequest, TEntity>
         where TRequest : Request where TEntity : BaseEntity
     {
@@ -28,11 +28,30 @@ namespace CoreX.Domain
         }
         public virtual void Resolve(TEntity entity)
         {
-            entity.UnDeletion();
+            entity.Restore();
         }
         public virtual void Resolve(List<TEntity> entities)
         {
-            entities.ForEach(e => { e.UnDeletion(); });
+            entities.ForEach(e => { e.Restore(); });
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, TEntity entity)
+        {
+            await new InvariantState
+            {
+                new PreventToRestoringIfTheEntityHasNotBeenArchived<TEntity>(entity!)
+            }.CheckAsync(mediator);
+
+            entity.Restore();
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, List<TEntity> entities)
+        {
+            entities.ForEach(async entity => {
+                await new InvariantState
+                {
+                    new PreventToRestoringIfTheEntityHasNotBeenArchived<TEntity>(entity!)
+                }.CheckAsync(mediator);
+                entity.Restore();
+            });
         }
     }
 }

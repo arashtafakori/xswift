@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MassTransit.Transports;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 
 namespace CoreX.Domain
@@ -7,6 +9,7 @@ namespace CoreX.Domain
         BaseEntity
     {
         [Required]
+        [Column(Order = 0)]
         public IdType Id { get; private set; }
         public virtual Expression<Func<TEntity, bool>>? UniqueSpecification()
         {

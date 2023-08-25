@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class FieldCanNotBeEmptyIssue : ValidationIssue
+    public class FieldCanNotBeEmpty : ValidationIssue
     {
-        public FieldCanNotBeEmptyIssue(
+        public FieldCanNotBeEmpty(
             string fieldName = "", string errorMessage = "")
             : base(errorMessage)
         {

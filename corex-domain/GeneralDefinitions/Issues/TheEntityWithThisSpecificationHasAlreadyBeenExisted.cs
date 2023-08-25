@@ -3,12 +3,12 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue : InvariantIssue
+    public class TheEntityWithThisSpecificationHasAlreadyBeenExisted : InvariantIssue
     {
-        public TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue()
+        public TheEntityWithThisSpecificationHasAlreadyBeenExisted()
             : this(Resource.General_Entiy)
         { }
-        public TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue(string entityName)
+        public TheEntityWithThisSpecificationHasAlreadyBeenExisted(string entityName)
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,

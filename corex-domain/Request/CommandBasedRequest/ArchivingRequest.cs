@@ -2,7 +2,7 @@
 
 namespace CoreX.Domain
 {
-    public abstract class HardDeletionRequest<TRequest, TEntity> :
+    public abstract class ArchivingRequest<TRequest, TEntity> :
         CommandRequest<TEntity>, IRequestResolver<TRequest, TEntity>
         where TRequest : Request where TEntity : BaseEntity
     {
@@ -28,11 +28,30 @@ namespace CoreX.Domain
         }
         public virtual void Resolve(TEntity entity)
         {
-            entity.HardDeletion();
+            entity.Archive();
         }
         public virtual void Resolve(List<TEntity> entities)
         {
-            entities.ForEach(e => { e.HardDeletion(); });
+            entities.ForEach(entity => { entity.Archive(); });
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, TEntity entity)
+        {
+            await new InvariantState
+            {
+                new PreventToArchivingIfTheEntityHasBeenArchived<TEntity>(entity!)
+            }.CheckAsync(mediator);
+
+            entity.Archive();
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, List<TEntity> entities)
+        {
+            entities.ForEach(async entity => {
+                await new InvariantState
+                {
+                    new PreventToArchivingIfTheEntityHasBeenArchived<TEntity>(entity!)
+                }.CheckAsync(mediator);
+                entity.Archive();
+            });
         }
     }
 }

@@ -4,11 +4,21 @@ namespace CoreX.Settings
 {
     public class RabbitMQConnection
     {
-        public string Domain { get; private set; }
-        public string Host { get; private set; }
-        public string Username { get; private set; }
-        public string Password { get; private set; }
+        public string? _domain;
+        public string Domain { get => _domain!; }
 
+        public string? _host;
+        public string Host { get => _host!; }
+
+        public string? _username;
+        public string Username { get => _username!; }
+
+        public string? _password;
+        public string Password { get => _password!; }
+
+        public RabbitMQConnection()
+        {
+        }
         public RabbitMQConnection(IConfigurationRoot configuration)
         {
             var rabbitMQSection = configuration.
@@ -16,10 +26,30 @@ namespace CoreX.Settings
                 .GetSection("Connections")
                 .GetSection("RabbitMQ");
 
-            Domain = rabbitMQSection.GetSection("Domain").Value!;
-            Host = rabbitMQSection.GetSection("Host").Value!;
-            Username = rabbitMQSection.GetSection("Username").Value!;
-            Password = rabbitMQSection.GetSection("Password").Value!;
+            _domain = rabbitMQSection.GetSection("Domain").Value!;
+            _host = rabbitMQSection.GetSection("Host").Value!;
+            _username = rabbitMQSection.GetSection("Username").Value!;
+            _password = rabbitMQSection.GetSection("Password").Value!;
+        }
+
+        public void SetDomain(string domain)
+        {
+            _domain = domain;
+        }
+
+        public void SetHost(string host)
+        {
+            _host = host;
+        }
+
+        public void SetUsername(string username)
+        {
+            _username = username;
+        }
+
+        public void SetPassword(string password)
+        {
+            _password = password;
         }
     }
 }

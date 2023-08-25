@@ -34,7 +34,7 @@ namespace EntityFrameworkCore.CoreX.Datastore
                 {
                     new LogicalState
                     {
-                        new EntityWasNotFoundIssue(typeof(TEntity).Name)
+                        new EntityWasNotFound(typeof(TEntity).Name)
                     }.Throw();
                 }
             }
@@ -65,7 +65,7 @@ namespace EntityFrameworkCore.CoreX.Datastore
                 {
                     new LogicalState
                     {
-                        new EntityWasNotFoundIssue(typeof(TEntity).Name)
+                        new EntityWasNotFound(typeof(TEntity).Name)
                     }.Throw();
                 }
                 else
@@ -86,7 +86,7 @@ namespace EntityFrameworkCore.CoreX.Datastore
             {
                 new LogicalState
                     {
-                        new TheEntityWithThisSpecificationHasAlreadyBeenExistedIssue(
+                        new TheEntityWithThisSpecificationHasAlreadyBeenExisted(
                             typeof(TEntity).Name)
                     }.Throw();
             }

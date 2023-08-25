@@ -3,12 +3,12 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class TheEntityWasNotArchivedSoRestoringItIsNotPossibleIssue : InvariantIssue
+    public class TheEntityWasNotArchivedSoRestoringItIsNotPossible : InvariantIssue
     {
-        public TheEntityWasNotArchivedSoRestoringItIsNotPossibleIssue()
+        public TheEntityWasNotArchivedSoRestoringItIsNotPossible()
             : this(Resource.General_Entiy)
         { }
-        public TheEntityWasNotArchivedSoRestoringItIsNotPossibleIssue(string entityName)
+        public TheEntityWasNotArchivedSoRestoringItIsNotPossible(string entityName)
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,

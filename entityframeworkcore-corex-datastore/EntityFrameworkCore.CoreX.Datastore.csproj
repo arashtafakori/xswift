@@ -10,7 +10,7 @@
     <BaseIntermediateOutputPath></BaseIntermediateOutputPath>
     <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.2.0.9</Version>
+    <Version>1.2.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

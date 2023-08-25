@@ -28,11 +28,21 @@ namespace CoreX.Domain
         }
         public virtual void Resolve(TEntity entity)
         {
-            entity.Creation();
+            entity.Create();
         }
         public virtual void Resolve(List<TEntity> entities)
         {
-            entities.ForEach(e => { e.Creation(); });
+            entities.ForEach(e => { e.Create(); });
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, TEntity entity)
+        {
+            entity.Create();
+        }
+        public async virtual Task ResolveAsync(IMediator mediator, List<TEntity> entities)
+        {
+            entities.ForEach(async entity => {
+                entity.Create();
+            });
         }
     }
 }

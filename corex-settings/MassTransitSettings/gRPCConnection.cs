@@ -4,9 +4,15 @@ namespace CoreX.Settings
 {
     public class gRPCConnection
     {
-        public string Host { get; private set; }
-        public int Port { get; private set; }
+        public string? _host;
+        public string Host { get => _host!; }
 
+        public int _port;
+        public int Port { get => _port; }
+
+        public gRPCConnection()
+        {
+        }
         public gRPCConnection(IConfigurationRoot configuration)
         {
             var gRPCSection = configuration.
@@ -14,8 +20,17 @@ namespace CoreX.Settings
                 .GetSection("Connections")
                 .GetSection("gRPC");
 
-            Host = gRPCSection.GetSection("Host").Value!;
-            Port = int.Parse(gRPCSection.GetSection("Port").Value!);
+            _host = gRPCSection.GetSection("Host").Value!;
+            _port = int.Parse(gRPCSection.GetSection("Port").Value!);
+        }
+
+        public void SetHost(string host)
+        {
+            _host = host;
+        }
+        public void SetPort(int port)
+        {
+            _port = port;
         }
     }
 }

@@ -3,12 +3,12 @@ using System.Globalization;
 
 namespace CoreX.Domain
 {
-    public class EntityWasNotFoundIssue : LogicalIssue
+    public class EntityWasNotFound : LogicalIssue
     {
-        public EntityWasNotFoundIssue()
+        public EntityWasNotFound()
             : this(Resource.General_Entiy)
         { }
-        public EntityWasNotFoundIssue(string entityName)
+        public EntityWasNotFound(string entityName)
         {
             Name = GetType().FullName!;
             Description = string.Format(CultureInfo.CurrentCulture,

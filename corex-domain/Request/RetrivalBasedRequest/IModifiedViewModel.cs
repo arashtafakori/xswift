@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Domain
 {
-    public interface IModifiedView
+    public interface IModifiedViewModel
     {
         public DateTime? ModifiedDate { get; set; }
     }

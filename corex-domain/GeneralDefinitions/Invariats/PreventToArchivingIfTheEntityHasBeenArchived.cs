@@ -1,5 +1,4 @@
 ﻿using CoreX.Base;
-using CoreX.Domain;
 using MediatR;
 
 namespace CoreX.Domain
@@ -25,7 +24,7 @@ namespace CoreX.Domain
 
         public IIssue? GetIssue()
         {
-            return new TheEntityWasArchivedSoArchivingItAgainIsNotPossibleIssue(typeof(TEntity).Name);
+            return new TheEntityWasArchivedSoArchivingItAgainIsNotPossible(typeof(TEntity).Name);
         }
     }
 }

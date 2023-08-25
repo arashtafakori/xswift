@@ -1,13 +1,13 @@
 ﻿using CoreX.Base;
 using CoreX.Domain.Properties;
 
-namespace CoreX.Domain.PredefinedFieldValidationAttributes
+namespace CoreX.Domain
 {
-    public class MinLengthShouldBeAttribute : FieldValidationAttribute
+    public class MaxLengthShouldBeAttribute : FieldValidationAttribute
     {
         public int Length { get; }
-        public MinLengthShouldBeAttribute(int length)
-        {  
+        public MaxLengthShouldBeAttribute(int length)
+        {
             Length = length;
         }
         public override bool IsValid(object? value)
@@ -35,17 +35,17 @@ namespace CoreX.Domain.PredefinedFieldValidationAttributes
                 }
             }
 
-            return length >= Length;
+            return length <= Length;
         }
         public override void Validate(
             object? value,
-            ICollection<IIssue> _issues, 
+            ICollection<IIssue> _issues,
             string propertyName = "")
         {
             if (!IsValid(value))
             {
                 _issues.Add(
-                    new FieldLengthIsLessThanMinimumLengthLimitIssue(
+                    new FieldLengthIsLessThanMinimumLengthLimit(
                         fieldName: propertyName,
                         minLength: Length,
                         errorMessage: ErrorMessage!));
@@ -53,14 +53,14 @@ namespace CoreX.Domain.PredefinedFieldValidationAttributes
         }
 
         /// <summary>
-        ///     Checks that Length has a legal value.
+        /// Checks that Length has a legal value.
         /// </summary>
-        /// <exception cref="InvalidOperationException">Length is less than zero.</exception>
+        /// <exception cref="InvalidOperationException">Length is zero or less than negative one.</exception>
         private void EnsureLegalLengths()
         {
-            if (Length < 0)
+            if (Length == 0 || Length < -1)
             {
-                throw new InvalidOperationException(Resource.Validation_MinLengthShouldBeAttributeMustHaveAValidLength);
+                throw new InvalidOperationException(Resource.Validation_MaxLengthShouldBeAttributeMustHaveAValidLength);
             }
         }
     }

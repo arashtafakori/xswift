@@ -1,6 +1,6 @@
 ﻿namespace CoreX.Domain
 {
-    public interface IArchivableView
+    public interface IArchivableViewModel
     {
         public bool Deleted { get; set; }
     }

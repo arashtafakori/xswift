@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreX.Web
 {
-    public class CoreXApiController : ControllerBase
+    public abstract class CoreXApiController : ControllerBase
     {
         public async Task<IActionResult> ResloveIfAnEntityNotFound(Func<Task> func)
         {
@@ -15,7 +15,7 @@ namespace CoreX.Web
             }
             catch (ErrorException ex)
             {
-                if (ex.Error.Issues.OfType<EntityWasNotFoundIssue>().Any())
+                if (ex.Error.Issues.OfType<EntityWasNotFound>().Any())
                     return NotFound();
                 else
                     throw ex;
@@ -29,7 +29,7 @@ namespace CoreX.Web
             }
             catch (ErrorException ex)
             {
-                if (ex.Error.Issues.OfType<EntityWasNotFoundIssue>().Any())
+                if (ex.Error.Issues.OfType<EntityWasNotFound>().Any())
                     return NotFound();
                 else
                     throw ex;

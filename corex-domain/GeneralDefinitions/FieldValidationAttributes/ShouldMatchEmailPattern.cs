@@ -1,7 +1,7 @@
 ﻿using CoreX.Base;
 using System.Text.RegularExpressions;
 
-namespace CoreX.Domain.PredefinedFieldValidationAttributes
+namespace CoreX.Domain
 {
     public class ShouldMatchEmailPattern : FieldValidationAttribute
     {
@@ -72,7 +72,7 @@ namespace CoreX.Domain.PredefinedFieldValidationAttributes
             if (!IsValid(value))
             {
                 _issues.Add(
-                    new FieldIsNotAValidEamilAddressIssue(
+                    new FieldIsNotAValidEamilAddress(
                         fieldName: propertyName,
                         errorMessage: ErrorMessage!));
             }

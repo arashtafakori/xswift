@@ -10,20 +10,43 @@ namespace CoreX.Settings
     }
     public class MassTransitSettings
     {
-        public MassTransitTransportType UsingBy { get; private set; } = MassTransitTransportType.InMemory;
-        public gRPCConnection gRPCConnection { get; private set; }
-        public RabbitMQConnection RabbitMQConnection { get; private set; }
+        private MassTransitTransportType _type = MassTransitTransportType.InMemory;
+        public MassTransitTransportType Type { get => _type; }
 
+        private gRPCConnection? _gRPCConnection;
+        public gRPCConnection gRPCConnection { get => _gRPCConnection!; }
+
+        public RabbitMQConnection? _rabbitMQConnection;
+        public RabbitMQConnection RabbitMQConnection { get => _rabbitMQConnection!; }
+
+        public MassTransitSettings()
+        {
+        }
         public MassTransitSettings(IConfigurationRoot configuration)
         {
             Enum.TryParse(configuration.
                 GetSection("MasstransitSettings")
-                .GetSection("UsingBy").Value,
-                out MassTransitTransportType usingBy);
-            UsingBy = usingBy;
+                .GetSection("Type").Value,
+                out MassTransitTransportType type);
+            _type = type;
 
-            gRPCConnection = new gRPCConnection(configuration);
-            RabbitMQConnection = new RabbitMQConnection(configuration);
+            _gRPCConnection = new gRPCConnection(configuration);
+            _rabbitMQConnection = new RabbitMQConnection(configuration);
+        }
+
+        public void SetType(MassTransitTransportType type)
+        {
+            _type = type;
+        }
+
+        public void SetgRPCConnection(gRPCConnection connection)
+        {
+            _gRPCConnection = connection;
+        }
+
+        public void SetRabbitMQConnection(RabbitMQConnection connection)
+        {
+            _rabbitMQConnection = connection;
         }
     }
 }
