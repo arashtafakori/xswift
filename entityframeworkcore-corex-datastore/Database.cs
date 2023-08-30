@@ -177,7 +177,7 @@ namespace EntityFrameworkCore.CoreX.Datastore
                 throwExceptionIfEntityWasNotFound: request.ThrowExceptionIfEntityWasNotFound,
                 include: request.Include());
         }
-        public async Task<TEntity> GetEntityAsync<TEntity>(
+        public async Task<TEntity?> GetEntityAsync<TEntity>(
             Expression<Func<TEntity, bool>>? condition,
             bool? trackingMode = null,
             bool? evenArchivedData = false,
@@ -208,7 +208,9 @@ namespace EntityFrameworkCore.CoreX.Datastore
                 throwExceptionIfEntityWasNotFound: request.ThrowExceptionIfEntityWasNotFound,
                 orderBy: request.OrderBy(),
                 orderByDescending: request.OrderByDescending(),
-                include: request.Include());
+                include: request.Include(),
+                offset: request.Offset,
+                limit: request.Limit);
         }
 
         public async Task<List<TEntity>> GetEntitiesAsync<TEntity>(
@@ -218,7 +220,9 @@ namespace EntityFrameworkCore.CoreX.Datastore
          bool throwExceptionIfEntityWasNotFound = false,
          Expression<Func<TEntity, object>>? orderBy = null,
          Expression<Func<TEntity, object>>? orderByDescending = null,
-         Expression<Func<TEntity, object>>? include = null) 
+         Expression<Func<TEntity, object>>? include = null,
+         int offset = 0,
+         int limit = 0) 
             where TEntity : BaseEntity
         {
             if (trackingMode == null)
@@ -231,7 +235,9 @@ namespace EntityFrameworkCore.CoreX.Datastore
                 include: include,
                 trackingMode: trackingMode,
                 evenArchivedData: evenArchivedData,
-                throwExceptionIfEntityWasNotFound: throwExceptionIfEntityWasNotFound);
+                throwExceptionIfEntityWasNotFound: throwExceptionIfEntityWasNotFound,
+                offset: offset,
+                limit: limit);
         }
 
         #endregion

@@ -5,6 +5,9 @@ namespace CoreX.Domain
 {
     public class ValidationIssue : IIssue
     {
+        public ValidationIssue()
+        {
+        }
         public ValidationIssue(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))

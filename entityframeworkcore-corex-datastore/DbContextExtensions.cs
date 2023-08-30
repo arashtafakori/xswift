@@ -6,6 +6,23 @@ namespace EntityFrameworkCore.CoreX.Datastore
 {
     public static class DbContextExtensions
     {
+        /// <summary>
+        /// If the limit parameter is zero,
+        /// it means that the rest of the records,
+        /// which exist after the offset will be retrieved.
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="context"></param>
+        /// <param name="condition"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="orderByDescending"></param>
+        /// <param name="include"></param>
+        /// <param name="trackingMode"></param>
+        /// <param name="evenArchivedData"></param>
+        /// <param name="throwExceptionIfEntityWasNotFound"></param>
+        /// <param name="offset"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         public static async Task<List<TEntity>> GetEntitiesAsync<TEntity>(
             this DbContext context,
             Expression<Func<TEntity, bool>>? condition = null,
@@ -14,7 +31,9 @@ namespace EntityFrameworkCore.CoreX.Datastore
             Expression<Func<TEntity, object>>? include = null,
             bool? trackingMode = false,
             bool? evenArchivedData = false,
-            bool throwExceptionIfEntityWasNotFound = false)
+            bool throwExceptionIfEntityWasNotFound = false,
+            int offset = 0,
+            int limit = 0)
             where TEntity : BaseEntity
         {
             var query = context.GetQuery(
@@ -23,8 +42,12 @@ namespace EntityFrameworkCore.CoreX.Datastore
                 orderByDescending: orderByDescending,
                 include: include,
                 trackingMode: trackingMode,
-
                 evenArchivedData: evenArchivedData);
+
+            query = query.Skip(offset);
+
+            if (limit != 0)
+                query = query.Take(limit);
 
             var entities = await query.ToListAsync();
 
@@ -86,7 +109,7 @@ namespace EntityFrameworkCore.CoreX.Datastore
             {
                 new LogicalState
                     {
-                        new TheEntityWithThisSpecificationHasAlreadyBeenExisted(
+                        new AnEntityWithThisSpecificationHasAlreadyBeenExisted(
                             typeof(TEntity).Name)
                     }.Throw();
             }

@@ -90,27 +90,27 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible {
+        internal static string Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible {
             get {
-                return ResourceManager.GetString("Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
+                return ResourceManager.GetString("Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible {
+        internal static string Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible {
             get {
-                return ResourceManager.GetString("Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible", resourceCulture);
+                return ResourceManager.GetString("Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted {
+        internal static string Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted {
             get {
-                return ResourceManager.GetString("Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted", resourceCulture);
+                return ResourceManager.GetString("Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted", resourceCulture);
             }
         }
         
@@ -165,6 +165,15 @@ namespace CoreX.Domain.Properties {
         internal static string Validation_MinLengthShouldBeAttributeMustHaveAValidLength {
             get {
                 return ResourceManager.GetString("Validation_MinLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Validation_StartDateCanNotBeLaterThanEndDate {
+            get {
+                return ResourceManager.GetString("Validation_StartDateCanNotBeLaterThanEndDate", resourceCulture);
             }
         }
         

@@ -24,7 +24,7 @@ namespace CoreX.Domain
 
         public IIssue? GetIssue()
         {
-            return new TheEntityWasArchivedSoArchivingItAgainIsNotPossible(typeof(TEntity).Name);
+            return new AnEntityWasArchivedSoArchivingItAgainIsNotPossible(typeof(TEntity).Name);
         }
     }
 }

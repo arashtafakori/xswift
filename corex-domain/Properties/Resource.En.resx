@@ -123,7 +123,7 @@
   <data name="General_Filed" xml:space="preserve">
     <value>Filed</value>
   </data>
-  <data name="Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
+  <data name="Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
     <value>The {0} with this specification has already been existed.</value>
   </data>
   <data name="Validation_FieldCanNotBeEmpty" xml:space="preserve">
@@ -141,10 +141,10 @@
   <data name="Validation_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
     <value>The {0} field maximum length is more than the maximum length limit. The field's length should be less than {1} characters.</value>
   </data>
-  <data name="Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
+  <data name="Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
     <value>The {0} was archived, so archiving it again is not possible.</value>
   </data>
-  <data name="Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible" xml:space="preserve">
+  <data name="Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
     <value>The {0} was not archived, so restoring it is not possible.</value>
   </data>
   <data name="Validation_ValidationError" xml:space="preserve">
@@ -155,5 +155,8 @@
   </data>
   <data name="Validation_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
     <value>MinLengthShouldBeAttribute must have a Length value that is zero or greater.</value>
+  </data>
+  <data name="Validation_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
+    <value>The start date of the {0} can not be later than the end date.</value>
   </data>
 </root>

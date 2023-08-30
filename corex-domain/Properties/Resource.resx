@@ -126,13 +126,13 @@
   <data name="Invariant_EntityWasNotFound" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_TheEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
+  <data name="Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_TheEntityWasNotArchivedSoRestoringItIsNotPossible" xml:space="preserve">
+  <data name="Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_TheEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
+  <data name="Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
     <value />
   </data>
   <data name="Validation_FieldCanNotBeEmpty" xml:space="preserve">
@@ -151,6 +151,9 @@
     <value />
   </data>
   <data name="Validation_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Validation_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
     <value />
   </data>
   <data name="Validation_ValidationError" xml:space="preserve">

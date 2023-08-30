@@ -7,7 +7,6 @@ namespace CoreX.Web
     {
         public static TObject QueryStringToObject(string QueryString)
         {
-            //string QueryString = "BaseNo=5&Width=100";
             var dict = HttpUtility.ParseQueryString(QueryString);
             string json = JsonConvert.SerializeObject(dict.Cast<string>()
                 .ToDictionary(k => k, v => dict[v]));

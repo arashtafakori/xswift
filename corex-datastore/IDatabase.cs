@@ -67,7 +67,7 @@ namespace CoreX.Datastore
             where TRequest : RetrivalRequest<TEntity>
             where TEntity : BaseEntity;
 
-        public Task<TEntity> GetEntityAsync<TEntity>(
+        public Task<TEntity?> GetEntityAsync<TEntity>(
             Expression<Func<TEntity, bool>> condition,
             bool? trackingMode = false,
             bool? evenArchivedData = false,
@@ -86,7 +86,9 @@ namespace CoreX.Datastore
          bool throwExceptionIfEntityWasNotFound = false,
          Expression<Func<TEntity, object>>? orderBy = null,
          Expression<Func<TEntity, object>>? orderByDescending = null,
-         Expression<Func<TEntity, object>>? include = null)
+         Expression<Func<TEntity, object>>? include = null,
+         int offset = 0,
+         int limit = 0)
          where TEntity : BaseEntity;
 
         #endregion

@@ -15,21 +15,21 @@ namespace CoreX.Domain
             _invariants.Add(invariant);
             return this;
         }
+
+        public InvariantState DescribeAnInvariant(
+            IIssue issue,
+            Func<bool> condition)
+        {
+            if (condition())
+                Issues.Add(issue);
+
+            return this;
+        }
         public InvariantState AddIssue(IIssue issue)
         {
             Issues.Add(issue);
             return this;
         }
-        public InvariantState DefineAnInvariant(
-            Func<bool> prediction,
-            IIssue issue)
-        {
-            if (prediction())
-                Issues.Add(issue);
-
-            return this;
-        }
-
         public IEnumerator<IInvariant> GetEnumerator()
         {
             return new InvariantEnumerator(_invariants);
