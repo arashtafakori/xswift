@@ -1,8 +1,9 @@
 ﻿using CoreX.Base;
+using System.Linq.Expressions;
 
 namespace CoreX.Domain
 {
-    public abstract class BaseEntity : ISoftDelete
+    public abstract class BaseEntity<TEntity> : ISoftDelete
     {
         public byte Deleted { get; set; } = 0;
         public DateTime CreatedDate { get; set; }
@@ -26,6 +27,27 @@ namespace CoreX.Domain
         }
         public virtual void Delete()
         {
+        }
+
+        private Expression<Func<TEntity, bool>>? _conditionOfBeingUnique;
+
+        public void SetConditionOfBeingUnique(
+            Expression<Func<TEntity, bool>>? condition,
+            string? description = null)
+        {
+            _conditionOfBeingUnique = condition;
+            _descriptionOfConditionOfBeingUnique = description;
+        }
+        public Expression<Func<TEntity, bool>>? GetConditionOfBeingUnique()
+        {
+            return _conditionOfBeingUnique;
+        }
+
+        private string? _descriptionOfConditionOfBeingUnique;
+
+        public string? GetDescriptionOfConditionOfBeingUnique()
+        {
+           return _descriptionOfConditionOfBeingUnique ;
         }
     }
 }

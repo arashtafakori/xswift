@@ -4,242 +4,414 @@ using CoreX.Domain;
 using Microsoft.EntityFrameworkCore;
 using SoftDeleteServices.Concrete;
 using SoftDeleteServices.Configuration;
-using System.Linq.Expressions;
 
 namespace EntityFrameworkCore.CoreX.Datastore
 {
-    public static class DatabaseExtensions
-    {
-        public static void AddSoftDeleteConfiguration(
-            this Database database, CascadeSoftDeleteConfiguration<ISoftDelete> softDeleteConfiguration)
-        {
-            if (database._softDeleteConfiguration == null)
-                database._softDeleteConfiguration = softDeleteConfiguration;
-        }
-    }
-
     public abstract class Database : IDatabase
     {
         public Database(DbContext context)
         {
-            _context = context;
+            _dbContext = context;
         }
 
-        private bool _trackingMode = true;
-        public bool TrackingMode { get { return _trackingMode; } }
-        private readonly DbContext _context;
-
+        private readonly DbContext _dbContext;
+  
         public CascadeSoftDeleteConfiguration<ISoftDelete>? _softDeleteConfiguration;
 
         public TDbContext GetDbContext<TDbContext>() 
             where TDbContext : DbContext
         {
-            return (TDbContext)_context;
+            return (TDbContext)_dbContext;
         }
 
-        public void AsNoTraking()
-        {
-            _trackingMode = false;
-        }
+        #region Handle the commands of requests
 
-        #region Creating and updating methods
-        public async Task CreateAsync<TEntity>(
-            TEntity entity,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity
+        public async Task CreateAsync<TRequest, TEntity>(
+            TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
         {
-            var _dbSet = _context.Set<TEntity>();
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
 
-            if (uniqueSpecification != null)
-                await _context.ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted(uniqueSpecification);
+            var _dbSet = _dbContext.Set<TEntity>();
+
+            if (entity.GetConditionOfBeingUnique() != null)
+            {
+                await new LogicalState()
+                    .AddAnPreventer( new PreventIfTheEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted<TEntity>(
+                        _dbContext, entity.GetConditionOfBeingUnique()!)
+                    .WithDescription(entity.GetDescriptionOfConditionOfBeingUnique()!))
+                    .CheckAsync();
+            }
 
             _dbSet.Add(entity);
         }
 
-        public async Task UpdateAsync<TEntity>(
-            Expression<Func<TEntity, bool>> condition,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity
+        public async Task UpdateAsync<TRequest, TEntity>(
+            TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
         {
-            var builder = new ExpressionBuilder<TEntity>();
-            builder.And(builder.Invert(condition));
-            if (uniqueSpecification != null)
-                builder.And(uniqueSpecification);
-            var expression = builder.GetExpression();
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
 
-            if (uniqueSpecification != null)
-                await _context.ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted(expression);
+            if (entity.GetConditionOfBeingUnique() != null)
+            {
+                var builder = new ExpressionBuilder<TEntity>();
+                builder.And(builder.Invert(request.Condition()!));
+                builder.And(entity.GetConditionOfBeingUnique()!);
+                var expression = builder.GetExpression();
+                if (expression != null)
+                    await new LogicalState()
+                        .AddAnPreventer(new PreventIfTheEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted
+                        <TEntity>(_dbContext, expression)
+                        .WithDescription(entity.GetDescriptionOfConditionOfBeingUnique()!))
+                        .CheckAsync();
+            }
         }
-        #endregion
 
-        #region Archiving an restoring methods
-        public async Task ArchiveAsync<TEntity>(TEntity entity) 
-            where TEntity : BaseEntity
+        public async Task ArchiveAsync<TRequest, TEntity>(
+            TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
         {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
             var service = new CascadeSoftDelServiceAsync<ISoftDelete>(_softDeleteConfiguration);
             await service.SetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
-        public async Task ArchiveAsync<TEntity>(List<TEntity> entities)
-            where TEntity : BaseEntity
-        {
-            foreach (var entity in entities)
-                await ArchiveAsync(entity);
-        }
 
-        public async Task RestoreAsync<TEntity>(
-            List<TEntity> entities,
-            Expression<Func<TEntity, bool>> condition,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null) 
-            where TEntity : BaseEntity
+        public async Task RestoreAsync<TRequest, TEntity>(
+            TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
         {
-            foreach (var entity in entities)
-                await RestoreAsync(entity, condition);
-        }
-        public async Task RestoreAsync<TEntity>(
-            TEntity entity,
-            Expression<Func<TEntity, bool>> condition,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity
-        {
-            var builder = new ExpressionBuilder<TEntity>();
-            builder.And(builder.Invert(condition));
-            if (uniqueSpecification != null)
-                builder.And(uniqueSpecification);
-            var expression = builder.GetExpression();
-            if (expression != null)
-                await _context.ThrowIfTheEntityWithThisSpecificationHasAlreadyBeenExisted(expression);
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            if (entity.GetConditionOfBeingUnique() != null)
+            {
+                var builder = new ExpressionBuilder<TEntity>();
+                builder.And(builder.Invert(request.Condition()!));
+                builder.And(entity.GetConditionOfBeingUnique()!);
+                var expression = builder.GetExpression();
+                if (expression != null)
+                    await new LogicalState()
+                    .AddAnPreventer(
+                        new PreventIfTheEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted
+                        <TEntity>(_dbContext, expression)
+                        .WithDescription(entity.GetDescriptionOfConditionOfBeingUnique()!))
+                    .CheckAsync();
+            }
 
             var service = new CascadeSoftDelServiceAsync<ISoftDelete>(_softDeleteConfiguration);
             await service.ResetCascadeSoftDeleteAsync(entity, callSaveChanges: false);
         }
 
-        #endregion
+        public async Task DeleteAsync<TRequest, TEntity>(
+            TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
 
-        #region deleting methods
-        private async Task<bool> CanDelete<TEntity>(TEntity entity)
-            where TEntity : BaseEntity
-        {
-            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(_softDeleteConfiguration);
-            return (await service.CheckCascadeSoftDeleteAsync(entity)).IsValid;
-        }
-        public async Task DeleteAsync<TEntity>(
-            TEntity entity) 
-            where TEntity : BaseEntity
-        {
             await CanDelete(entity);
 
-            var _dbSet = _context.Set<TEntity>();
+            var _dbSet = _dbContext.Set<TEntity>();
             _dbSet.Attach(entity);
             _dbSet.Remove(entity);
         }
 
-        public async Task DeleteAsync<TEntity>(
-            List<TEntity> entities)
-            where TEntity : BaseEntity
+        private async Task<bool> CanDelete<TEntity>(TEntity entity)
+            where TEntity : BaseEntity<TEntity>
         {
-            foreach (var entity in entities)
-                await DeleteAsync(entity);
+            var service = new CascadeSoftDelServiceAsync<ISoftDelete>(_softDeleteConfiguration);
+            return (await service.CheckCascadeSoftDeleteAsync(entity)).IsValid;
         }
+
         #endregion
 
-        #region Retrieval methods
+        #region Handle the query based requests
 
         public async Task<bool> AnyAsync<TRequest, TEntity>(
             TRequest request)
             where TRequest : AnyRequest<TEntity>
-            where TEntity : BaseEntity
+            where TEntity : BaseEntity<TEntity>
         {
-            return await AnyAsync(
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            return await _dbContext.Set<TEntity>().AsQueryable().AnyAsync(
                 condition: request.Condition(),
-                evenArchivedData: request.OnIncludingArchivedDataConfiguration(),include: request.Include());
-        }
-        public async Task<bool> AnyAsync<TEntity>(
-            Expression<Func<TEntity, bool>>? condition,
-            bool evenArchivedData = false,
-            Expression<Func<TEntity, object>>? include = null)
-            where TEntity : BaseEntity
-        {
-            return await _context.AnyAsync(
-                condition: condition,
-                include: include,
-                evenArchivedData: evenArchivedData);
+                evenArchivedData: request.EvenArchivedData,
+                offset: request.PageNumber,
+                limit: request.PageSize);
         }
 
-        public async Task<TEntity?> GetEntityAsync<TRequest, TEntity>(
+        public async Task<TEntity?> GetItemAsync<TRequest, TEntity>(
             TRequest request)
-            where TRequest : RetrivalRequest<TEntity>
-            where TEntity : BaseEntity
+            where TRequest : QueryItemRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
         {
-            return await GetEntityAsync(
-                condition: request.Condition(),
-                trackingMode: request.TrackingMode,
-                evenArchivedData: request.OnIncludingArchivedDataConfiguration(),
-                throwExceptionIfEntityWasNotFound: request.ThrowExceptionIfEntityWasNotFound,
-                include: request.Include());
-        }
-        public async Task<TEntity?> GetEntityAsync<TEntity>(
-            Expression<Func<TEntity, bool>>? condition,
-            bool? trackingMode = null,
-            bool? evenArchivedData = false,
-            bool throwExceptionIfEntityWasNotFound = false,
-            Expression<Func<TEntity, object>>? include = null)
-            where TEntity : BaseEntity
-        {
-            if (trackingMode == null)
-                trackingMode = _trackingMode;
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
 
-            return await _context.GetEntityAsync(
-                condition: condition,
-                include: include,
-                trackingMode: trackingMode!,
-                evenArchivedData: evenArchivedData,
-                throwExceptionIfEntityWasNotFound: throwExceptionIfEntityWasNotFound);
+            var query = MakeQuery<TRequest, TEntity>(request);
+            query = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            try
+            {
+                return await query.SingleAsync();
+            }
+            catch (InvalidOperationException)
+            {
+                if (request.PreventIfNoEntityWasFound)
+                    await new LogicalState()
+                        .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(query))
+                        .CheckAsync();
+
+                return await Task.FromResult<TEntity?>(null);
+            }
         }
 
-        public async Task<List<TEntity>> GetEntitiesAsync<TRequest, TEntity>(
+        public async Task<TModel?> GetItemAsync<TRequest, TEntity, TModel>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TModel>> selector)
+            where TRequest : QueryItemRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var query = MakeQuery<TRequest, TEntity>(request);
+            query = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            try
+            {
+                return await selector(query).SingleAsync();
+            }
+            catch (InvalidOperationException)
+            {
+                if (request.PreventIfNoEntityWasFound)
+                    await new LogicalState()
+                        .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(query))
+                        .CheckAsync();
+
+                return await Task.FromResult<dynamic>(null!);
+            }
+        }
+
+        public async Task<TModel?> GetItemAsync<TRequest, TEntity, TModel>(
+            TRequest request,
+            Converter<TEntity, TModel> converter)
+            where TRequest : QueryItemRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var query = MakeQuery<TRequest, TEntity>(request);
+            query = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            try
+            {
+                return converter(await query.SingleAsync());
+            }
+            catch (InvalidOperationException)
+            {
+                if (request.PreventIfNoEntityWasFound)
+                    await new LogicalState()
+                        .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(query))
+                        .CheckAsync();
+
+                return await Task.FromResult<dynamic>(null!);
+            }
+        }
+
+        public async Task<List<TEntity>> GetListAsync<
+            TRequest, TEntity>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var baseQuery = MakeQuery<TRequest, TEntity>(request);
+            var query = filter != null ? filter!(baseQuery) : baseQuery;
+            var skippedQuery = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (request.PreventIfNoEntityWasFound)
+                await new LogicalState()
+                    .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(skippedQuery))
+                    .CheckAsync();
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<List<TModel>> GetListAsync<
+            TRequest, TEntity, TModel>(
+            TRequest request,
+            Converter<TEntity, TModel> converter,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var baseQuery = MakeQuery<TRequest, TEntity>(request);
+            var query = filter != null ? filter!(baseQuery) : baseQuery;
+            var skippedQuery = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (request.PreventIfNoEntityWasFound)
+                await new LogicalState()
+                    .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(skippedQuery))
+                    .CheckAsync();
+
+            return (await query.ToListAsync()).ConvertAll(converter!);
+        }
+
+        public async Task<List<TModel>> GetListAsync<
+            TRequest, TEntity, TModel>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TModel>> selector,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var baseQuery = MakeQuery<TRequest, TEntity>(request);
+            var query = filter != null ? filter!(baseQuery) : baseQuery;
+            var skippedQuery = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (request.PreventIfNoEntityWasFound)
+                await new LogicalState()
+                    .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(skippedQuery))
+                    .CheckAsync();
+
+            return await selector(skippedQuery).ToListAsync();
+        }
+
+        public async Task<PaginatedViewModel<TEntity>> GetPaginatedListAsync<
+            TRequest, TEntity>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var baseQuery = MakeQuery<TRequest, TEntity>(request);
+            var query = filter != null ? filter!(baseQuery) : baseQuery;
+            var skippedQuery = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (request.PreventIfNoEntityWasFound)
+                await new LogicalState()
+                    .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(skippedQuery))
+                    .CheckAsync();
+
+            return new PaginatedViewModel<TEntity>(
+                items: await query.ToListAsync(),
+                countOfAllItems: await query.CountAsync(),
+                pageNumber: request.PageNumber,
+                pageSize: request.PageSize);
+        }
+
+        public async Task<PaginatedViewModel<TModel>> GetPaginatedListAsync<
+            TRequest, TEntity, TModel>(
+            TRequest request,
+            Converter<TEntity, TModel> converter,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var baseQuery = MakeQuery<TRequest, TEntity>(request);
+            var query = filter != null ? filter!(baseQuery) : baseQuery;
+            var skippedQuery = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (request.PreventIfNoEntityWasFound)
+                await new LogicalState()
+                    .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(skippedQuery))
+                    .CheckAsync();
+
+            return new PaginatedViewModel<TModel>(
+                  items: (await query.ToListAsync()).ConvertAll(converter!),
+                  countOfAllItems: await query.CountAsync(),
+                  pageNumber: request.PageNumber,
+                  pageSize: request.PageSize);
+        }
+
+        public async Task<PaginatedViewModel<TModel>> GetPaginatedListAsync<
+            TRequest, TEntity, TModel>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TModel>> selector,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            await CheckInvariantsAsync<TRequest, TEntity>(request);
+
+            var baseQuery = MakeQuery<TRequest, TEntity>(request);
+            var query = filter != null ? filter!(baseQuery) : baseQuery;
+            var skippedQuery = SkipQuery(query, pageNumber: request.PageNumber, pageSize: request.PageSize);
+
+            if (request.PreventIfNoEntityWasFound)
+                await new LogicalState()
+                    .AddAnPreventer(new PreventIfNoEntityWasFound<TEntity, TEntity>(skippedQuery))
+                    .CheckAsync();
+
+            return new PaginatedViewModel<TModel>(
+                items: await selector(skippedQuery).ToListAsync(),
+                countOfAllItems: await query.CountAsync(),
+                pageNumber: request.PageNumber,
+                pageSize: request.PageSize);
+        }
+
+        #endregion
+
+        #region Query Operations
+        public IQueryable<TSource> MakeQuery<TRequest, TSource>(
             TRequest request)
-            where TRequest : RetrivalEntitiesRequest<TEntity>
-            where TEntity : BaseEntity
+            where TRequest : QueryRequest<TSource>
+            where TSource : class
         {
-            return await GetEntitiesAsync(
+            return _dbContext.Set<TSource>().AsQueryable().MakeQuery(
                 condition: request.Condition(),
-                trackingMode: request.TrackingMode,
-                evenArchivedData: request.OnIncludingArchivedDataConfiguration(),
-                throwExceptionIfEntityWasNotFound: request.ThrowExceptionIfEntityWasNotFound,
                 orderBy: request.OrderBy(),
                 orderByDescending: request.OrderByDescending(),
                 include: request.Include(),
-                offset: request.Offset,
-                limit: request.Limit);
+                trackingMode: request.TrackingMode,
+                evenArchivedData: request.EvenArchivedData);
         }
 
-        public async Task<List<TEntity>> GetEntitiesAsync<TEntity>(
-         Expression<Func<TEntity, bool>>? condition,
-         bool? trackingMode = null,
-         bool? evenArchivedData = false,
-         bool throwExceptionIfEntityWasNotFound = false,
-         Expression<Func<TEntity, object>>? orderBy = null,
-         Expression<Func<TEntity, object>>? orderByDescending = null,
-         Expression<Func<TEntity, object>>? include = null,
-         int offset = 0,
-         int limit = 0) 
-            where TEntity : BaseEntity
+        public IQueryable<TSource> SkipQuery<TSource>(
+            IQueryable<TSource> query,
+            int? pageNumber, int? pageSize)
+            where TSource : class
         {
-            if (trackingMode == null)
-                trackingMode = _trackingMode;
+            if (pageNumber != null && pageNumber < 1)
+                throw new ArgumentException("The page number must be 1 or higher.");
 
-            return await _context.GetEntitiesAsync(
-                condition: condition,
-                orderBy: orderBy,
-                orderByDescending: orderByDescending,
-                include: include,
-                trackingMode: trackingMode,
-                evenArchivedData: evenArchivedData,
-                throwExceptionIfEntityWasNotFound: throwExceptionIfEntityWasNotFound,
-                offset: offset,
-                limit: limit);
+            if (pageSize != null && pageSize < 1)
+                throw new ArgumentException("The page size must be 1 or higher.");
+
+            return query.SkipQuery(
+                offset: pageNumber - 1,
+                limit: pageSize);
         }
+        #endregion
 
+        #region Handle the invariants of requests
+        public async Task CheckInvariantsAsync<TRequest, TEntity>(
+            TRequest request)
+            where TRequest : ModelBasedRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>
+        {
+            var query = _dbContext.Set<TEntity>().AsQueryable();
+            foreach (var invariant in request.GetInvariants())
+            {
+                var result = await query.AnyAsync(condition: invariant.Condition);
+     
+                request.InvariantState.DefineAnInvariant(result, invariant.Issue);
+            }
+        }
         #endregion
     }
 }

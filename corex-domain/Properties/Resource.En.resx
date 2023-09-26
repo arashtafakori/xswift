@@ -117,46 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Invariant_EntityWasNotFound" xml:space="preserve">
-    <value>The {0} with these specifications was not found.</value>
+  <data name="Invariant_Issue_NoEntityWasFound" xml:space="preserve">
+    <value>No {0} entity was found.</value>
   </data>
-  <data name="General_Filed" xml:space="preserve">
-    <value>Filed</value>
-  </data>
-  <data name="Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
-    <value>The {0} with this specification has already been existed.</value>
-  </data>
-  <data name="Validation_FieldCanNotBeEmpty" xml:space="preserve">
+  <data name="Validation_Issue_FieldCanNotBeEmpty" xml:space="preserve">
     <value>The value of the {0} field canot be empty.</value>
   </data>
-  <data name="Validation_FieldIsNotAValidEmailAddress" xml:space="preserve">
+  <data name="Validation_Issue_FieldIsNotAValidEmailAddress" xml:space="preserve">
     <value>The {0} field as email adress is not the same as a valid email address.</value>
   </data>
-  <data name="General_Entiy" xml:space="preserve">
-    <value>Entiy</value>
+  <data name="Validation_Issue_FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
+    <value>The {0} field minimum length is less than the minimum length pageSize. The field's length should be more than {1} characters.</value>
   </data>
-  <data name="Validation_FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
-    <value>The {0} field minimum length is less than the minimum length limit. The field's length should be more than {1} characters.</value>
+  <data name="Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
+    <value>The {0} field maximum length is more than the maximum length pageSize. The field's length should be less than {1} characters.</value>
   </data>
-  <data name="Validation_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
-    <value>The {0} field maximum length is more than the maximum length limit. The field's length should be less than {1} characters.</value>
+  <data name="Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
+    <value>The {0} entity was archived, so archiving it again is not possible.</value>
   </data>
-  <data name="Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
-    <value>The {0} was archived, so archiving it again is not possible.</value>
+  <data name="Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
+    <value>The {0} entity was not archived, so restoring it is not possible.</value>
   </data>
-  <data name="Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
-    <value>The {0} was not archived, so restoring it is not possible.</value>
+  <data name="Validation_Issue_ValidationError" xml:space="preserve">
+    <value>A validation error has happened.</value>
   </data>
-  <data name="Validation_ValidationError" xml:space="preserve">
-    <value>A field validation Error has happened.</value>
+  <data name="Validation_Issue_MaxLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+    <value>The {0} filed must have a Length value that is greater than zero.</value>
   </data>
-  <data name="Validation_MaxLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
-    <value>MaxLengthShouldBeAttribute must have a Length value that is greater than zero.</value>
+  <data name="Validation_Issue_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+    <value>The {0} field must have a Length value that is zero or greater.</value>
   </data>
-  <data name="Validation_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
-    <value>MinLengthShouldBeAttribute must have a Length value that is zero or greater.</value>
+  <data name="Validation_Issue_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
+    <value>The start date of the {0} entity can not be later than the end date.</value>
   </data>
-  <data name="Validation_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
-    <value>The start date of the {0} can not be later than the end date.</value>
+  <data name="Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted" xml:space="preserve">
+    <value>The {0} entity with these conditions of existence has already been existed.</value>
+  </data>
+  <data name="Invariant_Issue_InvariantError" xml:space="preserve">
+    <value>An invariant error has happened.</value>
+  </data>
+  <data name="Logical_Issue_LogicalError" xml:space="preserve">
+    <value>A logical error has happened.</value>
   </data>
 </root>

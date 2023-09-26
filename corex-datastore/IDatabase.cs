@@ -1,96 +1,122 @@
 ﻿using CoreX.Domain;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace CoreX.Datastore
 {
     public interface IDatabase
     {
-        public bool TrackingMode { get; }
-        public void AsNoTraking();
         public TDbContext GetDbContext<TDbContext>() 
             where TDbContext : DbContext;
 
-        #region Creating and updating methods
-        public Task CreateAsync<TEntity>
-            (TEntity entity,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity;
+        #region Handle the commands of requests
+        public Task CreateAsync<TRequest, TEntity>(
+            TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
 
-        public Task UpdateAsync<TEntity>
-            (Expression<Func<TEntity, bool>> condition,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity;
+        public Task UpdateAsync<TRequest, TEntity>
+            (TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+
+        public Task ArchiveAsync<TRequest, TEntity>
+            (TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+
+        public Task RestoreAsync<TRequest, TEntity>
+            (TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+
+        public Task DeleteAsync<TRequest, TEntity>
+            (TRequest request, TEntity entity)
+            where TRequest : BaseCommandRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+
         #endregion
 
-        #region Archiving an restoring methods
-        public Task ArchiveAsync<TEntity>(TEntity entity)
-            where TEntity : BaseEntity;
-        public Task ArchiveAsync<TEntity>(List<TEntity> entities)
-            where TEntity : BaseEntity;
-
-        public Task RestoreAsync<TEntity>
-            (List<TEntity> entities,
-            Expression<Func<TEntity, bool>> condition,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity;
-        public Task RestoreAsync<TEntity>
-            (TEntity entity,
-            Expression<Func<TEntity, bool>> condition,
-            Expression<Func<TEntity, bool>>? uniqueSpecification = null)
-            where TEntity : BaseEntity;
-        #endregion
-
-        #region deleting methods
-        public Task DeleteAsync<TEntity>
-            (TEntity entity)
-            where TEntity : BaseEntity;
-        public Task DeleteAsync<TEntity>(
-            List<TEntity> entities)
-            where TEntity : BaseEntity;
-        #endregion
-
-        #region Retrieval methods
+        #region Handle the query based requests
 
         public Task<bool> AnyAsync<TRequest, TEntity>(
             TRequest request)
-            where TRequest : AnyRequest<TEntity> where TEntity : BaseEntity;
+            where TRequest : AnyRequest<TEntity> 
+            where TEntity : BaseEntity<TEntity>;
 
-        public Task<bool> AnyAsync<TEntity>(
-          Expression<Func<TEntity, bool>> condition,
-          bool evenArchivedData = false,
-          Expression<Func<TEntity, object>>? include = null)
-          where TEntity : BaseEntity;
-
-        public Task<TEntity?> GetEntityAsync<TRequest, TEntity>(
+        public Task<TEntity?> GetItemAsync<TRequest, TEntity>(
             TRequest request)
-            where TRequest : RetrivalRequest<TEntity>
-            where TEntity : BaseEntity;
+            where TRequest : QueryItemRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
 
-        public Task<TEntity?> GetEntityAsync<TEntity>(
-            Expression<Func<TEntity, bool>> condition,
-            bool? trackingMode = false,
-            bool? evenArchivedData = false,
-            bool throwExceptionIfEntityWasNotFound = false,
-            Expression<Func<TEntity, object>>? include = null)
-            where TEntity : BaseEntity;
+        public Task<TModel?> GetItemAsync<TRequest, TEntity, TModel>(
+            TRequest request,
+            Converter<TEntity, TModel> converter)
+            where TRequest : QueryItemRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+        public Task<TModel?> GetItemAsync<TRequest, TEntity, TModel>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TModel>> selector)
+            where TRequest : QueryItemRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
 
-        public Task<List<TEntity>> GetEntitiesAsync<TRequest, TEntity>(
+        public Task<List<TEntity>> GetListAsync<TRequest, TEntity>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+
+        public Task<List<TModel>> GetListAsync<TRequest, TEntity, TModel>(
+            TRequest request,
+            Converter<TEntity, TModel> converter,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+        public Task<List<TModel>> GetListAsync<TRequest, TEntity, TModel>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TModel>> selector,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+
+        public Task<PaginatedViewModel<TEntity>> GetPaginatedListAsync<
+            TRequest, TEntity>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+        public Task<PaginatedViewModel<TModel>> GetPaginatedListAsync<
+            TRequest, TEntity, TModel>(
+            TRequest request,
+            Converter<TEntity, TModel> converter,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+        public Task<PaginatedViewModel<TModel>> GetPaginatedListAsync<
+            TRequest, TEntity, TModel>(
+            TRequest request,
+            Func<IQueryable<TEntity>, IQueryable<TModel>> selector,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? filter = null)
+            where TRequest : QueryListRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
+        #endregion
+
+        #region Query Operations
+        public IQueryable<TSource> MakeQuery<
+            TRequest, TSource>(
             TRequest request)
-            where TRequest : RetrivalEntitiesRequest<TEntity> where TEntity : BaseEntity;
+            where TRequest : QueryRequest<TSource>
+            where TSource : class;
 
-        public Task<List<TEntity>> GetEntitiesAsync<TEntity>(
-         Expression<Func<TEntity, bool>> condition,
-         bool? trackingMode = false,
-         bool? evenArchivedData = false,
-         bool throwExceptionIfEntityWasNotFound = false,
-         Expression<Func<TEntity, object>>? orderBy = null,
-         Expression<Func<TEntity, object>>? orderByDescending = null,
-         Expression<Func<TEntity, object>>? include = null,
-         int offset = 0,
-         int limit = 0)
-         where TEntity : BaseEntity;
+        public IQueryable<TSource> SkipQuery<TSource>(
+            IQueryable<TSource> query, int? pageNumber, int? pageSize)
+            where TSource : class;
+        #endregion
 
+        #region Handle the invariants of requests
+        public Task CheckInvariantsAsync<TRequest, TEntity>(
+            TRequest request)
+            where TRequest : ModelBasedRequest<TEntity>
+            where TEntity : BaseEntity<TEntity>;
         #endregion
     }
 }

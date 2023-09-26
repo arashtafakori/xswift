@@ -117,46 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="General_Entiy" xml:space="preserve">
+  <data name="Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
     <value />
   </data>
-  <data name="General_Filed" xml:space="preserve">
+  <data name="Invariant_Issue_InvariantError" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_EntityWasNotFound" xml:space="preserve">
+  <data name="Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
+  <data name="Invariant_Issue_NoEntityWasFound" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
+  <data name="Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted" xml:space="preserve">
+  <data name="Logical_Issue_LogicalError" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_FieldCanNotBeEmpty" xml:space="preserve">
+  <data name="Validation_Issue_FieldCanNotBeEmpty" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_FieldIsNotAValidEmailAddress" xml:space="preserve">
+  <data name="Validation_Issue_FieldIsNotAValidEmailAddress" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
+  <data name="Validation_Issue_FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
+  <data name="Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_MaxLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+  <data name="Validation_Issue_MaxLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
+  <data name="Validation_Issue_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
+  <data name="Validation_Issue_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
     <value />
   </data>
-  <data name="Validation_ValidationError" xml:space="preserve">
+  <data name="Validation_Issue_ValidationError" xml:space="preserve">
     <value />
   </data>
 </root>

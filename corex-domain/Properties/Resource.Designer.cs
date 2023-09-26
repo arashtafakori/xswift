@@ -63,126 +63,126 @@ namespace CoreX.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string General_Entiy {
+        internal static string Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible {
             get {
-                return ResourceManager.GetString("General_Entiy", resourceCulture);
+                return ResourceManager.GetString("Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string General_Filed {
+        internal static string Invariant_Issue_InvariantError {
             get {
-                return ResourceManager.GetString("General_Filed", resourceCulture);
+                return ResourceManager.GetString("Invariant_Issue_InvariantError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_EntityWasNotFound {
+        internal static string Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible {
             get {
-                return ResourceManager.GetString("Invariant_EntityWasNotFound", resourceCulture);
+                return ResourceManager.GetString("Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible {
+        internal static string Invariant_Issue_NoEntityWasFound {
             get {
-                return ResourceManager.GetString("Invariant_AnEntityWasArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
+                return ResourceManager.GetString("Invariant_Issue_NoEntityWasFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible {
+        internal static string Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted {
             get {
-                return ResourceManager.GetString("Invariant_NoEntityWasArchivedSoRestoringItIsNotPossible", resourceCulture);
+                return ResourceManager.GetString("Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted {
+        internal static string Logical_Issue_LogicalError {
             get {
-                return ResourceManager.GetString("Invariant_AnEntityWithThisSpecificationHasAlreadyBeenExisted", resourceCulture);
+                return ResourceManager.GetString("Logical_Issue_LogicalError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_FieldCanNotBeEmpty {
+        internal static string Validation_Issue_FieldCanNotBeEmpty {
             get {
-                return ResourceManager.GetString("Validation_FieldCanNotBeEmpty", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_FieldCanNotBeEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_FieldIsNotAValidEmailAddress {
+        internal static string Validation_Issue_FieldIsNotAValidEmailAddress {
             get {
-                return ResourceManager.GetString("Validation_FieldIsNotAValidEmailAddress", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_FieldIsNotAValidEmailAddress", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_FieldLengthIsLessThanMinimumLengthLimit {
+        internal static string Validation_Issue_FieldLengthIsLessThanMinimumLengthLimit {
             get {
-                return ResourceManager.GetString("Validation_FieldLengthIsLessThanMinimumLengthLimit", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_FieldLengthIsLessThanMinimumLengthLimit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_FieldLengthIsMoreThanMaximumLengthLimit {
+        internal static string Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit {
             get {
-                return ResourceManager.GetString("Validation_FieldLengthIsMoreThanMaximumLengthLimit", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_MaxLengthShouldBeAttributeMustHaveAValidLength {
+        internal static string Validation_Issue_MaxLengthShouldBeAttributeMustHaveAValidLength {
             get {
-                return ResourceManager.GetString("Validation_MaxLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_MaxLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_MinLengthShouldBeAttributeMustHaveAValidLength {
+        internal static string Validation_Issue_MinLengthShouldBeAttributeMustHaveAValidLength {
             get {
-                return ResourceManager.GetString("Validation_MinLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_MinLengthShouldBeAttributeMustHaveAValidLength", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_StartDateCanNotBeLaterThanEndDate {
+        internal static string Validation_Issue_StartDateCanNotBeLaterThanEndDate {
             get {
-                return ResourceManager.GetString("Validation_StartDateCanNotBeLaterThanEndDate", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_StartDateCanNotBeLaterThanEndDate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Validation_ValidationError {
+        internal static string Validation_Issue_ValidationError {
             get {
-                return ResourceManager.GetString("Validation_ValidationError", resourceCulture);
+                return ResourceManager.GetString("Validation_Issue_ValidationError", resourceCulture);
             }
         }
     }
