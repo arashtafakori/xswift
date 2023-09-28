@@ -11,27 +11,27 @@ namespace XSwift.Datastore
         #region Handle the commands of requests
         public Task CreateAsync<TRequest, TEntity>(
             TRequest request, TEntity entity)
-            where TRequest : BaseCommandRequest<TEntity>
+            where TRequest : RequestToCreate<TEntity>
             where TEntity : BaseEntity<TEntity>;
 
         public Task UpdateAsync<TRequest, TEntity>
             (TRequest request, TEntity entity)
-            where TRequest : BaseCommandRequest<TEntity>
+            where TRequest : RequestToUpdate<TEntity>
             where TEntity : BaseEntity<TEntity>;
 
         public Task ArchiveAsync<TRequest, TEntity>
             (TRequest request, TEntity entity)
-            where TRequest : BaseCommandRequest<TEntity>
+            where TRequest : RequestToArchive<TEntity>
             where TEntity : BaseEntity<TEntity>;
 
         public Task RestoreAsync<TRequest, TEntity>
             (TRequest request, TEntity entity)
-            where TRequest : BaseCommandRequest<TEntity>
+            where TRequest : RequestToRestore<TEntity>
             where TEntity : BaseEntity<TEntity>;
 
         public Task DeleteAsync<TRequest, TEntity>
             (TRequest request, TEntity entity)
-            where TRequest : BaseCommandRequest<TEntity>
+            where TRequest : RequestToDelete<TEntity>
             where TEntity : BaseEntity<TEntity>;
 
         #endregion

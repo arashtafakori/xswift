@@ -5,12 +5,12 @@ namespace XSwift.Domain
 {
     public class AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted : LogicalIssue
     {
-        public AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted(string entityName = "", string description = "")
-        {
-            Provide<AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted>(
-                outerDescription: description,
+        public AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted(
+            string entityName = "", string description = "") :
+            base (outerDescription: description,
                 innerDescription: string.Format(CultureInfo.CurrentCulture,
-                Resource.Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted, entityName));
+                Resource.Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted, entityName))
+        {
         }
     }
 }

@@ -8,12 +8,11 @@ namespace XSwift.Domain
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public void Provide<TLogicalIssue>(
+        public LogicalIssue(
             string outerDescription,
             string innerDescription)
-            where TLogicalIssue : LogicalIssue
         {
-            Name = typeof(TLogicalIssue).FullName!;
+            Name = GetType().FullName!;
 
             if (string.IsNullOrEmpty(innerDescription) && string.IsNullOrEmpty(outerDescription))
                 Description = Resource.Logical_Issue_LogicalError;

@@ -2,11 +2,12 @@
 
 namespace XSwift.Domain
 {
-    public abstract class BaseCommandRequestById<TEntity, IdType> :
-        BaseCommandRequest<TEntity>
+    public abstract class RequestToDeleteById<TEntity, IdType> :
+        RequestToDelete<TEntity>
         where TEntity : Entity<TEntity, IdType>
     {
-        public BaseCommandRequestById(IdType id) {
+        public RequestToDeleteById(IdType id)
+        {
             Id = id;
         }
 
@@ -15,7 +16,7 @@ namespace XSwift.Domain
         {
             Id = value;
         }
-        public override Expression<Func<TEntity, bool>>? Condition()
+        public override Expression<Func<TEntity, bool>>? Identification()
         {
             return x => x.Id!.Equals(Id);
         }

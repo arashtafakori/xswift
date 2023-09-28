@@ -2,15 +2,10 @@
 
 namespace XSwift.Domain
 {
-    public abstract class ArchivingRequestById<TRequest, TEntity, IdType> :
-        BaseCommandRequestById<TEntity, IdType>
-        where TRequest : BaseCommandRequest<TEntity>
-        where TEntity : Entity<TEntity, IdType>
+    public abstract class RequestToArchive<TEntity> :
+        BaseCommandRequest<TEntity>
+        where TEntity : BaseEntity<TEntity>
     {
-        public ArchivingRequestById(IdType id) : base(id)
-        {
-        }
-
         public override void Resolve(TEntity entity)
         {
             entity.Archive();

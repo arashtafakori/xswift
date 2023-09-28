@@ -6,7 +6,7 @@ namespace XSwift.Domain
     public abstract class ModelBasedRequest<TModel> :
         BaseRequest
     {
-        public virtual Expression<Func<TModel, bool>>? Condition()
+        public virtual Expression<Func<TModel, bool>>? Identification()
         {
             return null;
         }

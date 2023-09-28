@@ -1,5 +1,4 @@
 ﻿using XSwift.Base;
-using System.Linq.Expressions;
 
 namespace XSwift.Domain
 {
@@ -29,25 +28,6 @@ namespace XSwift.Domain
         {
         }
 
-        private Expression<Func<TEntity, bool>>? _conditionOfBeingUnique;
-
-        public void SetConditionOfBeingUnique(
-            Expression<Func<TEntity, bool>>? condition,
-            string? description = null)
-        {
-            _conditionOfBeingUnique = condition;
-            _descriptionOfConditionOfBeingUnique = description;
-        }
-        public Expression<Func<TEntity, bool>>? GetConditionOfBeingUnique()
-        {
-            return _conditionOfBeingUnique;
-        }
-
-        private string? _descriptionOfConditionOfBeingUnique;
-
-        public string? GetDescriptionOfConditionOfBeingUnique()
-        {
-           return _descriptionOfConditionOfBeingUnique ;
-        }
+        public virtual ConditionProperty<TEntity>? Uniqueness() { return null; }
     }
 }

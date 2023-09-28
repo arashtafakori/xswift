@@ -10,14 +10,14 @@
     <BaseIntermediateOutputPath />
     <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.3.0.7</Version>
+    <Version>1.3.1.0</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Company></Company>
     <Authors>Arash Tafakori</Authors>
     <Copyright>Copyright 2023 Arash Tafakori</Copyright>
     <RepositoryUrl>https://github.com/arashtafakori/xswift</RepositoryUrl>
-    <Description>XSwift is a framework that boosts the speed of development and is based on DDD concepts.</Description>
+    <Description>XSwift is a framework that has been created based on DDD and CQRS concepts. This framework helps developers to boost the speed of development without any concerns about losing control of growing the project and be able to implement details like invariants, specifications, and how to architect the project. The rate of codes of a project that has been developed based on the xswift is significantly lower. It helps developers focus on the business instead of spending time on the code and solving challenges related to the code. </Description>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 

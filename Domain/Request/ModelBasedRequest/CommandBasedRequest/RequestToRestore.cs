@@ -2,14 +2,10 @@
 
 namespace XSwift.Domain
 {
-    public abstract class RestorationRequestById<TRequest, TEntity, IdType> :
-        BaseCommandRequestById<TEntity, IdType>
-        where TRequest : BaseCommandRequest<TEntity>
-        where TEntity : Entity<TEntity, IdType>
+    public abstract class RequestToRestore<TEntity> :
+        BaseCommandRequest<TEntity>
+        where TEntity : BaseEntity<TEntity>
     {
-        public RestorationRequestById(IdType id) : base(id)
-        {
-        }
         public override void Resolve(TEntity entity)
         {
             entity.Restore();

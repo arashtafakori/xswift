@@ -8,12 +8,11 @@ namespace XSwift.Domain
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public void Provide<TValidationIssue>(
+        public ValidationIssue(
             string outerDescription = "",
             string innerDescription = "")
-            where TValidationIssue : ValidationIssue
         {
-            Name = typeof(TValidationIssue).FullName!;
+            Name = GetType().FullName!;
 
             if (string.IsNullOrEmpty(innerDescription) && string.IsNullOrEmpty(outerDescription))
                 Description = Resource.Validation_Issue_ValidationError;

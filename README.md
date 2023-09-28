@@ -1,1 +1,1 @@
-# xswift
+XSwift is a framework that has been created based on DDD and CQRS concepts. This framework helps developers to boost the speed of development without any concerns about losing control of growing the project and be able to implement details like invariants, specifications, and how to architect the project. The rate of codes of a project that has been developed based on the xswift is significantly lower. It helps developers focus on the business instead of spending time on the code and solving challenges related to the code.

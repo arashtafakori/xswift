@@ -17,7 +17,7 @@ namespace XSwift.Domain
         {
             Id = value;
         }
-        public override Expression<Func<TEntity, bool>>? Condition()
+        public override Expression<Func<TEntity, bool>>? Identification()
         {
             return x => x.Id!.Equals(Id);
         }

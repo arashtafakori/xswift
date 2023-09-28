@@ -5,12 +5,12 @@ namespace XSwift.Domain
 {
     public class FieldLengthIsMoreThanMaximumLengthLimit : ValidationIssue
     {
-        public FieldLengthIsMoreThanMaximumLengthLimit(int maxLength, string fieldName = "", string description = "")
-        {
-            Provide<FieldLengthIsMoreThanMaximumLengthLimit>(
-                outerDescription: description,
+        public FieldLengthIsMoreThanMaximumLengthLimit(
+            int maxLength, string fieldName = "", string description = "") :
+            base (outerDescription: description,
                 innerDescription: string.Format(CultureInfo.CurrentCulture,
-                Resource.Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit, fieldName, maxLength));
+                Resource.Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit, fieldName, maxLength))
+        {
         }
     }
 }

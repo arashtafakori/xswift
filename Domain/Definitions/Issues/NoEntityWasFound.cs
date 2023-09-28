@@ -5,12 +5,11 @@ namespace XSwift.Domain
 {
     public class NoEntityWasFound : LogicalIssue
     {
-        public NoEntityWasFound(string entityName = "", string description = "")
-        {
-            Provide<NoEntityWasFound>(
-                outerDescription: description,
+        public NoEntityWasFound(string entityName = "", string description = "") :
+            base (outerDescription: description,
                 innerDescription: string.Format(CultureInfo.CurrentCulture,
-                Resource.Invariant_Issue_NoEntityWasFound, entityName));
+                Resource.Invariant_Issue_NoEntityWasFound, entityName))
+        {
         }
     }
 }

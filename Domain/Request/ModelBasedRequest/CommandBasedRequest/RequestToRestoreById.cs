@@ -2,17 +2,17 @@
 
 namespace XSwift.Domain
 {
-    public abstract class QueryItemRequestById<TEntity, IdType>
-        : QueryItemRequest<TEntity>
+    public abstract class RequestToRestoreById<TEntity, IdType> :
+        RequestToRestore<TEntity>
         where TEntity : Entity<TEntity, IdType>
     {
-        public IdType Id { get; private set; }
-        public QueryItemRequestById(
-            IdType id)
+        public RequestToRestoreById(IdType id)
         {
             Id = id;
         }
-        public void SetId(IdType value)
+
+        public IdType Id { get; private set; }
+        public virtual void SetId(IdType value)
         {
             Id = value;
         }
