@@ -1,26 +1,19 @@
 ﻿using MediatR;
+using System.Linq.Expressions;
 
 namespace XSwift.Domain
 {
     public abstract class RequestToArchive<TEntity> :
-        BaseCommandRequest<TEntity>
+        BaseCommandRequest<TEntity>, IRequest
         where TEntity : BaseEntity<TEntity>
     {
-        public override void Resolve(TEntity entity)
-        {
-            entity.Archive();
-        }
-        public override void Resolve(List<TEntity> entities)
-        {
-            entities.ForEach(entity => { entity.Archive(); });
-        }
         public async override Task ResolveAsync(IMediator mediator, TEntity entity)
         {
-            await new InvariantState()
+            await new InvariantState<TEntity>()
                 .DefineAnInvariant(
                 result: entity.Deleted != 0,
                 issue: new AnEntityWasArchivedSoArchivingItAgainIsNotPossible(typeof(TEntity).Name))
-                .CheckAsync(mediator);
+                .AssestAsync(mediator);
 
             entity.Archive();
         }

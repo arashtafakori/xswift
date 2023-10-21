@@ -1,22 +1,19 @@
 ﻿using MediatR;
+using System.Linq.Expressions;
 
 namespace XSwift.Domain
 {
     public abstract class RequestToRestore<TEntity> :
-        BaseCommandRequest<TEntity>
+        BaseCommandRequest<TEntity>, IRequest
         where TEntity : BaseEntity<TEntity>
     {
-        public override void Resolve(TEntity entity)
-        {
-            entity.Restore();
-        }
         public async override Task ResolveAsync(IMediator mediator, TEntity entity)
         {
-            await new InvariantState()
+            await new InvariantState<TEntity>()
                 .DefineAnInvariant(
                 result: entity.Deleted == 0,
                 issue: new NoEntityWasArchivedSoRestoringItIsNotPossible(typeof(TEntity).Name))
-                .CheckAsync(mediator);
+                .AssestAsync(mediator);
 
             entity.Restore();
         }

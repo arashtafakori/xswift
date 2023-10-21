@@ -2,14 +2,10 @@
 
 namespace XSwift.Domain
 {
-    public abstract class RequestToCreate<TEntity> :
-        BaseCommandRequest<TEntity> 
+    public abstract class RequestToCreate<TEntity, IReturnedType> :
+        BaseCommandRequest<TEntity>, IRequest<IReturnedType>
         where TEntity : BaseEntity<TEntity>
     {
-        public override void Resolve(TEntity entity)
-        {
-            entity.Create();
-        }
         public async override Task ResolveAsync(IMediator mediator, TEntity entity)
         {
             entity.Create();

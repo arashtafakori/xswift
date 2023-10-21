@@ -63,9 +63,9 @@ namespace XSwift.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible {
+        internal static string Invariant_Issue_NoEntityHasBeenArchivedSoArchivingItAgainIsNotPossible {
             get {
-                return ResourceManager.GetString("Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
+                return ResourceManager.GetString("Invariant_Issue_NoEntityHasBeenArchivedSoArchivingItAgainIsNotPossible", resourceCulture);
             }
         }
         
@@ -81,9 +81,9 @@ namespace XSwift.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible {
+        internal static string Invariant_Issue_NoEntityHasBeenArchivedSoRestoringItIsNotPossible {
             get {
-                return ResourceManager.GetString("Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible", resourceCulture);
+                return ResourceManager.GetString("Invariant_Issue_NoEntityHasBeenArchivedSoRestoringItIsNotPossible", resourceCulture);
             }
         }
         
@@ -99,9 +99,9 @@ namespace XSwift.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted {
+        internal static string Logical_Issue_AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted {
             get {
-                return ResourceManager.GetString("Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted", resourceCulture);
+                return ResourceManager.GetString("Logical_Issue_AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted", resourceCulture);
             }
         }
         

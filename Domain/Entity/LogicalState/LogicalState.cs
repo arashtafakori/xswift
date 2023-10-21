@@ -35,7 +35,7 @@ namespace XSwift.Domain
             Issues.Add(issue);
             return this;
         }
-        public async Task CheckAsync()
+        public async Task AssesstAsync()
         {
             foreach (var preventer in _preventers)
             {

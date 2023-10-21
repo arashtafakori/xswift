@@ -24,7 +24,7 @@ namespace XSwift.Domain
 
         public override IIssue? GetIssue()
         {
-            return new StartDateCanNotBeLaterThanEndDate(typeof(TEntity).Name);
+            return new StartDateCanNotBeLaterThanEndDate(typeof(TEntity).Name, Description);
         }
     }
 }

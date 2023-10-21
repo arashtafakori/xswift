@@ -19,25 +19,28 @@ namespace XSwift.Base
 
             return $"{enumType.Name}.{enumValue}";
         }
-        public static string GetEnumMemberResourceValue(
-            ResourceManager resourceManager, Type enumType, object enumValue)
-        {
-            return string.Format(CultureInfo.CurrentCulture,
-                resourceManager.GetString(
-                GetEnumMemberResourceName(enumType, enumValue))!);
-        }
-        public static string GetEnumMemberResourceName<TEnum>(object enumValue)
-            where TEnum : Enum
-        {
-            return GetEnumMemberResourceName(typeof(TEnum), enumValue);
-        }
+
         public static string GetEnumMemberResourceValue<TEnum>(
-            ResourceManager resourceManager, object enumValue)
+            ResourceManager resourceManager, TEnum enumValue)
             where TEnum : Enum
         {
             return GetEnumMemberResourceValue(resourceManager, typeof(TEnum), enumValue);
         }
 
+        public static string GetEnumMemberResourceValue<TEnum>(
+            ResourceManager resourceManager, int enumValue)
+            where TEnum : Enum
+        {
+            return GetEnumMemberResourceValue(resourceManager, typeof(TEnum),
+                ConvertToEnum<TEnum>(enumValue)  );
+        }
+        public static string GetEnumMemberResourceValue<TEnum>(
+            ResourceManager resourceManager, bool enumValue)
+            where TEnum : Enum
+        {
+            return GetEnumMemberResourceValue(resourceManager, typeof(TEnum), 
+                ConvertToEnum<TEnum>(Convert.ToByte(enumValue)));
+        }
         public static List<KeyValuePair<int, string>> ToKeyValuePairList<TEnum>()
             where TEnum : Enum
         {
@@ -57,6 +60,25 @@ namespace XSwift.Base
                 (int)(object)item,
                 GetEnumMemberResourceValue<TEnum>(resourceManager, item)))
             .ToList();
+        }
+
+        public static TEnum ConvertToEnum<TEnum>(int value) where TEnum : Enum
+        {
+            if (Enum.IsDefined(typeof(TEnum), value))
+            {
+                return (TEnum)Enum.ToObject(typeof(TEnum), value);
+            }
+            else
+            {
+                throw new ArgumentException($"The integer value {value} does not correspond to any value in the {typeof(TEnum).Name} enum.");
+            }
+        }
+
+        private static string GetEnumMemberResourceValue(
+            ResourceManager resourceManager, Type enumType, object enumValue)
+        {
+            return string.Format(CultureInfo.CurrentCulture,
+                resourceManager.GetString(GetEnumMemberResourceName(enumType, enumValue))!);
         }
     }
 }

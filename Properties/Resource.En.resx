@@ -117,20 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
-    <value>The {0} entity was archived, so archiving it again is not possible.</value>
+  <data name="Invariant_Issue_NoEntityHasBeenArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
+    <value>The {0} entity has been archived, so archiving it again is not possible.</value>
   </data>
   <data name="Invariant_Issue_InvariantError" xml:space="preserve">
     <value>An invariant error has happened.</value>
   </data>
-  <data name="Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
-    <value>The {0} entity was not archived, so restoring it is not possible.</value>
+  <data name="Invariant_Issue_NoEntityHasBeenArchivedSoRestoringItIsNotPossible" xml:space="preserve">
+    <value>No {0} entity has not been archived, so restoring it is not possible.</value>
   </data>
   <data name="Invariant_Issue_NoEntityWasFound" xml:space="preserve">
     <value>No {0} entity was found.</value>
   </data>
-  <data name="Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted" xml:space="preserve">
-    <value>The {0} entity with these conditions of existence has already been existed.</value>
+  <data name="Logical_Issue_AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted" xml:space="preserve">
+    <value>An {0} entity with these uniqueness conditions has already been existed.</value>
   </data>
   <data name="Logical_Issue_LogicalError" xml:space="preserve">
     <value>A logical error has happened.</value>

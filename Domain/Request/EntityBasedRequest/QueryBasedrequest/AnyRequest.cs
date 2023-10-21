@@ -2,15 +2,15 @@
 
 namespace XSwift.Domain
 {
-    public abstract class BulkCommandRequest<TEntity, TModel>
-        : QueryListRequest<TEntity>
+    public abstract class AnyRequest<TEntity>
+        : QueryRequest<TEntity>, IRequest<bool>
         where TEntity : BaseEntity<TEntity>
     {
-        public virtual void Resolve(List<TModel> items)
+        public async virtual Task ResolveAsync(IMediator mediator)
         {
             throw new NotImplementedException();
         }
-        public virtual Task ResolveAsync(List<TModel> items, IMediator mediator)
+        public async virtual Task NextAsync(IMediator mediator, bool result)
         {
             throw new NotImplementedException();
         }

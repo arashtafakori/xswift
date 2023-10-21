@@ -16,9 +16,9 @@ namespace XSwift.Domain
 
             if (string.IsNullOrEmpty(innerDescription) && string.IsNullOrEmpty(outerDescription))
                 Description = Resource.Invariant_Issue_InvariantError;
-            else if (!string.IsNullOrEmpty(innerDescription))
+            if (!string.IsNullOrEmpty(innerDescription))
                 Description = innerDescription;
-            else if (!string.IsNullOrEmpty(outerDescription))
+            if (!string.IsNullOrEmpty(outerDescription))
                 Description = outerDescription;
         }
     }

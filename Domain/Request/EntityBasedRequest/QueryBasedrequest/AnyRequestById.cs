@@ -1,9 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using XSwift.Base;
 
 namespace XSwift.Domain
 {
     public abstract class AnyRequestById<TEntity, IdType> :
-        AnyRequest<TEntity> 
+        AnyRequest<TEntity>
         where TEntity : Entity<TEntity, IdType>
     {
         public AnyRequestById(
@@ -13,13 +13,17 @@ namespace XSwift.Domain
         }
  
         public IdType Id { get; private set; }
-        public void SetId(IdType value)
+        public override ExpressionBuilder<TEntity> Where()
+        {
+            WhereExpression.And(x => x.Id!.Equals(Id));
+            return base.Where();
+        }
+
+        public virtual AnyRequestById<TEntity, IdType> SetId(IdType value)
         {
             Id = value;
-        }
-        public override Expression<Func<TEntity, bool>>? Identification()
-        {
-            return x => x.Id!.Equals(Id);
+
+            return this;
         }
     }
 }

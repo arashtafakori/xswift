@@ -68,18 +68,18 @@ namespace XSwift.Settings
         {
             _type = type;
         }
-        public void SetInMemoryDatabaseName(string databaseName)
+        public void SetInMemoryDatabaseName(string value)
         {
-            _inMemoryDatabaseName = databaseName;
+            _inMemoryDatabaseName = value;
         }
 
-        public void SetSqlServerConnectString(string connectionString)
+        public void SetSqlServerConnectString(string value)
         {
-            _sqlServerConnectString = connectionString;
+            _sqlServerConnectString = value;
         }
-        public void SetMongoBdConnectString(string connectionString)
+        public void SetMongoBdConnectString(string value)
         {
-            _mongoBdConnectString = connectionString;
+            _mongoBdConnectString = value;
         }
     }
 }

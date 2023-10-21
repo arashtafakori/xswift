@@ -24,13 +24,13 @@ namespace XSwift.Settings
             _port = int.Parse(gRPCSection.GetSection("Port").Value!);
         }
 
-        public void SetHost(string host)
+        public void SetHost(string value)
         {
-            _host = host;
+            _host = value;
         }
-        public void SetPort(int port)
+        public void SetPort(int value)
         {
-            _port = port;
+            _port = value;
         }
     }
 }

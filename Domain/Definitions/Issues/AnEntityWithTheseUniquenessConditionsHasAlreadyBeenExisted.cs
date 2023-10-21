@@ -3,13 +3,13 @@ using System.Globalization;
 
 namespace XSwift.Domain
 {
-    public class AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted : LogicalIssue
+    public class AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted : LogicalIssue
     {
-        public AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted(
+        public AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted(
             string entityName = "", string description = "") :
             base (outerDescription: description,
                 innerDescription: string.Format(CultureInfo.CurrentCulture,
-                Resource.Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted, entityName))
+                Resource.Logical_Issue_AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted, entityName))
         {
         }
     }

@@ -9,7 +9,7 @@ namespace XSwift.Domain
             string entityName = "", string description = "") :
             base (outerDescription: description,
                 innerDescription: string.Format(CultureInfo.CurrentCulture,
-                Resource.Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible, entityName))
+                Resource.Invariant_Issue_NoEntityHasBeenArchivedSoArchivingItAgainIsNotPossible, entityName))
         {
         }
     }

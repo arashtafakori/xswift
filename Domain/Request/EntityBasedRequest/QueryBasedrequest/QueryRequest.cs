@@ -3,13 +3,9 @@
 namespace XSwift.Domain
 {
     public abstract class QueryRequest<TEntity> :
-        ModelBasedRequest<TEntity>
+        EntityBasedRequest<TEntity>
+        where TEntity : BaseEntity<TEntity>
     {
-        public bool EvenArchivedData { get; set; } = false;
-        public virtual bool OnIncludingArchivedDataConfiguration()
-        {
-            return EvenArchivedData;
-        }
         /// <summary>
         /// If the pageSize parameter is zero, 
         /// it means that there is not any pagination
@@ -31,8 +27,11 @@ namespace XSwift.Domain
         }
         public bool PreventIfNoEntityWasFound { get; set; } = false;
         public bool TrackingMode { get; set; } = false;
-
-
+        public bool EvenArchivedData { get; set; } = false;
+        public virtual bool OnIncludingArchivedDataConfiguration()
+        {
+            return EvenArchivedData;
+        }
         public virtual Expression<Func<TEntity, object>>? OrderBy()
         {
             return null;

@@ -29,12 +29,22 @@ namespace XSwift.Base
                   (Expression.AndAlso(_expression.Body, invokedExpr), _expression.Parameters);
         }
 
-        public Expression<Func<T, bool>> Invert(Expression<Func<T, bool>> expression)
+        public Expression<Func<T, bool>> Not(Expression<Func<T, bool>> expression)
         {
             var parameter = expression.Parameters[0];
             var body = Expression.Not(expression.Body);
 
             return Expression.Lambda<Func<T, bool>>(body, parameter);
+        }
+
+        public void AndNot(Expression<Func<T, bool>> expression)
+        {
+            And(Not(expression));
+        }
+
+        public void OrNot(Expression<Func<T, bool>> expression)
+        {
+            Or(Not(expression));
         }
     }
 }

@@ -32,24 +32,24 @@ namespace XSwift.Settings
             _password = rabbitMQSection.GetSection("Password").Value!;
         }
 
-        public void SetDomain(string domain)
+        public void SetDomain(string value)
         {
-            _domain = domain;
+            _domain = value;
         }
 
-        public void SetHost(string host)
+        public void SetHost(string value)
         {
-            _host = host;
+            _host = value;
         }
 
-        public void SetUsername(string username)
+        public void SetUsername(string value)
         {
-            _username = username;
+            _username = value;
         }
 
-        public void SetPassword(string password)
+        public void SetPassword(string value)
         {
-            _password = password;
+            _password = value;
         }
     }
 }

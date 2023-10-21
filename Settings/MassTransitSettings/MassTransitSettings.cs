@@ -34,19 +34,19 @@ namespace XSwift.Settings
             _rabbitMQConnection = new RabbitMQConnection(configuration);
         }
 
-        public void SetType(MassTransitTransportType type)
+        public void SetType(MassTransitTransportType value)
         {
-            _type = type;
+            _type = value;
         }
 
-        public void SetgRPCConnection(gRPCConnection connection)
+        public void SetgRPCConnection(gRPCConnection value)
         {
-            _gRPCConnection = connection;
+            _gRPCConnection = value;
         }
 
-        public void SetRabbitMQConnection(RabbitMQConnection connection)
+        public void SetRabbitMQConnection(RabbitMQConnection value)
         {
-            _rabbitMQConnection = connection;
+            _rabbitMQConnection = value;
         }
     }
 }

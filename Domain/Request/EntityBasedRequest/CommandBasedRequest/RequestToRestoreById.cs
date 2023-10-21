@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using XSwift.Base;
 
 namespace XSwift.Domain
 {
@@ -12,13 +13,17 @@ namespace XSwift.Domain
         }
 
         public IdType Id { get; private set; }
-        public virtual void SetId(IdType value)
-        {
-            Id = value;
-        }
+
         public override Expression<Func<TEntity, bool>>? Identification()
         {
             return x => x.Id!.Equals(Id);
+        }
+
+        public virtual RequestToRestoreById<TEntity, IdType> SetId(IdType value)
+        {
+            Id = value;
+
+            return this;
         }
     }
 }

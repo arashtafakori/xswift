@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Invariant_Issue_AnEntityWasArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
+  <data name="Invariant_Issue_NoEntityHasBeenArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
     <value />
   </data>
   <data name="Invariant_Issue_InvariantError" xml:space="preserve">
     <value />
   </data>
-  <data name="Invariant_Issue_NoEntityWasArchivedSoRestoringItIsNotPossible" xml:space="preserve">
+  <data name="Invariant_Issue_NoEntityHasBeenArchivedSoRestoringItIsNotPossible" xml:space="preserve">
     <value />
   </data>
   <data name="Invariant_Issue_NoEntityWasFound" xml:space="preserve">
     <value />
   </data>
-  <data name="Logical_Issue_AnEntityWithTheseConditionsOfExistenceHasAlreadyBeenExisted" xml:space="preserve">
+  <data name="Logical_Issue_AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted" xml:space="preserve">
     <value />
   </data>
   <data name="Logical_Issue_LogicalError" xml:space="preserve">

@@ -16,9 +16,9 @@ namespace XSwift.Domain
 
             if (string.IsNullOrEmpty(innerDescription) && string.IsNullOrEmpty(outerDescription))
                 Description = Resource.Logical_Issue_LogicalError;
-            else if (!string.IsNullOrEmpty(innerDescription))
+            if (!string.IsNullOrEmpty(innerDescription))
                 Description = innerDescription;
-            else if (!string.IsNullOrEmpty(outerDescription))
+            if (!string.IsNullOrEmpty(outerDescription))
                 Description = outerDescription;
         }
     }
