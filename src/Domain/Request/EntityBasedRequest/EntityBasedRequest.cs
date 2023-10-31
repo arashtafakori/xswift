@@ -1,4 +1,5 @@
-﻿using XSwift.Base;
+﻿using Newtonsoft.Json;
+using XSwift.Base;
 
 namespace XSwift.Domain
 {
@@ -6,12 +7,14 @@ namespace XSwift.Domain
         BaseRequest
         where TEntity : BaseEntity<TEntity>
     {
+        [JsonIgnore]
         public ExpressionBuilder<TEntity> WhereExpression { get; private set; } = new ExpressionBuilder<TEntity>();
 
         public EntityBasedRequest()
         {
             InvariantState = new();
         }
+        [JsonIgnore]
         public InvariantState<TEntity> InvariantState { get; private set; }
 
         public virtual ExpressionBuilder<TEntity> Where()

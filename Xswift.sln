@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSwift", "XSwift.csproj", "{F4B63AEA-A93A-47E9-80CD-3C871C01B367}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSwift", "src\XSwift.csproj", "{084BA496-D019-4C03-9FAB-A792E1BA5AF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XSwift.Test", "test\XSwift.Test.csproj", "{853F58E9-DB20-4FA0-8EAD-97C30C84B774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F4B63AEA-A93A-47E9-80CD-3C871C01B367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4B63AEA-A93A-47E9-80CD-3C871C01B367}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4B63AEA-A93A-47E9-80CD-3C871C01B367}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4B63AEA-A93A-47E9-80CD-3C871C01B367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{084BA496-D019-4C03-9FAB-A792E1BA5AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084BA496-D019-4C03-9FAB-A792E1BA5AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084BA496-D019-4C03-9FAB-A792E1BA5AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084BA496-D019-4C03-9FAB-A792E1BA5AF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{853F58E9-DB20-4FA0-8EAD-97C30C84B774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{853F58E9-DB20-4FA0-8EAD-97C30C84B774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{853F58E9-DB20-4FA0-8EAD-97C30C84B774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{853F58E9-DB20-4FA0-8EAD-97C30C84B774}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
