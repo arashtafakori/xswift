@@ -7,20 +7,38 @@ using System.Web;
 namespace XSwift.Mvc
 {
     /// <summary>
-    /// If the ErrorHandlingMode is NoHandleDomainErrorsGlobally,
-    /// It means that just technical errors will be handled globally, 
-    /// other error wich related to domain (Logical and validation
-    /// and invariant errors) will be returned.
+    /// Specifies the error handling mode for the XMvcController class.
     /// </summary>
     public enum ErrorHandlingMode
     {
+        /// <summary>
+        /// Handle all errors globally.
+        /// </summary>
         HandleAllErrorsGlobally,
+
+        /// <summary>
+        /// Do not handle domain errors globally; only technical errors will be handled globally.
+        /// Notice: Logical and validation and invariant errors are related to the domain.
+        /// </summary>
         NoHandleDomainErrorsGlobally,
+
+        /// <summary>
+        /// Do not handle any errors globally.
+        /// </summary>
         NoHandleErrorsGlobally
     }
 
-    public abstract class MvcControllerX : Controller
+    /// <summary>
+    /// Represents an abstract MVC controller with extended  of the standard MVC Controller and error handling capabilities.
+    /// </summary>
+    public abstract class XMvcController : Controller
     {
+        /// <summary>
+        /// Executes an asynchronous action and returns a NoContent result upon success.
+        /// </summary>
+        /// <param name="action">The asynchronous action to be executed.</param>
+        /// <param name="errorHandlingMode">The error handling mode to determine how errors should be handled.</param>
+        /// <returns>A NoContent result upon successful execution.</returns>
         [NonAction]
         public async Task<IActionResult> View(Func<Task> action,
             ErrorHandlingMode errorHandlingMode = ErrorHandlingMode.HandleAllErrorsGlobally)
@@ -46,7 +64,7 @@ namespace XSwift.Mvc
                      ((ErrorException)ex).Error.ErrorType == ErrorType.Invariant)))
                 {
                     var devError = ErrorHelper.GetDevError(ex);
-                    if (OptionsX.Global.Environment.State == EnvironmentState.Production)
+                    if (XService.Environment.State == EnvironmentState.Production)
                         return StatusCode(500, (Error)devError);
                     return StatusCode(500, devError);
                 }
@@ -54,6 +72,14 @@ namespace XSwift.Mvc
                 throw;
             }
         }
+
+        /// <summary>
+        /// Executes an asynchronous function and returns the result as an ActionResult upon success.
+        /// </summary>
+        /// <typeparam name="T">The type of the result.</typeparam>
+        /// <param name="action">The asynchronous function to be executed.</param>
+        /// <param name="errorHandlingMode">The error handling mode to determine how errors should be handled.</param>
+        /// <returns>An ActionResult containing the result of the asynchronous function.</returns>
         [NonAction]
         public async Task<ActionResult<T>> View<T>(Func<Task<T>> action,
             ErrorHandlingMode errorHandlingMode = ErrorHandlingMode.HandleAllErrorsGlobally)
@@ -78,7 +104,7 @@ namespace XSwift.Mvc
                      ((ErrorException)ex).Error.ErrorType == ErrorType.Invariant)))
                 {
                     var devError = ErrorHelper.GetDevError(ex);
-                    if (OptionsX.Global.Environment.State == EnvironmentState.Production)
+                    if (XService.Environment.State == EnvironmentState.Production)
                         return StatusCode(500, (Error)devError);
                     return StatusCode(500, devError);
                 }
@@ -87,6 +113,11 @@ namespace XSwift.Mvc
             }
         }
 
+        /// <summary>
+        /// Executes an asynchronous action and returns an error object if any domain errors occur.
+        /// </summary>
+        /// <param name="action">The asynchronous action to be executed.</param>
+        /// <returns>An error object representing domain errors or null if no domain errors occur.</returns>
         [NonAction]
         public async Task<Error?> CatchDomainErrors(Func<Task> action)
         {
@@ -98,12 +129,17 @@ namespace XSwift.Mvc
             catch (Exception ex)
             {
                 var devError = ErrorHelper.GetDevError(ex);
-                if (OptionsX.Global.Environment.State == EnvironmentState.Production)
+                if (XService.Environment.State == EnvironmentState.Production)
                     return (Error)devError;
                 return devError;
             }
         }
 
+        /// <summary>
+        /// Deserializes the query string parameters into an object of type TRequest.
+        /// </summary>
+        /// <typeparam name="TRequest">The type of the request object to be deserialized.</typeparam>
+        /// <returns>An instance of TRequest populated with values from the query string.</returns>
         [NonAction]
         public TRequest GetRequest<TRequest>()
         {

@@ -117,46 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Invariant_Issue_NoEntityHasBeenArchivedSoArchivingItAgainIsNotPossible" xml:space="preserve">
-    <value />
+  <data name="TestEnum.Value1" xml:space="preserve">
+    <value>Value = 1</value>
   </data>
-  <data name="Invariant_Issue_InvariantError" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Invariant_Issue_NoEntityHasBeenArchivedSoRestoringItIsNotPossible" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Invariant_Issue_NoEntityWasFound" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Logical_Issue_AnEntityWithTheseUniquenessConditionsHasAlreadyBeenExisted" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Logical_Issue_LogicalError" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_FieldCanNotBeEmpty" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_FieldIsNotAValidEmailAddress" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_FieldLengthIsLessThanMinimumLengthLimit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_FieldLengthIsMoreThanMaximumLengthLimit" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_MaxLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_MinLengthShouldBeAttributeMustHaveAValidLength" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_StartDateCanNotBeLaterThanEndDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Validation_Issue_ValidationError" xml:space="preserve">
-    <value />
+  <data name="TestEnum.Value2" xml:space="preserve">
+    <value>Value = 2</value>
   </data>
 </root>

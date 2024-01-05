@@ -1,22 +1,36 @@
 ﻿using XSwift.Base;
-using XSwift.Properties;
 
 namespace XSwift.Domain
 {
+    /// <summary>
+    /// Specifies that the maximum length of a string or array field should be limited to the specified value.
+    /// </summary>
     public class MaxLengthShouldBeAttribute : FieldValidationAttribute
     {
+        /// <summary>
+        /// Gets the maximum allowed length for the field.
+        /// </summary>
         public int Length { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MaxLengthShouldBeAttribute"/> class with the specified maximum length.
+        /// </summary>
+        /// <param name="length">The maximum allowed length for the field.</param>
         public MaxLengthShouldBeAttribute(int length)
         {
             Length = length;
         }
+
+        /// <summary>
+        /// Determines whether the specified value is valid based on the maximum length constraint.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <returns><c>true</c> if the value is valid or null; otherwise, <c>false</c>.</returns>
         public override bool IsValid(object? value)
         {
-            // Check the lengths for legality
-            EnsureLegalLengths();
+            EnsureLengthsIsAllowed();
 
             var length = 0;
-            // Automatically pass if value is null. RequiredAttribute should be used to assert a value is not null.
             if (value == null)
             {
                 return true;
@@ -30,13 +44,19 @@ namespace XSwift.Domain
                 }
                 else
                 {
-                    // We expect a cast exception if a non-{string|array} property was passed in.
                     length = ((Array)value).Length;
                 }
             }
 
             return length <= Length;
         }
+
+        /// <summary>
+        /// Validates the specified value based on the maximum length constraint and adds an issue if the validation fails.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="_issues">The collection of issues to which an issue may be added.</param>
+        /// <param name="propertyName">The name of the property being validated.</param>
         public override void Validate(
             object? value,
             ICollection<IIssue> _issues,
@@ -53,14 +73,13 @@ namespace XSwift.Domain
         }
 
         /// <summary>
-        /// Checks that Length has a legal value.
+        /// Ensures that the specified maximum length is allowed (greater than zero).
         /// </summary>
-        /// <exception cref="InvalidOperationException">Length is zero or less than negative one.</exception>
-        private void EnsureLegalLengths()
+        internal void EnsureLengthsIsAllowed()
         {
             if (Length == 0 || Length < -1)
             {
-                throw new InvalidOperationException(Resource.Validation_Issue_MaxLengthShouldBeAttributeMustHaveAValidLength);
+                throw new InvalidOperationException("The {0} filed must have a Length value that is greater than zero.");
             }
         }
     }
