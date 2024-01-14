@@ -1,15 +1,6 @@
 
 <div style="display: flex; justify-content: center; align-items: center;">
-<table style="border-collapse: collapse;border: none;">
-        <tr>
-            <td style="padding: 15px; text-align: center;">
-                <img src="static/logo.png" alt="Logo" style="width: 200px; height: 200px;">
-            </td>
-            <td style="padding: 15px; text-align: center;">
-                  <p style="font-size: 100px;color: gray;">XSwift</p>
-            </td>
-        </tr>
-</table>
+   <img src="static/logo.jpg" alt="Logo">
 </div>
  
 
