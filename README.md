@@ -8,7 +8,7 @@ XSwift is an open-source and lightweight library that has been created based on 
 
 - [Overview](https://xswift.dev/docs/overview)  
 - [Tutorial](https://xswift.dev/docs/tutorial/get-started)  
-- [Example](https://github.com/xswift-project/https://github.com/xswift-project/example-xswift-task-management/tree/based-on-efcore)  
+- [Example](https://github.com/xswift-project/example-xswift-task-management/tree/based-on-efcore)  
 - [XSwift reference](https://xswift.dev/docs/category/xswift) 
 
 Other relevant libraries:  
