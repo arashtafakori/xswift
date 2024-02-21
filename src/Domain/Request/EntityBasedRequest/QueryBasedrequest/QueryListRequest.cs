@@ -14,22 +14,22 @@ namespace XSwift.Domain
     {
         /// <summary>
         /// Overrides the base `OrderBy` method to provide the default order by expression.
-        /// The default order by expression is based on the creation date.
+        /// The default order by expression is based on the modified date.
         /// </summary>
         /// <returns>The order by expression for the request.</returns>
         public override Expression<Func<TEntity, object>>? OrderBy()
         {
-            return x => x.CreatedDate;
+            return x => x.ModifiedDate;
         }
 
         /// <summary>
         /// Overrides the base `OrderByDescending` method to provide the default order by descending expression.
-        /// The default order by descending expression is based on the creation date.
+        /// The default order by descending expression is based on the modified date.
         /// </summary>
         /// <returns>The order by descending expression for the request.</returns>
         public override Expression<Func<TEntity, object>>? OrderByDescending()
         {
-            return x => x.CreatedDate;
+            return x => x.ModifiedDate;
         }
 
         /// <summary>

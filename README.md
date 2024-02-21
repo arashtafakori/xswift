@@ -13,6 +13,6 @@ XSwift is an open-source and lightweight library that has been created based on 
 
 Other relevant libraries:  
 - [XSwift Entityframeworkcore repository](https://github.com/xswift-project/xswift-entityframeworkcore)  
-- [XSwift Entityframeworkcore reference](https://xswift.dev/docs/category/xswift-entiyframework)
+- [XSwift Entityframeworkcore references](https://xswift.dev/docs/category/xswift-entiyframework)
 - [XSwift Fluentassertions repository](https://github.com/xswift-project/xswift-fluentassertions)   
-- [XSwift Fluentassertions reference](https://xswift.dev/docs/category/xswift-fluentassertions) 
+- [XSwift Fluentassertions references](https://xswift.dev/docs/category/xswift-fluentassertions) 

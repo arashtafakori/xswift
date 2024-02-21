@@ -12,14 +12,14 @@ namespace XSwift.Test.Domain
         {
             // Arrange
             var items = new List<int> { 1, 2, 3, 4, 5 };
-            var countOfAllItems = items.Count;
+            var numberOfTotalItems = items.Count;
             var pageSize = 2;
-            var paginatedViewModel = new PaginatedViewModel<int>(items, countOfAllItems, pageSize: pageSize);
+            var paginatedViewModel = new PaginatedViewModel<int>(items, numberOfTotalItems, pageSize: pageSize);
 
             // Act
 
             // Assert
-            paginatedViewModel.TotalPages.Should().Be((int)Math.Ceiling(countOfAllItems / (double)pageSize));
+            paginatedViewModel.TotalPages.Should().Be((int)Math.Ceiling(numberOfTotalItems / (double)pageSize));
         }
 
         [TestMethod]
@@ -27,9 +27,9 @@ namespace XSwift.Test.Domain
         {
             // Arrange
             var items = new List<int> { 1, 2, 3, 4, 5 };
-            var countOfAllItems = items.Count;
+            var numberOfTotalItems = items.Count;
             var pageNumber = 2;
-            var paginatedViewModel = new PaginatedViewModel<int>(items, countOfAllItems, pageNumber: pageNumber);
+            var paginatedViewModel = new PaginatedViewModel<int>(items, numberOfTotalItems, pageNumber: pageNumber);
 
             // Act
 
@@ -42,9 +42,9 @@ namespace XSwift.Test.Domain
         {
             // Arrange
             var items = new List<int> { 1, 2, 3, 4, 5 };
-            var countOfAllItems = items.Count;
+            var numberOfTotalItems = items.Count;
             var pageNumber = 1;
-            var paginatedViewModel = new PaginatedViewModel<int>(items, countOfAllItems, pageNumber: pageNumber);
+            var paginatedViewModel = new PaginatedViewModel<int>(items, numberOfTotalItems, pageNumber: pageNumber);
 
             // Act
 
@@ -57,10 +57,10 @@ namespace XSwift.Test.Domain
         {
             // Arrange
             var items = new List<int> { 1, 2, 3, 4, 5 };
-            var countOfAllItems = items.Count;
+            var numberOfTotalItems = items.Count;
             var pageNumber = 1;
             var pageSize = 2;
-            var paginatedViewModel = new PaginatedViewModel<int>(items, countOfAllItems, pageNumber: pageNumber, pageSize: pageSize);
+            var paginatedViewModel = new PaginatedViewModel<int>(items, numberOfTotalItems, pageNumber: pageNumber, pageSize: pageSize);
 
             // Act
 
@@ -73,10 +73,10 @@ namespace XSwift.Test.Domain
         {
             // Arrange
             var items = new List<int> { 1, 2, 3, 4, 5 };
-            var countOfAllItems = items.Count;
+            var numberOfTotalItems = items.Count;
             var pageNumber = 3;
             var pageSize = 2;
-            var paginatedViewModel = new PaginatedViewModel<int>(items, countOfAllItems, pageNumber: pageNumber, pageSize: pageSize);
+            var paginatedViewModel = new PaginatedViewModel<int>(items, numberOfTotalItems, pageNumber: pageNumber, pageSize: pageSize);
 
             // Act
 

@@ -17,10 +17,10 @@ namespace XSwift.Domain
         /// <param name="entity">The associated entity to be restored.</param>
         public async override Task ResolveAsync(IMediator mediator, TEntity entity)
         {
-            // Check if the entity is not deleted before attempting to restore
+            // Check if the entity is not archived before attempting to restore
             await new InvariantState<TEntity>()
                 .DefineAnInvariant(
-                result: entity.Deleted == 0,
+                result: !entity.IsArchived,
                 issue: new NoEntityWasArchivedSoRestoringItIsNotPossible(typeof(TEntity).Name))
                 .AssestAsync(mediator);
 

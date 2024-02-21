@@ -17,7 +17,6 @@ namespace XSwift.Test.Domain
             entity.Create();
 
             // Assert
-            entity.CreatedDate.Should().NotBe(default);
             entity.ModifiedDate.Should().NotBe(default);
         }
 

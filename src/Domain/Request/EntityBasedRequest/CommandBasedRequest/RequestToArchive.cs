@@ -21,7 +21,7 @@ namespace XSwift.Domain
             // Check pre-archive invariants before archiving the entity
             await new InvariantState<TEntity>()
                 .DefineAnInvariant(
-                result: entity.Deleted != 0,
+                result: entity.IsArchived,
                 issue: new AnEntityWasArchivedSoArchivingItAgainIsNotPossible(typeof(TEntity).Name))
                 .AssestAsync(mediator);
 

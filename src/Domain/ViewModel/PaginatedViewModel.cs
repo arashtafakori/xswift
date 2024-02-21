@@ -24,16 +24,16 @@
             get
             {
                 if (PageSize != null)
-                    return (int)Math.Ceiling(CountOfAllItems / (double)PageSize);
+                    return (int)Math.Ceiling(NumberOfTotalItems / (double)PageSize);
                 
                 return null;
             }
         }
 
         /// <summary>
-        /// Gets the total count of all items.
+        /// Gets the number of total items.
         /// </summary>
-        public int CountOfAllItems { get; private set; }
+        public int NumberOfTotalItems { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether there is a previous page.
@@ -54,17 +54,17 @@
         /// Initializes a new instance of the <see cref="PaginatedViewModel{TModel}"/> class.
         /// </summary>
         /// <param name="items">The list of items in the paginated view.</param>
-        /// <param name="countOfAllItems">The total count of all items.</param>
+        /// <param name="numberOfTotalItems">The number of total items.</param>
         /// <param name="pageNumber">The current page number (optional).</param>
         /// <param name="pageSize">The number of items per page (optional).</param>
         public PaginatedViewModel(
             List<TModel> items,
-            int countOfAllItems,
+            int numberOfTotalItems,
             int? pageNumber = null,
             int? pageSize = null)
         {
             Items = items;
-            CountOfAllItems = countOfAllItems;
+            NumberOfTotalItems = numberOfTotalItems;
             PageNumber = pageNumber;
             PageSize = pageSize;
         }
