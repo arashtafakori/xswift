@@ -10,7 +10,7 @@
     <BaseIntermediateOutputPath />
     <PackageOutputPath>C:\NuGetPackages\artaware</PackageOutputPath>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.3.2.1</Version>
+    <Version>1.3.2.3</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Company></Company>

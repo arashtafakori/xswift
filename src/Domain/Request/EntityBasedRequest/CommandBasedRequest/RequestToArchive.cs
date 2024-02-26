@@ -24,7 +24,6 @@ namespace XSwift.Domain
                 result: entity.IsArchived,
                 issue: new AnEntityWasArchivedSoArchivingItAgainIsNotPossible(typeof(TEntity).Name))
                 .AssestAsync(mediator);
-
             // Archive the entity
             entity.Archive();
         }

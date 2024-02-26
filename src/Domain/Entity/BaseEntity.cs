@@ -6,12 +6,12 @@ namespace XSwift.Domain
     /// Represents a base entity with common properties and methods for entities in the domain model.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public abstract class BaseEntity<TEntity> : IArchivable
+    public abstract class BaseEntity<TEntity>
     {
         /// <summary>
         /// Gets or sets a value indicating whether the entity is marked as isArchived (soft delete).
         /// </summary>
-        public bool IsArchived { get; set; }
+        public bool IsArchived { get; set; } = false;
 
         /// <summary>
         /// Gets or sets the date and time when the entity was last modified.
@@ -39,6 +39,7 @@ namespace XSwift.Domain
         /// </summary>
         public virtual void Archive()
         {
+            IsArchived = true;
             ModifiedDate = DateTimeHelper.UtcNow;
         }
 
@@ -47,11 +48,12 @@ namespace XSwift.Domain
         /// </summary>
         public virtual void Restore()
         {
+            IsArchived = false;
             ModifiedDate = DateTimeHelper.UtcNow;
         }
 
         /// <summary>
-        /// Deletes the entity (soft delete).
+        /// Deletes the entity (physical delete).
         /// </summary>
         public virtual void Delete()
         {
